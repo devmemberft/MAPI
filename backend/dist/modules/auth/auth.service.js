@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppService = void 0;
+exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-let AppService = class AppService {
+let AuthService = class AuthService {
 };
-exports.AppService = AppService;
-exports.AppService = AppService = __decorate([
+exports.AuthService = AuthService;
+exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)()
-], AppService);
-//# sourceMappingURL=app.service.js.map
+], AuthService);
+//# sourceMappingURL=auth.service.js.map
