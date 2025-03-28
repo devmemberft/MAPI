@@ -5,42 +5,59 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { findUserDto } from './dto/find-user.dto';
+import { BcryptService } from '../auth/hash.service';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(User) private userRepository: Repository<User>,) {}
+    constructor(
+        @InjectRepository(User) 
+        private userRepository: Repository<User>,
+        private readonly bcryptService:BcryptService,
+    ) {}
 
     async createUser(createUserDto:CreateUserDto):Promise<User> {
-        const user = this.userRepository.create(createUserDto);
-        await this.userRepository.save(user);
+        const {password} = createUserDto;
+
+        const hashedPassword = await this.bcryptService.hashPassword(password);
+        const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
         return user;
     }
 
     async updateUser(id:string, updateUserDto:UpdateUserDto): Promise<User> {
         const user = await this.userRepository.findOneBy({id});
-        if(!user) { throw new NotFoundException('User not found.'); }
+        if(!user) { throw new NotFoundException(`User with id: ${id} not found`); }
 
         Object.assign(user,updateUserDto);
         return this.userRepository.save(user);
     }
 
     async deleteUser(id:string):Promise<void> {
+        const user = await this.userRepository.findOneBy({id});
+        if(!user) { throw new NotFoundException(`User with id: ${id} not found`); }
         await this.userRepository.delete(id);
     }
 
     async findAllUsers():Promise<User[]> {
-        return this.userRepository.find();
+        return this.userRepository.find({select: ['id','username', 'email'],});
     }
 
     async findUserById(id:string):Promise<User> {
-        const user = await this.userRepository.findOneBy({id});
-        if(!user) { throw new NotFoundException('User not found.'); }
+        const user = await this.userRepository.findOne({
+            where: { id },
+            select: ['id', 'username', 'email'], //exceptuar la pw
+        });
+        if(!user) { throw new NotFoundException(`User with id: ${id} not found`); }
         return user;
     }
 
-    async findUserByFilter(filter:findUserDto): Promise<User> {
-        const users = await this.userRepository.find({where:filter})
-        if(users.length === 0 ) { throw new NotFoundException('User not found.'); }
-        return users[0];
+    async findUserByFilter(filter:findUserDto, page: number=1, pageSize: number=10): Promise<User[]> {
+        const [users, total] = await this.userRepository.findAndCount({
+            where: filter,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            select: ['id','username', 'email'],
+        });
+        if(users.length === 0 ) { throw new NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`); }
+        return users;
     }
 }

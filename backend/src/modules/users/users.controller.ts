@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { findUserDto } from './dto/find-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('users')
+@UseGuards(JwtAuthGuard, /* RolesGuard*/)
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
@@ -15,10 +17,11 @@ export class UsersController {
     }
 
     @Put(':id')
-    async updateUser(@Param('id') id:string, @Body() UpdateUserDto:UpdateUserDto):Promise<User> {
-        return this.usersService.updateUser(id,UpdateUserDto);
+    async updateUser(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto):Promise<User> {
+        return this.usersService.updateUser(id,updateUserDto);
     }
 
+    //@Roles('admin')
     @Delete(':id')
     async deleteUser(@Param('id') id:string):Promise<void> { return this.usersService.deleteUser(id); }
 
@@ -33,7 +36,7 @@ export class UsersController {
     }
 
     @Get('search')
-    async findUserByFilter(@Body() filter:findUserDto):Promise<User> {
+    async findUserByFilter(@Query() filter:findUserDto):Promise<User[]> {
         return await this.usersService.findUserByFilter(filter);
     }
 }
