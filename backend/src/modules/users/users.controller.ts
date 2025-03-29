@@ -31,9 +31,7 @@ export class UsersController {
     }
 
     @Get(':id')
-    async findUserById(@Param('id') id:string): Promise<User> {
-        return this.usersService.findUserById(id);
-    }
+    async findUserById(@Param('id') id:string): Promise<User> { return this.usersService.findUserById(id); }
 
     @Get('search')
     async findUserByFilter(@Query() filter:findUserDto):Promise<User[]> {
