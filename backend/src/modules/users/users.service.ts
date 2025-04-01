@@ -15,14 +15,6 @@ export class UsersService {
         private readonly bcryptService:BcryptService,
     ) {}
 
-    async createUser(createUserDto:CreateUserDto):Promise<User> {
-        const {password} = createUserDto;
-
-        const hashedPassword = await this.bcryptService.hashPassword(password);
-        const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
-        return user;
-    }
-
     async updateUser(id:string, updateUserDto:UpdateUserDto): Promise<User> {
         const user = await this.findUserById(id);
         Object.assign(user,updateUserDto);

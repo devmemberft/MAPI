@@ -1,14 +1,20 @@
-import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from 'jsonwebtoken';
 import { User } from '../users/entities/user.entity';
 import { ValidateUserDto } from './dto/validate.dto';
 import { BcryptService } from './hash.service';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { LoginUserDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
     constructor (
+        @InjectRepository(User)
+        private userRepository:Repository<User>,
         private usersService:UsersService,
         private jwtService:JwtService,
         private bcryptService:BcryptService,
@@ -24,8 +30,18 @@ export class AuthService {
         return user;
     }
 
-    async login(user: User) {
-        const payload: JwtPayload = { username: user.username, sub: user.id };
+    async register(createUserDto:CreateUserDto):Promise<User> {
+        const {username, password} = createUserDto;
+        const userExists = await this.usersService.findUserByFilter({username});
+        if(userExists) { throw new BadRequestException(`User ${username} already exists.`); }
+
+        const hashedPassword = await this.bcryptService.hashPassword(password);
+        const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
+        return user;
+    }
+
+    async login(user: LoginUserDto) {
+        const payload: JwtPayload = { email: user.email, sub: user.id };
         return{
             access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION ||'1h' }),
         };

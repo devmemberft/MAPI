@@ -11,11 +11,6 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
-    @Post()
-    async createUser(@Body() createUserDto: CreateUserDto):Promise<User> {
-        return this.usersService.createUser(createUserDto);
-    }
-
     @Put(':id')
     async updateUser(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto):Promise<User> {
         return this.usersService.updateUser(id,updateUserDto);
