@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsNumber, IsPhoneNumber  } from 'class-validator'
 
-export class CreateclientDto {
+export class CreateClientDto {
 
     @IsString()
     @IsNotEmpty()
@@ -23,5 +23,5 @@ export class CreateclientDto {
     @IsNotEmpty()
     phone: number;
 
-    
+
 }

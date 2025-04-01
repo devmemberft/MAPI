@@ -19,7 +19,7 @@ export class Client {
     address:string;
 
     @Column()
-    phone:string;
+    phone:number;
 
     @CreateDateColumn({type:'timestamp', name:'created_at'})
     createdAt:Date;

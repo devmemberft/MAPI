@@ -14,13 +14,13 @@ export class AuthService {
         private bcryptService:BcryptService,
     ) {}
 
-    async validateUser(validateUserDto:ValidateUserDto):Promise<User> {
+    async validateUser(id:string, validateUserDto:ValidateUserDto):Promise<User> {
         const { username, password } = validateUserDto;
-        const user = await this.usersService.findUserByFilter({username});
-        if(!user) { throw new NotFoundException('User not found.'); }
-        
-        const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
-        if(!passwordVerification) { throw new UnauthorizedException(); }
+        const user = await this.usersService.findUserById(id);
+        if(username === user.username) {
+            const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
+            if(!passwordVerification) { throw new UnauthorizedException(); }
+        }
         return user;
     }
 
