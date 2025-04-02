@@ -5,13 +5,67 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
+const users_service_1 = require("../users/users.service");
+const user_entity_1 = require("../users/entities/user.entity");
+const hash_service_1 = require("./hash.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 let AuthService = class AuthService {
+    userRepository;
+    usersService;
+    jwtService;
+    bcryptService;
+    constructor(userRepository, usersService, jwtService, bcryptService) {
+        this.userRepository = userRepository;
+        this.usersService = usersService;
+        this.jwtService = jwtService;
+        this.bcryptService = bcryptService;
+    }
+    async validateUser(id, validateUserDto) {
+        const { username, password } = validateUserDto;
+        const user = await this.usersService.findUserById(id);
+        if (username === user.username) {
+            const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
+            if (!passwordVerification) {
+                throw new common_1.UnauthorizedException();
+            }
+        }
+        return user;
+    }
+    async register(createUserDto) {
+        const { username, password } = createUserDto;
+        const userExists = await this.usersService.findUserByFilter({ username });
+        if (userExists) {
+            throw new common_1.BadRequestException(`User ${username} already exists.`);
+        }
+        const hashedPassword = await this.bcryptService.hashPassword(password);
+        const user = await this.userRepository.save({ ...createUserDto, password: hashedPassword });
+        return user;
+    }
+    async login(user) {
+        const payload = { email: user.email, sub: user.id };
+        return {
+            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '1h' }),
+        };
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        users_service_1.UsersService,
+        jwt_1.JwtService,
+        hash_service_1.BcryptService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

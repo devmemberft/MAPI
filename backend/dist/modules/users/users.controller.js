@@ -17,37 +17,25 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const find_user_dto_1 = require("./dto/find-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
-const create_user_dto_1 = require("./dto/create-user.dto");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async createUser(createUserDto) {
-        return this.usersService.createUser(createUserDto);
-    }
-    async updateUser(id, UpdateUserDto) {
-        return this.usersService.updateUser(id, UpdateUserDto);
+    async updateUser(id, updateUserDto) {
+        return this.usersService.updateUser(id, updateUserDto);
     }
     async deleteUser(id) { return this.usersService.deleteUser(id); }
     async findAllUsers() {
         return this.usersService.findAllUsers();
     }
-    async findUserById(id) {
-        return this.usersService.findUserById(id);
-    }
+    async findUserById(id) { return this.usersService.findUserById(id); }
     async findUserByFilter(filter) {
         return await this.usersService.findUserByFilter(filter);
     }
 };
 exports.UsersController = UsersController;
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -78,13 +66,14 @@ __decorate([
 ], UsersController.prototype, "findUserById", null);
 __decorate([
     (0, common_1.Get)('search'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [find_user_dto_1.findUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findUserByFilter", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

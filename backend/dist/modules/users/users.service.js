@@ -17,49 +17,54 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const hash_service_1 = require("../auth/hash.service");
 let UsersService = class UsersService {
     userRepository;
-    constructor(userRepository) {
+    bcryptService;
+    constructor(userRepository, bcryptService) {
         this.userRepository = userRepository;
-    }
-    async createUser(createUserDto) {
-        const user = this.userRepository.create(createUserDto);
-        await this.userRepository.save(user);
-        return user;
+        this.bcryptService = bcryptService;
     }
     async updateUser(id, updateUserDto) {
-        const user = await this.userRepository.findOneBy({ id });
-        if (!user) {
-            throw new common_1.NotFoundException('User not found.');
-        }
+        const user = await this.findUserById(id);
         Object.assign(user, updateUserDto);
         return this.userRepository.save(user);
     }
     async deleteUser(id) {
+        const user = await this.findUserById(id);
         await this.userRepository.delete(id);
     }
     async findAllUsers() {
-        return this.userRepository.find();
+        return this.userRepository.find({ select: ['id', 'username', 'email'], });
     }
     async findUserById(id) {
-        const user = await this.userRepository.findOneBy({ id });
+        const user = await this.userRepository.findOne({
+            where: { id },
+            select: ['id', 'username', 'email'],
+        });
         if (!user) {
-            throw new common_1.NotFoundException('User not found.');
+            throw new common_1.NotFoundException(`User with id: ${id} not found`);
         }
         return user;
     }
-    async findUserByFilter(filter) {
-        const users = await this.userRepository.find({ where: filter });
+    async findUserByFilter(filter, page = 1, pageSize = 10) {
+        const [users, total] = await this.userRepository.findAndCount({
+            where: filter,
+            skip: (page - 1) * pageSize,
+            take: pageSize,
+            select: ['id', 'username', 'email'],
+        });
         if (users.length === 0) {
-            throw new common_1.NotFoundException('User not found.');
+            throw new common_1.NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`);
         }
-        return users[0];
+        return users;
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        hash_service_1.BcryptService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map
