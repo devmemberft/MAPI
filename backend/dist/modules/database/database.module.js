@@ -9,6 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataBaseModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const user_entity_1 = require("../users/entities/user.entity");
+const client_entity_1 = require("../clients/entities/client.entity");
+const product_entity_1 = require("../products/entities/product.entity");
 let DataBaseModule = class DataBaseModule {
 };
 exports.DataBaseModule = DataBaseModule;
@@ -19,11 +22,13 @@ exports.DataBaseModule = DataBaseModule = __decorate([
                 type: 'postgres',
                 host: 'localhost',
                 port: 5432,
-                username: process.env.DB_USERNAME,
-                password: process.env.DB_PASSWORD,
+                username: 'devmemberft',
+                password: 'immanuelveins',
                 database: 'miselio',
-                entities: [],
-                synchronize: true
+                entities: [user_entity_1.User, product_entity_1.Product, client_entity_1.Client],
+                synchronize: true,
+                retryAttempts: 2,
+                retryDelay: 1000,
             })
         ],
         exports: [typeorm_1.TypeOrmModule],

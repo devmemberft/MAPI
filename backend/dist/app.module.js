@@ -12,20 +12,13 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./modules/users/users.module");
 const auth_module_1 = require("./modules/auth/auth.module");
-<<<<<<< HEAD
 const database_module_1 = require("./modules/database/database.module");
-=======
->>>>>>> 0c3e900ff9d4e2ddbf5fb7b6299b5364ead6bef2
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-<<<<<<< HEAD
         imports: [database_module_1.DataBaseModule, users_module_1.UsersModule, auth_module_1.AuthModule],
-=======
-        imports: [users_module_1.UsersModule, auth_module_1.AuthModule],
->>>>>>> 0c3e900ff9d4e2ddbf5fb7b6299b5364ead6bef2
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

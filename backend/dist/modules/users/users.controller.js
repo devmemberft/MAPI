@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const find_user_dto_1 = require("./dto/find-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
-const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -73,7 +72,6 @@ __decorate([
 ], UsersController.prototype, "findUserByFilter", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map
