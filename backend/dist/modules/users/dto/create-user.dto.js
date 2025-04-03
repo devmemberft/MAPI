@@ -32,7 +32,10 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.Length)(8, 16),
+    (0, class_validator_1.MinLength)(8),
+    (0, class_validator_1.MaxLength)(16),
+    (0, class_validator_1.Matches)(/(?=.*[0-9])/, { message: 'Password must contain at least one number' }),
+    (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
 //# sourceMappingURL=create-user.dto.js.map
