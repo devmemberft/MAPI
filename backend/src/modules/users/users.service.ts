@@ -18,12 +18,15 @@ export class UsersService {
     async updateUser(id:string, updateUserDto:UpdateUserDto): Promise<User> {
         const user = await this.findUserById(id);
         Object.assign(user,updateUserDto);
-        return this.userRepository.save(user);
+        await this.userRepository.save(user);
+        
+        const showUpdatedUser = await this.findUserById(id);
+        return showUpdatedUser;
     }
 
     async deleteUser(id:string):Promise<void> {
         const user = await this.findUserById(id);
-        await this.userRepository.delete(id);
+        await this.userRepository.remove(user);
     }
 
     async findAllUsers():Promise<User[]> {
@@ -48,5 +51,17 @@ export class UsersService {
         });
         if(users.length === 0 ) { throw new NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`); }
         return users;
+    }
+
+    async checkUsername(username:string):Promise<boolean>{
+        const user = await this.userRepository.findOneBy({username});
+        if(user) { return true; }
+        return false;
+    }
+
+    async checkEmail(email:string):Promise<boolean>{
+        const mail = await this.userRepository.findOneBy({email});
+        if(mail) {return true;}
+        return false;
     }
 }

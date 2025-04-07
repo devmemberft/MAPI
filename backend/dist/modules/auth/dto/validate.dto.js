@@ -12,18 +12,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidateUserDto = void 0;
 const class_validator_1 = require("class-validator");
 class ValidateUserDto {
-    username;
+    email;
     password;
 }
 exports.ValidateUserDto = ValidateUserDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], ValidateUserDto.prototype, "username", void 0);
+], ValidateUserDto.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8),
+    (0, class_validator_1.MaxLength)(16),
+    (0, class_validator_1.Matches)(/(?=.*[0-9])/, { message: 'Password must contain at least one number' }),
+    (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
 ], ValidateUserDto.prototype, "password", void 0);
 //# sourceMappingURL=validate.dto.js.map

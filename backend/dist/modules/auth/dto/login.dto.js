@@ -25,11 +25,16 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8),
+    (0, class_validator_1.MaxLength)(16),
+    (0, class_validator_1.Matches)(/(?=.*[0-9])/, { message: 'Password must contain at least one number' }),
+    (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "password", void 0);
 //# sourceMappingURL=login.dto.js.map

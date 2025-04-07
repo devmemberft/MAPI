@@ -12,4 +12,6 @@ export declare class UsersService {
     findAllUsers(): Promise<User[]>;
     findUserById(id: string): Promise<User>;
     findUserByFilter(filter: findUserDto, page?: number, pageSize?: number): Promise<User[]>;
+    checkUsername(username: string): Promise<boolean>;
+    checkEmail(email: string): Promise<boolean>;
 }

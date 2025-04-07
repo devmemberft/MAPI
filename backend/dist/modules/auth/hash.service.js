@@ -16,7 +16,11 @@ let BcryptService = class BcryptService {
         return bcrypt.hash(password, salt);
     }
     async comparePassword(password, hash) {
-        return bcrypt.compare(password, hash);
+        const match = await bcrypt.compare(password, hash);
+        if (match) {
+            return true;
+        }
+        return false;
     }
 };
 exports.BcryptService = BcryptService;

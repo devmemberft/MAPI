@@ -21,9 +21,9 @@ export class AuthService {
     ) {}
 
     async validateUser(id:string, validateUserDto:ValidateUserDto):Promise<User> {
-        const { username, password } = validateUserDto;
+        const { email, password } = validateUserDto;
         const user = await this.usersService.findUserById(id);
-        if(username === user.username) {
+        if(email === user.email) {
             const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
             if(!passwordVerification) { throw new UnauthorizedException(); }
         }
@@ -31,9 +31,11 @@ export class AuthService {
     }
 
     async register(createUserDto:CreateUserDto):Promise<User> {
-        const {username, password} = createUserDto;
-        const userExists = await this.usersService.findUserByFilter({username});
-        if(userExists) { throw new BadRequestException(`User ${username} already exists.`); }
+        const {username, email, password} = createUserDto;
+
+        const userExists = await this.usersService.checkUsername(username);
+        const emailExists = await this.usersService.checkEmail(email);
+        if(userExists || emailExists) { throw new BadRequestException(`User credentials ${username && email} already exists.`); }
 
         const hashedPassword = await this.bcryptService.hashPassword(password);
         const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
@@ -43,7 +45,7 @@ export class AuthService {
     async login(user: LoginUserDto) {
         const payload: JwtPayload = { email: user.email, sub: user.id };
         return{
-            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION ||'1h' }),
+            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '1h' }),
         };
     }
 }

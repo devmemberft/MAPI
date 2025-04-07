@@ -28,11 +28,13 @@ let UsersService = class UsersService {
     async updateUser(id, updateUserDto) {
         const user = await this.findUserById(id);
         Object.assign(user, updateUserDto);
-        return this.userRepository.save(user);
+        await this.userRepository.save(user);
+        const showUpdatedUser = await this.findUserById(id);
+        return showUpdatedUser;
     }
     async deleteUser(id) {
         const user = await this.findUserById(id);
-        await this.userRepository.delete(id);
+        await this.userRepository.remove(user);
     }
     async findAllUsers() {
         return this.userRepository.find({ select: ['id', 'username', 'email'], });
@@ -58,6 +60,20 @@ let UsersService = class UsersService {
             throw new common_1.NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`);
         }
         return users;
+    }
+    async checkUsername(username) {
+        const user = await this.userRepository.findOneBy({ username });
+        if (user) {
+            return true;
+        }
+        return false;
+    }
+    async checkEmail(email) {
+        const mail = await this.userRepository.findOneBy({ email });
+        if (mail) {
+            return true;
+        }
+        return false;
     }
 };
 exports.UsersService = UsersService;

@@ -25,7 +25,7 @@ let UsersController = class UsersController {
     async updateUser(id, updateUserDto) {
         return this.usersService.updateUser(id, updateUserDto);
     }
-    async deleteUser(id) { return this.usersService.deleteUser(id); }
+    async deleteUserById(id) { return this.usersService.deleteUser(id); }
     async findAllUsers() {
         return this.usersService.findAllUsers();
     }
@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "deleteUser", null);
+], UsersController.prototype, "deleteUserById", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

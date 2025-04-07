@@ -17,15 +17,23 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const create_user_dto_1 = require("../users/dto/create-user.dto");
 const login_dto_1 = require("./dto/login.dto");
+const local_strategy_1 = require("./strategies/local.strategy");
 let AuthController = class AuthController {
     authService;
-    constructor(authService) {
+    localStrategy;
+    constructor(authService, localStrategy) {
         this.authService = authService;
+        this.localStrategy = localStrategy;
     }
     async register(user) {
         return await this.authService.register(user);
     }
     async login(user) {
+        const { id, email, password } = user;
+        const userVerification = await this.localStrategy.validate(id, email, password);
+        if (!userVerification) {
+            throw new common_1.BadRequestException(`Credenciales incorrectas, intentelo nuevamente`);
+        }
         return await this.authService.login(user);
     }
 };
@@ -46,6 +54,6 @@ __decorate([
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService, local_strategy_1.LocalStrategy])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

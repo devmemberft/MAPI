@@ -11,6 +11,10 @@ export class BcryptService {
     }
 
     async comparePassword(password:string, hash:string):Promise<boolean> {
-        return bcrypt.compare(password,hash);
+        const match = await bcrypt.compare(password,hash);
+
+        if(match) { return true }
+
+        return false;
     }
 }

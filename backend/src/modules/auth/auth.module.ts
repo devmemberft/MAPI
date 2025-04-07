@@ -8,6 +8,7 @@ import { BcryptService } from './hash.service';
 import { User } from '../users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from '../users/users.service';
+import { LocalStrategy } from './strategies/local.strategy';
 
 
 @Module({
@@ -15,9 +16,9 @@ import { UsersService } from '../users/users.service';
     TypeOrmModule.forFeature([User]),
     UsersModule,
     PassportModule,
-    JwtModule.register({secret: process.env.SECRET, signOptions: { expiresIn: '15m'},}),
+    JwtModule.register({secret: process.env.SECRET || 'secret', signOptions: { expiresIn: '15m'},}),
   ],
-  providers: [UsersService, AuthService, BcryptService],
+  providers: [UsersService, AuthService, BcryptService, LocalStrategy],
   controllers: [AuthController],
   exports: [BcryptService],
 })

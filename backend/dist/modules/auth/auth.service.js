@@ -32,9 +32,9 @@ let AuthService = class AuthService {
         this.bcryptService = bcryptService;
     }
     async validateUser(id, validateUserDto) {
-        const { username, password } = validateUserDto;
+        const { email, password } = validateUserDto;
         const user = await this.usersService.findUserById(id);
-        if (username === user.username) {
+        if (email === user.email) {
             const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
             if (!passwordVerification) {
                 throw new common_1.UnauthorizedException();
@@ -43,10 +43,11 @@ let AuthService = class AuthService {
         return user;
     }
     async register(createUserDto) {
-        const { username, password } = createUserDto;
-        const userExists = await this.usersService.findUserByFilter({ username });
-        if (userExists) {
-            throw new common_1.BadRequestException(`User ${username} already exists.`);
+        const { username, email, password } = createUserDto;
+        const userExists = await this.usersService.checkUsername(username);
+        const emailExists = await this.usersService.checkEmail(email);
+        if (userExists || emailExists) {
+            throw new common_1.BadRequestException(`User credentials ${username && email} already exists.`);
         }
         const hashedPassword = await this.bcryptService.hashPassword(password);
         const user = await this.userRepository.save({ ...createUserDto, password: hashedPassword });
