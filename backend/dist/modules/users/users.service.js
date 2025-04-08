@@ -17,13 +17,10 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const hash_service_1 = require("../auth/hash.service");
 let UsersService = class UsersService {
     userRepository;
-    bcryptService;
-    constructor(userRepository, bcryptService) {
+    constructor(userRepository) {
         this.userRepository = userRepository;
-        this.bcryptService = bcryptService;
     }
     async updateUser(id, updateUserDto) {
         const user = await this.findUserById(id);
@@ -82,12 +79,18 @@ let UsersService = class UsersService {
         }
         return userEmail;
     }
+    async findUserByName(username) {
+        const user = await this.userRepository.findOne({ where: { username }, select: ['id', 'email', 'username',] });
+        if (!user) {
+            throw new common_1.NotFoundException(`${username} not found.`);
+        }
+        return user;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        hash_service_1.BcryptService])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

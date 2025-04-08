@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('users')
-//@UseGuards(JwtAuthGuard, /* RolesGuard*/)
+@UseGuards(JwtAuthGuard, /* RolesGuard*/)
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
@@ -17,7 +17,7 @@ export class UsersController {
 
     //@Roles('admin')
     @Delete(':id')
-    async deleteUserById(@Param('id') id:string):Promise<void> { return this.usersService.deleteUser(id); }
+    async deleteUser(@Param('id') id:string):Promise<void> { return this.usersService.deleteUser(id); }
 
     @Get()
     async findAllUsers():Promise<User[]> {
@@ -27,7 +27,7 @@ export class UsersController {
     @Get(':id')
     async findUserById(@Param('id') id:string): Promise<User> { return this.usersService.findUserById(id); }
 
-    @Get('search')
+    @Get(':search')
     async findUserByFilter(@Query() filter:findUserDto):Promise<User[]> {
         return await this.usersService.findUserByFilter(filter);
     }

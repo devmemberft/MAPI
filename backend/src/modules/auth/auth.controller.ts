@@ -3,11 +3,10 @@ import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login.dto';
-import { LocalStrategy } from './strategies/local.strategy';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService, private localStrategy:LocalStrategy) {}
+    constructor(private readonly authService: AuthService) {}
 
     @Post('register')
     async register(@Body() user: CreateUserDto):Promise<User> {

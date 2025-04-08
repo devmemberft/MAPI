@@ -2,11 +2,9 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { findUserDto } from './dto/find-user.dto';
-import { BcryptService } from '../auth/hash.service';
 export declare class UsersService {
     private userRepository;
-    private readonly bcryptService;
-    constructor(userRepository: Repository<User>, bcryptService: BcryptService);
+    constructor(userRepository: Repository<User>);
     updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User>;
     deleteUser(id: string): Promise<void>;
     findAllUsers(): Promise<User[]>;
@@ -15,4 +13,5 @@ export declare class UsersService {
     checkUsername(username: string): Promise<boolean>;
     checkEmail(email: string): Promise<boolean>;
     findUserByEmail(email: string): Promise<User>;
+    findUserByName(username: string): Promise<User>;
 }

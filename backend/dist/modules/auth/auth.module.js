@@ -17,7 +17,8 @@ const hash_service_1 = require("./hash.service");
 const user_entity_1 = require("../users/entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const users_service_1 = require("../users/users.service");
-const local_strategy_1 = require("./strategies/local.strategy");
+const jwt_strategy_1 = require("./strategies/jwt.strategy");
+const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -27,9 +28,9 @@ exports.AuthModule = AuthModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
             users_module_1.UsersModule,
             passport_1.PassportModule,
-            jwt_1.JwtModule.register({ secret: process.env.SECRET || 'secret', signOptions: { expiresIn: '15m' }, }),
+            jwt_1.JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '5m' }, }),
         ],
-        providers: [users_service_1.UsersService, auth_service_1.AuthService, hash_service_1.BcryptService, local_strategy_1.LocalStrategy],
+        providers: [users_service_1.UsersService, auth_service_1.AuthService, hash_service_1.BcryptService, jwt_strategy_1.JwtStrategy, jwt_auth_guard_1.JwtAuthGuard],
         controllers: [auth_controller_1.AuthController],
         exports: [hash_service_1.BcryptService],
     })

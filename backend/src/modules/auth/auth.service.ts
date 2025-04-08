@@ -44,7 +44,7 @@ export class AuthService {
     async login(user: LoginUserDto) {
         const payload: JwtPayload = { email: user.email, sub: user.id };
         return{
-            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '1h' }),
+            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '5m' }),
         };
     }
 }
