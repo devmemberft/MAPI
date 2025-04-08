@@ -75,6 +75,13 @@ let UsersService = class UsersService {
         }
         return false;
     }
+    async findUserByEmail(email) {
+        const userEmail = await this.userRepository.findOne({ where: { email }, select: ['id', 'email', 'username', 'password'] });
+        if (!userEmail) {
+            throw new common_1.NotFoundException(`User with email ${email} not found.`);
+        }
+        return userEmail;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

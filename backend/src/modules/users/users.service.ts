@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { findUserDto } from './dto/find-user.dto';
 import { BcryptService } from '../auth/hash.service';
+import { identity } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -63,5 +64,11 @@ export class UsersService {
         const mail = await this.userRepository.findOneBy({email});
         if(mail) {return true;}
         return false;
+    }
+
+    async findUserByEmail(email:string):Promise<User> {
+        const userEmail = await this.userRepository.findOne({where: {email}, select: ['id', 'email', 'username', 'password']});
+        if(!userEmail) { throw new NotFoundException(`User with email ${email} not found.`); }
+        return userEmail;
     }
 }

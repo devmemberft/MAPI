@@ -8,7 +8,7 @@ export declare class AuthController {
     private localStrategy;
     constructor(authService: AuthService, localStrategy: LocalStrategy);
     register(user: CreateUserDto): Promise<User>;
-    login(user: LoginUserDto): Promise<{
+    login(loginUserDto: LoginUserDto): Promise<{
         access_token: string;
     }>;
 }

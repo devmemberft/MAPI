@@ -28,13 +28,13 @@ let AuthController = class AuthController {
     async register(user) {
         return await this.authService.register(user);
     }
-    async login(user) {
-        const { id, email, password } = user;
-        const userVerification = await this.localStrategy.validate(id, email, password);
+    async login(loginUserDto) {
+        const { id, email, password } = loginUserDto;
+        const userVerification = await this.authService.validateUser({ id, email, password });
         if (!userVerification) {
-            throw new common_1.BadRequestException(`Credenciales incorrectas, intentelo nuevamente`);
+            throw new common_1.BadRequestException('Imposible to validate user, please check the logic.');
         }
-        return await this.authService.login(user);
+        return await this.authService.login(userVerification);
     }
 };
 exports.AuthController = AuthController;

@@ -31,17 +31,6 @@ let AuthService = class AuthService {
         this.jwtService = jwtService;
         this.bcryptService = bcryptService;
     }
-    async validateUser(id, validateUserDto) {
-        const { email, password } = validateUserDto;
-        const user = await this.usersService.findUserById(id);
-        if (email === user.email) {
-            const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
-            if (!passwordVerification) {
-                throw new common_1.UnauthorizedException();
-            }
-        }
-        return user;
-    }
     async register(createUserDto) {
         const { username, email, password } = createUserDto;
         const userExists = await this.usersService.checkUsername(username);
@@ -51,6 +40,15 @@ let AuthService = class AuthService {
         }
         const hashedPassword = await this.bcryptService.hashPassword(password);
         const user = await this.userRepository.save({ ...createUserDto, password: hashedPassword });
+        return user;
+    }
+    async validateUser(loginUserDto) {
+        const { id, email, password } = loginUserDto;
+        const user = await this.usersService.findUserByEmail(email);
+        const checkPassword = await this.bcryptService.comparePassword(password, user.password);
+        if (!checkPassword) {
+            throw new common_1.UnauthorizedException('Bad credentials.');
+        }
         return user;
     }
     async login(user) {

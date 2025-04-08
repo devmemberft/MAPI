@@ -14,4 +14,5 @@ export declare class UsersService {
     findUserByFilter(filter: findUserDto, page?: number, pageSize?: number): Promise<User[]>;
     checkUsername(username: string): Promise<boolean>;
     checkEmail(email: string): Promise<boolean>;
+    findUserByEmail(email: string): Promise<User>;
 }

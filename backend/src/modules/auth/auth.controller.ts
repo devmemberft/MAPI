@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -15,10 +15,10 @@ export class AuthController {
     }
 
     @Post('login')
-    async login(@Body() user:LoginUserDto) {
-        const {id, email, password} = user;
-        const userVerification = await this.localStrategy.validate(id,email,password);
-        if(!userVerification){throw new BadRequestException(`Credenciales incorrectas, intentelo nuevamente`)}
-        return await this.authService.login(user);
+    async login(@Body() loginUserDto:LoginUserDto) {
+        const {id, email, password} = loginUserDto;
+        const userVerification = await this.authService.validateUser({id,email,password});
+        if(!userVerification) { throw new BadRequestException('Imposible to validate user, please check the logic.')}
+        return await this.authService.login(userVerification);
     }
 }

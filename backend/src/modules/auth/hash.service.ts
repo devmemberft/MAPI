@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -12,9 +12,7 @@ export class BcryptService {
 
     async comparePassword(password:string, hash:string):Promise<boolean> {
         const match = await bcrypt.compare(password,hash);
-
-        if(match) { return true }
-
-        return false;
+        if(match === false) { throw new UnauthorizedException('Credentials does not match.'); }
+        else { return match }
     }
 }

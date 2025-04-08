@@ -17,10 +17,12 @@ let BcryptService = class BcryptService {
     }
     async comparePassword(password, hash) {
         const match = await bcrypt.compare(password, hash);
-        if (match) {
-            return true;
+        if (match === false) {
+            throw new common_1.UnauthorizedException('Credentials does not match.');
         }
-        return false;
+        else {
+            return match;
+        }
     }
 };
 exports.BcryptService = BcryptService;

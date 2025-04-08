@@ -3,12 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { JwtPayload } from 'jsonwebtoken';
 import { User } from '../users/entities/user.entity';
-import { ValidateUserDto } from './dto/validate.dto';
 import { BcryptService } from './hash.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginUserDto } from './dto/login.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -19,16 +19,6 @@ export class AuthService {
         private jwtService:JwtService,
         private bcryptService:BcryptService,
     ) {}
-
-    async validateUser(id:string, validateUserDto:ValidateUserDto):Promise<User> {
-        const { email, password } = validateUserDto;
-        const user = await this.usersService.findUserById(id);
-        if(email === user.email) {
-            const passwordVerification = await this.bcryptService.comparePassword(password, user.password);
-            if(!passwordVerification) { throw new UnauthorizedException(); }
-        }
-        return user;
-    }
 
     async register(createUserDto:CreateUserDto):Promise<User> {
         const {username, email, password} = createUserDto;
@@ -41,6 +31,15 @@ export class AuthService {
         const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
         return user;
     }
+
+    async validateUser(loginUserDto: LoginUserDto):Promise<User> {
+        const {id, email, password} = loginUserDto;
+        const user = await this.usersService.findUserByEmail(email);
+        const checkPassword = await this.bcryptService.comparePassword(password,user.password);
+        if(!checkPassword) { throw new UnauthorizedException('Bad credentials.'); }
+        return user;
+    }   
+
 
     async login(user: LoginUserDto) {
         const payload: JwtPayload = { email: user.email, sub: user.id };
