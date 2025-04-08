@@ -14,7 +14,7 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @UseGuards(RolesGuard)
-    @Roles(Role.User)
+    @Roles(Role.Admin, Role.Moderator)
     @Put(':id')
     async updateUser(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto):Promise<User> {
         return this.usersService.updateUser(id,updateUserDto);
@@ -25,15 +25,15 @@ export class UsersController {
     @Delete(':id')
     async deleteUser(@Param('id') id:string):Promise<void> { return this.usersService.deleteUser(id); }
 
-    
+    @UseGuards(RolesGuard)
+    @Roles(Role.User, Role.Admin, Role.Moderator)
     @Get()
     async findAllUsers():Promise<User[]> {
         return this.usersService.findAllUsers();
     }
-
     
     @UseGuards(RolesGuard)
-    @Roles(Role.Admin)
+    @Roles(Role.User, Role.Admin, Role.Moderator)
     @Get(':id')
     async findUserById(@Param('id') id:string): Promise<User> { return this.usersService.findUserById(id); }
 

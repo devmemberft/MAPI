@@ -1,24 +1,45 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { findUserDto } from './dto/find-user.dto';
+import { UpdateUserPasswordDto } from './dto/update-user-pw.dto';
+import { BcryptService } from '../auth/hash.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User) 
         private userRepository: Repository<User>,
+        private bcryptService:BcryptService,
     ) {}
 
     async updateUser(id:string, updateUserDto:UpdateUserDto): Promise<User> {
+        const {username, email} = updateUserDto;
         const user = await this.findUserById(id);
-        Object.assign(user,updateUserDto);
-        await this.userRepository.save(user);
-        
-        const showUpdatedUser = await this.findUserById(id);
-        return showUpdatedUser;
+
+        Object.assign(user,{...updateUserDto, username, email});
+        const updatedUser = await this.userRepository.save(user);
+ 
+        //const showUpdatedUser = await this.findUserById(id);
+        return updatedUser;
+    }
+
+    async updateUserPassword(id:string, updateUserPasswordDto:UpdateUserPasswordDto):Promise<User> {
+        const { password } = updateUserPasswordDto;
+        const user = await this.findUserById(id);
+        const checkPassword = await this.bcryptService.comparePassword(password,user.password);
+
+        if(checkPassword) { throw new ConflictException('New password must be different from old password.'); }
+
+        const hashedPassword = await this.bcryptService.hashPassword(password);
+
+        user.password=hashedPassword;
+
+        const updatedUser = await this.userRepository.save(user);
+
+        return updatedUser;
     }
 
     async deleteUser(id:string):Promise<void> {
