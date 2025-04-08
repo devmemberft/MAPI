@@ -15,6 +15,7 @@ class UpdateUserDto {
     username;
     email;
     password;
+    role;
 }
 exports.UpdateUserDto = UpdateUserDto;
 __decorate([
@@ -40,4 +41,9 @@ __decorate([
     (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdateUserDto.prototype, "role", void 0);
 //# sourceMappingURL=update-user.dto.js.map

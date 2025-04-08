@@ -15,6 +15,7 @@ class LoginUserDto {
     id;
     email;
     password;
+    role;
 }
 exports.LoginUserDto = LoginUserDto;
 __decorate([
@@ -37,4 +38,9 @@ __decorate([
     (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
 ], LoginUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], LoginUserDto.prototype, "role", void 0);
 //# sourceMappingURL=login.dto.js.map

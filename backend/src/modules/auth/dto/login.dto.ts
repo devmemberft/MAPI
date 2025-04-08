@@ -18,4 +18,8 @@ export class LoginUserDto {
     @Matches(/(?=.*[0-9])/, {message: 'Password must contain at least one number'})
     @Matches(/(?=.*[A-Z])/, {message: 'Password must contain at least one uppercase letter'})
     password:string;
+
+    @IsNotEmpty()
+    @IsString()
+    role:string;
 }

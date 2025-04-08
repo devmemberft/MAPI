@@ -18,6 +18,7 @@ let User = class User {
     password;
     createdAt;
     updateAt;
+    role;
 };
 exports.User = User;
 __decorate([
@@ -44,6 +45,10 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'update_at' }),
     __metadata("design:type", Date)
 ], User.prototype, "updateAt", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

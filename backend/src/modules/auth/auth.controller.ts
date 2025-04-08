@@ -15,8 +15,8 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() loginUserDto:LoginUserDto) {
-        const {id, email, password} = loginUserDto;
-        const userVerification = await this.authService.validateUser({id,email,password});
+        const {id, email, password, role} = loginUserDto;
+        const userVerification = await this.authService.validateUser({id,email,password, role});
         if(!userVerification) { throw new BadRequestException('Imposible to validate user, please check the logic.')}
         return await this.authService.login(userVerification);
     }

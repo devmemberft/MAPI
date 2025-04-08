@@ -33,7 +33,7 @@ export class AuthService {
     }
 
     async validateUser(loginUserDto: LoginUserDto):Promise<User> {
-        const {id, email, password} = loginUserDto;
+        const {id, email, password, role} = loginUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password,user.password);
         if(!checkPassword) { throw new UnauthorizedException('Bad credentials.'); }
@@ -42,7 +42,7 @@ export class AuthService {
 
 
     async login(user: LoginUserDto) {
-        const payload: JwtPayload = { email: user.email, sub: user.id };
+        const payload: JwtPayload = { email: user.email, sub: user.id, role:user.role };
         return{
             access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '5m' }),
         };

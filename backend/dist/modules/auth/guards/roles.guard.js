@@ -9,28 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocalStrategy = void 0;
-const passport_local_1 = require("passport-local");
-const passport_1 = require("@nestjs/passport");
+exports.RolesGuard = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("../auth.service");
-let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
-    authService;
-    constructor(authService) {
-        super({ usernameField: 'username', passwordField: 'password' });
-        this.authService = authService;
+const jwt_auth_guard_1 = require("./jwt-auth.guard");
+const core_1 = require("@nestjs/core");
+const roles_decorator_1 = require("../decorators/roles.decorator");
+let RolesGuard = class RolesGuard extends jwt_auth_guard_1.JwtAuthGuard {
+    reflector;
+    constructor(reflector) {
+        super();
+        this.reflector = reflector;
     }
-    async validate(id, email, password, role) {
-        const user = await this.authService.validateUser({ id, email, password, role });
-        if (!user) {
-            throw new common_1.UnauthorizedException('checkpoing');
+    canActivate(context) {
+        const requiredRoles = this.reflector.get(roles_decorator_1.Roles, context.getHandler());
+        if (!requiredRoles) {
+            return true;
         }
-        return user;
+        const request = context.switchToHttp().getRequest();
+        const user = request.user;
+        return requiredRoles.some(role => user.roles?.includes(role));
     }
 };
-exports.LocalStrategy = LocalStrategy;
-exports.LocalStrategy = LocalStrategy = __decorate([
+exports.RolesGuard = RolesGuard;
+exports.RolesGuard = RolesGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], LocalStrategy);
-//# sourceMappingURL=local.strategy.js.map
+    __metadata("design:paramtypes", [core_1.Reflector])
+], RolesGuard);
+//# sourceMappingURL=roles.guard.js.map

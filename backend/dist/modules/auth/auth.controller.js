@@ -26,8 +26,8 @@ let AuthController = class AuthController {
         return await this.authService.register(user);
     }
     async login(loginUserDto) {
-        const { id, email, password } = loginUserDto;
-        const userVerification = await this.authService.validateUser({ id, email, password });
+        const { id, email, password, role } = loginUserDto;
+        const userVerification = await this.authService.validateUser({ id, email, password, role });
         if (!userVerification) {
             throw new common_1.BadRequestException('Imposible to validate user, please check the logic.');
         }
