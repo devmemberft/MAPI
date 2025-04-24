@@ -15,7 +15,7 @@ const typeorm_1 = require("typeorm");
 let Product = class Product {
     product_id;
     product_name;
-    product_prize;
+    product_price;
     product_category;
     product_stock;
     createdAt;
@@ -35,7 +35,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
-], Product.prototype, "product_prize", void 0);
+], Product.prototype, "product_price", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: ['mueble', 'tecnologia'], default: 'mueble' }),
     __metadata("design:type", String)

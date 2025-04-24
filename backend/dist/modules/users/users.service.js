@@ -49,15 +49,15 @@ let UsersService = class UsersService {
         await this.userRepository.remove(user);
     }
     async findAllUsers() {
-        return this.userRepository.find({ select: ['id', 'username', 'email'], });
+        return this.userRepository.find({ select: ['user_id', 'username', 'email'], });
     }
-    async findUserById(id) {
+    async findUserById(user_id) {
         const user = await this.userRepository.findOne({
-            where: { id },
-            select: ['id', 'username', 'email'],
+            where: { user_id },
+            select: ['user_id', 'username', 'email'],
         });
         if (!user) {
-            throw new common_1.NotFoundException(`User with id: ${id} not found`);
+            throw new common_1.NotFoundException(`User with id: ${user_id} not found`);
         }
         return user;
     }
@@ -66,7 +66,7 @@ let UsersService = class UsersService {
             where: filter,
             skip: (page - 1) * pageSize,
             take: pageSize,
-            select: ['id', 'username', 'email'],
+            select: ['user_id', 'username', 'email'],
         });
         if (users.length === 0) {
             throw new common_1.NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`);
@@ -88,14 +88,14 @@ let UsersService = class UsersService {
         return false;
     }
     async findUserByEmail(email) {
-        const userEmail = await this.userRepository.findOne({ where: { email }, select: ['id', 'email', 'username', 'password'] });
+        const userEmail = await this.userRepository.findOne({ where: { email }, select: ['user_id', 'email', 'username',] });
         if (!userEmail) {
             throw new common_1.NotFoundException(`User with email ${email} not found.`);
         }
         return userEmail;
     }
     async findUserByName(username) {
-        const user = await this.userRepository.findOne({ where: { username }, select: ['id', 'email', 'username',] });
+        const user = await this.userRepository.findOne({ where: { username }, select: ['user_id', 'email', 'username',] });
         if (!user) {
             throw new common_1.NotFoundException(`${username} not found.`);
         }

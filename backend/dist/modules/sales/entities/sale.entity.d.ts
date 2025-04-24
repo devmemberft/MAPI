@@ -3,13 +3,12 @@ import { Payment } from "src/modules/payments/entities/payment.entity";
 import { Product } from "src/modules/products/entities/product.entity";
 export declare class Sale {
     sale_id: string;
-    client_id: string;
-    product_id: string;
     sign: number;
-    payment_frecuency: string;
-    number_of_payments: number;
+    payment_frecuency: 'diario' | 'semanal' | 'quincenal' | 'mensual';
+    payment_day?: string;
+    number_of_payments?: number;
     quota_value: number;
-    balance_amount: number;
+    balance_amount?: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;

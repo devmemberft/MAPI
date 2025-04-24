@@ -47,15 +47,15 @@ export class UsersService {
     }
 
     async findAllUsers():Promise<User[]> {
-        return this.userRepository.find({select: ['id','username', 'email'],});
+        return this.userRepository.find({select: ['user_id','username', 'email'],});
     }
 
-    async findUserById(id:string):Promise<User> {
+    async findUserById(user_id:string):Promise<User> {
         const user = await this.userRepository.findOne({
-            where: { id },
-            select: ['id', 'username', 'email'], //exceptuar la pw
+            where: { user_id },
+            select: ['user_id', 'username', 'email'], //exceptuar la pw
         });
-        if(!user) { throw new NotFoundException(`User with id: ${id} not found`); }
+        if(!user) { throw new NotFoundException(`User with id: ${user_id} not found`); }
         return user;
     }
 
@@ -64,7 +64,7 @@ export class UsersService {
             where: filter,
             skip: (page - 1) * pageSize,
             take: pageSize,
-            select: ['id','username', 'email'],
+            select: ['user_id','username', 'email'],
         });
         if(users.length === 0 ) { throw new NotFoundException(`User with filter: ${JSON.stringify(filter)} not found`); }
         return users;
@@ -83,13 +83,13 @@ export class UsersService {
     }
 
     async findUserByEmail(email:string):Promise<User> {
-        const userEmail = await this.userRepository.findOne({where: {email}, select: ['id', 'email', 'username', 'password']});
+        const userEmail = await this.userRepository.findOne({where: {email}, select: ['user_id', 'email', 'username',]});
         if(!userEmail) { throw new NotFoundException(`User with email ${email} not found.`); }
         return userEmail;
     }
 
     async findUserByName(username:string):Promise<User> {
-        const user = await this.userRepository.findOne({where:{username}, select:['id','email', 'username',]});
+        const user = await this.userRepository.findOne({where:{username}, select:['user_id','email', 'username',]});
         if(!user) { throw new NotFoundException(`${username} not found.`); }
         return user;
     }

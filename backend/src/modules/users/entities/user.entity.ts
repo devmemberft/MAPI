@@ -5,8 +5,9 @@ import { Entity, Unique, Index, PrimaryGeneratedColumn, CreateDateColumn, Update
 export class User {
 
     @PrimaryGeneratedColumn('uuid')
-    id:string;
+    user_id:string;
 
+    @Index()
     @Column()
     username:string;
 

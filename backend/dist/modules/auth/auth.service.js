@@ -43,7 +43,7 @@ let AuthService = class AuthService {
         return user;
     }
     async validateUser(loginUserDto) {
-        const { id, email, password, role } = loginUserDto;
+        const { user_id, email, password, role } = loginUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password, user.password);
         if (!checkPassword) {
@@ -52,7 +52,7 @@ let AuthService = class AuthService {
         return user;
     }
     async login(user) {
-        const payload = { email: user.email, sub: user.id, role: user.role };
+        const payload = { email: user.email, sub: user.user_id, role: user.role };
         return {
             access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '5m' }),
         };

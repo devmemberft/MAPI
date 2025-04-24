@@ -10,7 +10,7 @@ export class Product {
     product_name:string;
 
     @Column({type:'numeric'})
-    product_prize:number;
+    product_price:number;
 
     @Column({type:'enum', enum:['mueble', 'tecnologia'], default:'mueble'})
     product_category:'mueble' | 'tecnologia';

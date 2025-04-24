@@ -16,10 +16,9 @@ const product_entity_1 = require("../../products/entities/product.entity");
 const typeorm_1 = require("typeorm");
 let Sale = class Sale {
     sale_id;
-    client_id;
-    product_id;
     sign;
     payment_frecuency;
+    payment_day;
     number_of_payments;
     quota_value;
     balance_amount;
@@ -36,21 +35,17 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "sale_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Sale.prototype, "client_id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Sale.prototype, "product_id", void 0);
-__decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
 ], Sale.prototype, "sign", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'text' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: ['diario', 'semanal', 'quincenal', 'mensual'] }),
     __metadata("design:type", String)
 ], Sale.prototype, "payment_frecuency", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', nullable: true }),
+    __metadata("design:type", String)
+], Sale.prototype, "payment_day", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)

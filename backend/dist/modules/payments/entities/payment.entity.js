@@ -14,10 +14,8 @@ const sale_entity_1 = require("../../sales/entities/sale.entity");
 const typeorm_1 = require("typeorm");
 let Payment = class Payment {
     payment_id;
-    sale_id;
     payment_amount;
-    first_payment_date;
-    last_payment_date;
+    payment_date;
     sale;
 };
 exports.Payment = Payment;
@@ -26,21 +24,13 @@ __decorate([
     __metadata("design:type", String)
 ], Payment.prototype, "payment_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Payment.prototype, "sale_id", void 0);
-__decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
 ], Payment.prototype, "payment_amount", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'first_payment_date' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)
-], Payment.prototype, "first_payment_date", void 0);
-__decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'last_payment_date', nullable: true }),
-    __metadata("design:type", Date)
-], Payment.prototype, "last_payment_date", void 0);
+], Payment.prototype, "payment_date", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => sale_entity_1.Sale, sale => sale.payments),
     __metadata("design:type", sale_entity_1.Sale)

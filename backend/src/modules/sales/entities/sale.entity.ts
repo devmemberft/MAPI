@@ -8,27 +8,25 @@ export class Sale {
     @PrimaryGeneratedColumn('uuid')
     sale_id: string;
 
-    @Column()
-    client_id:string; // relacion a tabla de clientes
-
-    @Column()
-    product_id:string; // relacion a tabla de productos
-
     @Column({type:'numeric'})
     sign:number; // pago para recibir el producto
 
-    @Column({type:'text'})
-    payment_frecuency:string; // diario(1) semanal(7) quincenal(15) mensual(30) dia?(lunes,martes...)
+    @Column({type:'enum', enum:['diario','semanal', 'quincenal', 'mensual']})
+    payment_frecuency:'diario'|'semanal'|'quincenal'|'mensual'; // diario(1) semanal(7) quincenal(15) mensual(30) dia?(lunes,martes...)
+
+    @Column({type:'varchar', nullable:true})
+    payment_day?:string;
 
     @Column()
-    number_of_payments:number; // cuantos pagos a realizado
+    number_of_payments?:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado
     
     @Column({type:'numeric'})
     quota_value:number; // por ejemplo, 500 pesos cada semana
 
     @Column({type:'numeric'})
-    balance_amount:number; // resta entre (precio del producto menos la seña) y (sumatoria de los pagos realizados)
+    balance_amount?:number; //valor derivado(debe ser calculado y no guardado directamente): resta entre (precio del producto menos la seña) y (sumatoria de los pagos realizados)
 
+    //  Tip: si luego necesito usarlos mucho, podría generarlos con Columnas Virtuales o Vistas Materializadas.
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo la venta
     createdAt:Date;
 

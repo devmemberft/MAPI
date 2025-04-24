@@ -25,7 +25,7 @@ export class Client {
 
     @Index()
     @Column()
-    client_zone: number;
+    client_zone: number; // sujeta a normalizacion
 
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // fecha registro del cliente
     createdAt:Date;
@@ -35,7 +35,6 @@ export class Client {
 
     @DeleteDateColumn({type:'timestamp', name:'deleted_at', nullable:true})
     deletedAt?:Date;
-
 
     // Relacion: un cliente tiene muchas ventas (1:n)
     @OneToMany(() => Sale, sale => sale.client)
