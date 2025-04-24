@@ -15,14 +15,13 @@ export class UsersService {
         private bcryptService:BcryptService,
     ) {}
 
-    async updateUser(id:string, updateUserDto:UpdateUserDto): Promise<User> {
+    async updateUserProfile(id:string, updateUserDto:UpdateUserDto): Promise<User> {
         const {username, email} = updateUserDto;
         const user = await this.findUserById(id);
 
         Object.assign(user,{...updateUserDto, username, email});
         const updatedUser = await this.userRepository.save(user);
  
-        //const showUpdatedUser = await this.findUserById(id);
         return updatedUser;
     }
 

@@ -1,29 +1,43 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column} from 'typeorm'
+import { Sale } from 'src/modules/sales/entities/sale.entity';
+import { Entity, Index, Unique, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, OneToMany } from 'typeorm'
 
 @Entity()
+@Unique(['client_dni'])
 export class Client {
 
     @PrimaryGeneratedColumn('uuid')
-    id:string;
+    client_id:string;
 
     @Column()
-    name:string;
+    client_dni:number;
 
     @Column()
-    username:string;
+    client_name:string;
 
     @Column()
-    dni:number;
+    client_lastname:string;
 
     @Column()
-    address:string;
+    client_phone:number;
 
     @Column()
-    phone:number;
+    client_address:string;
 
-    @CreateDateColumn({type:'timestamp', name:'created_at'})
+    @Index()
+    @Column()
+    client_zone: number;
+
+    @CreateDateColumn({type:'timestamp', name:'created_at'}) // fecha registro del cliente
     createdAt:Date;
 
-    @UpdateDateColumn({type:'timestamp', name:'update_at'})
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'}) // fecha de actualizacion de informacion cliente
     updatedAt:Date;
+
+    @DeleteDateColumn({type:'timestamp', name:'deleted_at', nullable:true})
+    deletedAt?:Date;
+
+
+    // Relacion: un cliente tiene muchas ventas (1:n)
+    @OneToMany(() => Sale, sale => sale.client)
+    sales: Sale[]; 
 }

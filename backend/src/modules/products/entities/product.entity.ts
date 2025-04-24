@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Column, Entity } from "typeorm"
+import { Sale } from "src/modules/sales/entities/sale.entity";
+import { PrimaryGeneratedColumn,  CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, Entity, ManyToMany } from "typeorm"
 
 @Entity()
 export class Product {
@@ -8,12 +9,25 @@ export class Product {
     @Column()
     product_name:string;
 
-    @Column()
-    category:string;
+    @Column({type:'numeric'})
+    product_prize:number;
+
+    @Column({type:'enum', enum:['mueble', 'tecnologia'], default:'mueble'})
+    product_category:'mueble' | 'tecnologia';
 
     @Column()
-    amount:number;
+    product_stock:number;
 
-    @Column()
-    color:string;
+    @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se registro el producto
+    createdAt:Date;
+
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'}) // dia que se actualizó la informacion del producto
+    updatedAt:Date;
+
+    @DeleteDateColumn({type:'timestamp', name:'deleted_at', nullable:true})
+    deletedAt:Date;
+
+    // Relacion: muchas ventas pueden tener muchos productos
+    @ManyToMany(()=> Sale, sale => sale.products)
+    sales:Sale[]
 }

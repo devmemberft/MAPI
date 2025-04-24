@@ -16,9 +16,10 @@ let User = class User {
     username;
     email;
     password;
+    role;
     createdAt;
     updateAt;
-    role;
+    deletedAt;
 };
 exports.User = User;
 __decorate([
@@ -38,18 +39,23 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: ['admin', 'user', 'mod'], default: 'user' }),
+    __metadata("design:type", String)
+], User.prototype, "role", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'update_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], User.prototype, "updateAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "role", void 0);
+    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamp', name: 'deleted_at', nullable: true }),
+    __metadata("design:type", Date)
+], User.prototype, "deletedAt", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, typeorm_1.Unique)(['email'])
 ], User);
 //# sourceMappingURL=user.entity.js.map

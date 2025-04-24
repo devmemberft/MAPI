@@ -29,7 +29,7 @@ let AuthController = class AuthController {
         const { id, email, password, role } = loginUserDto;
         const userVerification = await this.authService.validateUser({ id, email, password, role });
         if (!userVerification) {
-            throw new common_1.BadRequestException('Imposible to validate user, please check the logic.');
+            throw new common_1.BadRequestException('Imposible to validate user.');
         }
         return await this.authService.login(userVerification);
     }

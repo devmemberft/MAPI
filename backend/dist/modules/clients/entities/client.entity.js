@@ -10,51 +10,69 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = void 0;
+const sale_entity_1 = require("../../sales/entities/sale.entity");
 const typeorm_1 = require("typeorm");
 let Client = class Client {
-    id;
-    name;
-    username;
-    dni;
-    address;
-    phone;
+    client_id;
+    client_dni;
+    client_name;
+    client_lastname;
+    client_phone;
+    client_address;
+    client_zone;
     createdAt;
     updatedAt;
+    deletedAt;
+    sales;
 };
 exports.Client = Client;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], Client.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Client.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Client.prototype, "username", void 0);
+], Client.prototype, "client_id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Client.prototype, "dni", void 0);
+], Client.prototype, "client_dni", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Client.prototype, "address", void 0);
+], Client.prototype, "client_name", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Client.prototype, "client_lastname", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Client.prototype, "phone", void 0);
+], Client.prototype, "client_phone", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Client.prototype, "client_address", void 0);
+__decorate([
+    (0, typeorm_1.Index)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Client.prototype, "client_zone", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)
 ], Client.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'update_at' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'updated_at' }),
     __metadata("design:type", Date)
 ], Client.prototype, "updatedAt", void 0);
+__decorate([
+    (0, typeorm_1.DeleteDateColumn)({ type: 'timestamp', name: 'deleted_at', nullable: true }),
+    __metadata("design:type", Date)
+], Client.prototype, "deletedAt", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => sale_entity_1.Sale, sale => sale.client),
+    __metadata("design:type", Array)
+], Client.prototype, "sales", void 0);
 exports.Client = Client = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, typeorm_1.Unique)(['client_dni'])
 ], Client);
 //# sourceMappingURL=client.entity.js.map

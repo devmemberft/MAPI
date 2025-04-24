@@ -14,12 +14,16 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./entities/user.entity");
 const hash_service_1 = require("../auth/hash.service");
 const database_module_1 = require("../database/database.module");
+const client_entity_1 = require("../clients/entities/client.entity");
+const product_entity_1 = require("../products/entities/product.entity");
+const sale_entity_1 = require("../sales/entities/sale.entity");
+const payment_entity_1 = require("../payments/entities/payment.entity");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
-        imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])],
+        imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, client_entity_1.Client, product_entity_1.Product, sale_entity_1.Sale, payment_entity_1.Payment])],
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService, hash_service_1.BcryptService]
     })

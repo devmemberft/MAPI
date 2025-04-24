@@ -6,8 +6,8 @@ export declare class ClientsService {
     private clientRepository;
     constructor(clientRepository: Repository<Client>);
     createClient(createClientDto: CreateClientDto): Promise<Client>;
-    updateClient(dni: number, updateClientDto: UpdateClientDto): Promise<Client>;
-    deleteClient(dni: number): Promise<void>;
+    updateClient(client_dni: number, updateClientDto: UpdateClientDto): Promise<Client>;
+    deleteClient(client_dni: number): Promise<void>;
     findAllClients(): Promise<Client[]>;
-    findClientByDni(dni: number): Promise<Client>;
+    findClientByDni(client_dni: number): Promise<Client>;
 }

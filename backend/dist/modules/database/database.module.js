@@ -12,6 +12,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("../users/entities/user.entity");
 const client_entity_1 = require("../clients/entities/client.entity");
 const product_entity_1 = require("../products/entities/product.entity");
+const payment_entity_1 = require("../payments/entities/payment.entity");
+const sale_entity_1 = require("../sales/entities/sale.entity");
 let DataBaseModule = class DataBaseModule {
 };
 exports.DataBaseModule = DataBaseModule;
@@ -25,7 +27,7 @@ exports.DataBaseModule = DataBaseModule = __decorate([
                 username: 'devmemberft',
                 password: 'immanuelveins',
                 database: 'miselio',
-                entities: [user_entity_1.User, product_entity_1.Product, client_entity_1.Client],
+                entities: [user_entity_1.User, product_entity_1.Product, client_entity_1.Client, sale_entity_1.Sale, payment_entity_1.Payment],
                 synchronize: true,
                 retryAttempts: 2,
                 retryDelay: 1000,

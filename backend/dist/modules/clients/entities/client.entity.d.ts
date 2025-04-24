@@ -1,10 +1,14 @@
+import { Sale } from 'src/modules/sales/entities/sale.entity';
 export declare class Client {
-    id: string;
-    name: string;
-    username: string;
-    dni: number;
-    address: string;
-    phone: number;
+    client_id: string;
+    client_dni: number;
+    client_name: string;
+    client_lastname: string;
+    client_phone: number;
+    client_address: string;
+    client_zone: number;
     createdAt: Date;
     updatedAt: Date;
+    deletedAt?: Date;
+    sales: Sale[];
 }

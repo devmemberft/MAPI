@@ -23,30 +23,30 @@ let ClientsService = class ClientsService {
         this.clientRepository = clientRepository;
     }
     async createClient(createClientDto) {
-        const { dni } = createClientDto;
-        const clientExists = await this.findClientByDni(dni);
+        const { client_dni } = createClientDto;
+        const clientExists = await this.findClientByDni(client_dni);
         if (clientExists) {
-            throw new common_1.BadRequestException(`User with dni: ${dni} already exists.`);
+            throw new common_1.BadRequestException(`User with dni: ${client_dni} already exists.`);
         }
         const client = await this.clientRepository.save(createClientDto);
         return client;
     }
-    async updateClient(dni, updateClientDto) {
-        const client = await this.findClientByDni(dni);
+    async updateClient(client_dni, updateClientDto) {
+        const client = await this.findClientByDni(client_dni);
         Object.assign(client, updateClientDto);
         return this.clientRepository.save(client);
     }
-    async deleteClient(dni) {
-        const client = await this.findClientByDni(dni);
+    async deleteClient(client_dni) {
+        const client = await this.findClientByDni(client_dni);
         await this.clientRepository.delete(client);
     }
     async findAllClients() {
         return await this.clientRepository.find();
     }
-    async findClientByDni(dni) {
-        const client = await this.clientRepository.findOneBy({ dni });
+    async findClientByDni(client_dni) {
+        const client = await this.clientRepository.findOneBy({ client_dni });
         if (!client) {
-            throw new common_1.NotFoundException(`User with dni: ${dni} not found.`);
+            throw new common_1.NotFoundException(`User with dni: ${client_dni} not found.`);
         }
         return client;
     }

@@ -4,24 +4,24 @@ export class CreateClientDto {
 
     @IsString()
     @IsNotEmpty()
-    name: string;
+    client_name: string;
 
 
     @IsString()
     @IsNotEmpty()
-    lastname:string;
+    client_lastname:string;
 
     @IsNumber()
     @IsNotEmpty()
-    dni: number;
+    client_dni: number;
 
     @IsString()
     @IsNotEmpty()
-    address: string;
+    client_address: string;
 
     @IsPhoneNumber()
     @IsNotEmpty()
-    phone: number;
+    client_phone: number;
 
 
 }

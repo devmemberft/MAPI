@@ -17,17 +17,32 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const hash_service_1 = require("../auth/hash.service");
 let UsersService = class UsersService {
     userRepository;
-    constructor(userRepository) {
+    bcryptService;
+    constructor(userRepository, bcryptService) {
         this.userRepository = userRepository;
+        this.bcryptService = bcryptService;
     }
-    async updateUser(id, updateUserDto) {
+    async updateUserProfile(id, updateUserDto) {
+        const { username, email } = updateUserDto;
         const user = await this.findUserById(id);
-        Object.assign(user, updateUserDto);
-        await this.userRepository.save(user);
-        const showUpdatedUser = await this.findUserById(id);
-        return showUpdatedUser;
+        Object.assign(user, { ...updateUserDto, username, email });
+        const updatedUser = await this.userRepository.save(user);
+        return updatedUser;
+    }
+    async updateUserPassword(id, updateUserPasswordDto) {
+        const { password } = updateUserPasswordDto;
+        const user = await this.findUserById(id);
+        const checkPassword = await this.bcryptService.comparePassword(password, user.password);
+        if (checkPassword) {
+            throw new common_1.ConflictException('New password must be different from old password.');
+        }
+        const hashedPassword = await this.bcryptService.hashPassword(password);
+        user.password = hashedPassword;
+        const updatedUser = await this.userRepository.save(user);
+        return updatedUser;
     }
     async deleteUser(id) {
         const user = await this.findUserById(id);
@@ -91,6 +106,7 @@ exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        hash_service_1.BcryptService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

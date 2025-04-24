@@ -17,7 +17,7 @@ export class UsersController {
     @Roles(Role.Admin, Role.Moderator)
     @Put(':id')
     async updateUser(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto):Promise<User> {
-        return this.usersService.updateUser(id,updateUserDto);
+        return this.usersService.updateUserProfile(id,updateUserDto);
     }
 
     @UseGuards(RolesGuard)
