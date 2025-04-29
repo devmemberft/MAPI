@@ -14,6 +14,8 @@ const client_entity_1 = require("../clients/entities/client.entity");
 const product_entity_1 = require("../products/entities/product.entity");
 const payment_entity_1 = require("../payments/entities/payment.entity");
 const sale_entity_1 = require("../sales/entities/sale.entity");
+const dotenv = require("dotenv");
+dotenv.config();
 let DataBaseModule = class DataBaseModule {
 };
 exports.DataBaseModule = DataBaseModule;
@@ -22,11 +24,11 @@ exports.DataBaseModule = DataBaseModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'localhost',
+                host: process.env.DB_HOST,
                 port: 5432,
-                username: 'devmemberft',
-                password: 'immanuelveins',
-                database: 'miselio',
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_NAME,
                 entities: [user_entity_1.User, product_entity_1.Product, client_entity_1.Client, sale_entity_1.Sale, payment_entity_1.Payment],
                 synchronize: true,
                 retryAttempts: 2,

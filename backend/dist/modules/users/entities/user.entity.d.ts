@@ -3,7 +3,7 @@ export declare class User {
     username: string;
     email: string;
     password: string;
-    role: 'user';
+    role: 'user' | 'admin' | 'mod';
     createdAt: Date;
     updateAt: Date;
     deletedAt?: Date;
