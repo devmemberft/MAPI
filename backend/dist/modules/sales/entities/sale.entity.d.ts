@@ -5,7 +5,7 @@ export declare class Sale {
     sale_id: string;
     sign: number;
     payment_frecuency: 'diario' | 'semanal' | 'quincenal' | 'mensual';
-    payment_day?: string;
+    payment_day: 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo';
     number_of_payments?: number;
     quota_value: number;
     balance_amount?: number;

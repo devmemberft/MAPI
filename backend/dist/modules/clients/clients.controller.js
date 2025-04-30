@@ -16,7 +16,7 @@ exports.ClientsController = void 0;
 const common_1 = require("@nestjs/common");
 const clients_service_1 = require("./clients.service");
 const create_client_dto_1 = require("./dto/create-client.dto");
-const update_user_dto_1 = require("./dto/update-user.dto");
+const update_client_dto_1 = require("./dto/update-client.dto");
 let ClientsController = class ClientsController {
     clientsService;
     constructor(clientsService) {
@@ -45,7 +45,7 @@ __decorate([
     __param(0, (0, common_1.Param)('dni')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_user_dto_1.UpdateClientDto]),
+    __metadata("design:paramtypes", [Number, update_client_dto_1.UpdateClientDto]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "updateClient", null);
 __decorate([

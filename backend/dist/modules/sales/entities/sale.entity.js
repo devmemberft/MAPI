@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "payment_frecuency", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', nullable: true }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'], nullable: true }),
     __metadata("design:type", String)
 ], Sale.prototype, "payment_day", void 0);
 __decorate([

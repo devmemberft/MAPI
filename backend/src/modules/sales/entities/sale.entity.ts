@@ -14,8 +14,8 @@ export class Sale {
     @Column({type:'enum', enum:['diario','semanal', 'quincenal', 'mensual']})
     payment_frecuency:'diario'|'semanal'|'quincenal'|'mensual'; // diario(1) semanal(7) quincenal(15) mensual(30) dia?(lunes,martes...)
 
-    @Column({type:'varchar', nullable:true})
-    payment_day?:string;
+    @Column({type:'enum', enum:['lunes','martes','miercoles','jueves','viernes','sabado','domingo'], nullable:true})
+    payment_day:'lunes'|'martes'|'miercoles'|'jueves'|'viernes'|'sabado'|'domingo';
 
     @Column()
     number_of_payments?:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado

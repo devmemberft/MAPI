@@ -6,11 +6,23 @@ export class Payment {
     @PrimaryGeneratedColumn('uuid')
     payment_id: string;
 
-    @Column({type:'numeric'})
-    payment_amount:number; // valor del pago realizado
+    @Column({type:'numeric', default: 0})
+    payment_amount:number; // se actualiza si se realiza el pago
+
+    @Column({type:'boolean', default:false})
+    payment_made:boolean;
+
+    @Column({type:'text',nullable:true})
+    observation?:string;
+
+    @Column({ type:'date'})
+    payment_date:Date;
     
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo el pago
-    payment_date:Date;
+    createdAt:Date;
+
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'}) // dia que se realizo el pago
+    updatedAt:Date;
 
     // Relacion: muchos pagos pertenecen a una sola venta (n:1)
     @ManyToOne(() => Sale, sale => sale.payments)

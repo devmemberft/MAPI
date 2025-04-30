@@ -15,7 +15,11 @@ const typeorm_1 = require("typeorm");
 let Payment = class Payment {
     payment_id;
     payment_amount;
+    payment_made;
+    observation;
     payment_date;
+    createdAt;
+    updatedAt;
     sale;
 };
 exports.Payment = Payment;
@@ -24,13 +28,29 @@ __decorate([
     __metadata("design:type", String)
 ], Payment.prototype, "payment_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'numeric' }),
+    (0, typeorm_1.Column)({ type: 'numeric', default: 0 }),
     __metadata("design:type", Number)
 ], Payment.prototype, "payment_amount", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
+    (0, typeorm_1.Column)({ type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], Payment.prototype, "payment_made", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
+    __metadata("design:type", String)
+], Payment.prototype, "observation", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'date' }),
     __metadata("design:type", Date)
 ], Payment.prototype, "payment_date", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
+    __metadata("design:type", Date)
+], Payment.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', name: 'updated_at' }),
+    __metadata("design:type", Date)
+], Payment.prototype, "updatedAt", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => sale_entity_1.Sale, sale => sale.payments),
     __metadata("design:type", sale_entity_1.Sale)
