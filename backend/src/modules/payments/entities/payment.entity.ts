@@ -6,22 +6,22 @@ export class Payment {
     @PrimaryGeneratedColumn('uuid')
     payment_id: string;
 
-    @Column({type:'numeric', default: 0})
+    @Column({type:'numeric', precision:10, scale:2, default: 0}) // consultar precision y scale
     payment_amount:number; // se actualiza si se realiza el pago
 
-    @Column({type:'boolean', default:false})
-    payment_made:boolean;
-
+    /*@Column({type:'boolean', default:false})
+    is_paid:boolean; // Valor derivado, puede suprimirse y consultarse con logica derivada o vista sql payment_made = payment_amount > 0;
+    */
     @Column({type:'text',nullable:true})
     observation?:string;
 
     @Column({ type:'date'})
     payment_date:Date;
     
-    @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo el pago
+    @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo el primer pago
     createdAt:Date;
 
-    @UpdateDateColumn({type:'timestamp', name:'updated_at'}) // dia que se realizo el pago
+    @UpdateDateColumn({type:'timestamp', name:'updated_at'}) // dia que se actualizo el pago
     updatedAt:Date;
 
     // Relacion: muchos pagos pertenecen a una sola venta (n:1)

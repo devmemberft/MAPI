@@ -17,31 +17,53 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const sale_entity_1 = require("./entities/sale.entity");
+const clients_service_1 = require("../clients/clients.service");
+const products_service_1 = require("../products/products.service");
 let SalesService = class SalesService {
     saleRepository;
-    constructor(saleRepository) {
+    clientsService;
+    productsService;
+    constructor(saleRepository, clientsService, productsService) {
         this.saleRepository = saleRepository;
+        this.clientsService = clientsService;
+        this.productsService = productsService;
     }
-    async registerSale(registerSaleDto) {
-        const newSale = await this.saleRepository.save(registerSaleDto);
-        return newSale;
+    async registerSale(client_dni, product_id, registerSaleDto) {
+        const checkClientExistence = await this.clientsService.findClientByDni(client_dni);
+        const checkProductExistence = await this.productsService.findProductById(product_id);
+        if (!checkClientExistence || !checkProductExistence) {
+            throw new common_1.NotFoundException('Item not found');
+        }
+        const newSale = new sale_entity_1.Sale();
+        newSale.products = [checkProductExistence];
+        newSale.client = checkClientExistence;
+        newSale.sign = registerSaleDto.sign;
+        newSale.payment_frecuency = registerSaleDto.payment_frecuency;
+        newSale.payment_day = registerSaleDto.payment_day;
+        newSale.quota_value = registerSaleDto.quota_value;
+        newSale.number_of_payments = registerSaleDto.number_of_payments;
+        newSale.balance_amount = registerSaleDto.balance_amount;
+        return await this.saleRepository.save(newSale);
     }
     async updateSale(sale_id, updateSaleDto) {
-        const checkExistence = await this.findSaleByFilter(sale_id);
-        Object.assign(checkExistence, updateSaleDto);
-        return this.saleRepository.save(checkExistence);
+        const sale = await this.findSaleById(sale_id);
+        Object.assign(sale, {
+            payment_frecuency: updateSaleDto.payment_frecuency,
+            payment_day: updateSaleDto.payment_day,
+        });
+        return this.saleRepository.save(sale);
     }
     async deleteSale(sale_id) {
-        const sale = await this.findSaleByFilter(sale_id);
+        const sale = await this.findSaleById(sale_id);
         await this.saleRepository.delete(sale);
     }
     async findAllSales() {
         return await this.saleRepository.find();
     }
-    async findSaleByFilter(sale_id) {
+    async findSaleById(sale_id) {
         const checkExistence = await this.saleRepository.findOneBy({ sale_id });
         if (!checkExistence) {
-            throw new common_1.NotFoundException('The sale was not found');
+            throw new common_1.NotFoundException(`The sale with id: ${sale_id} was not found`);
         }
         return checkExistence;
     }
@@ -50,6 +72,8 @@ exports.SalesService = SalesService;
 exports.SalesService = SalesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(sale_entity_1.Sale)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        clients_service_1.ClientsService,
+        products_service_1.ProductsService])
 ], SalesService);
 //# sourceMappingURL=sales.service.js.map

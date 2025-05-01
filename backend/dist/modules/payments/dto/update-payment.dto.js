@@ -12,15 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdatePaymentDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdatePaymentDto {
-    payment_made;
     payment_amount;
     observation;
 }
 exports.UpdatePaymentDto = UpdatePaymentDto;
-__decorate([
-    (0, class_validator_1.IsBoolean)(),
-    __metadata("design:type", Boolean)
-], UpdatePaymentDto.prototype, "payment_made", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),

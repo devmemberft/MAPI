@@ -15,7 +15,6 @@ const typeorm_1 = require("typeorm");
 let Payment = class Payment {
     payment_id;
     payment_amount;
-    payment_made;
     observation;
     payment_date;
     createdAt;
@@ -28,13 +27,9 @@ __decorate([
     __metadata("design:type", String)
 ], Payment.prototype, "payment_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'numeric', default: 0 }),
+    (0, typeorm_1.Column)({ type: 'numeric', precision: 10, scale: 2, default: 0 }),
     __metadata("design:type", Number)
 ], Payment.prototype, "payment_amount", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'boolean', default: false }),
-    __metadata("design:type", Boolean)
-], Payment.prototype, "payment_made", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)

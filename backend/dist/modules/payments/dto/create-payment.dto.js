@@ -9,21 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetTodayPaymentsDto = void 0;
+exports.RegisterPaymentDto = void 0;
 const class_validator_1 = require("class-validator");
-class GetTodayPaymentsDto {
-    client_zone;
-    client_address;
+class RegisterPaymentDto {
+    payment_amount;
+    observation;
+    payment_date;
+    sale_id;
 }
-exports.GetTodayPaymentsDto = GetTodayPaymentsDto;
+exports.RegisterPaymentDto = RegisterPaymentDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], GetTodayPaymentsDto.prototype, "client_zone", void 0);
+], RegisterPaymentDto.prototype, "payment_amount", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], GetTodayPaymentsDto.prototype, "client_address", void 0);
-//# sourceMappingURL=get-payment.dto.js.map
+], RegisterPaymentDto.prototype, "observation", void 0);
+__decorate([
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], RegisterPaymentDto.prototype, "payment_date", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], RegisterPaymentDto.prototype, "sale_id", void 0);
+//# sourceMappingURL=create-payment.dto.js.map

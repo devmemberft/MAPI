@@ -4,6 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 @Injectable()
 export class ProductsService {
     constructor(
@@ -35,10 +36,17 @@ export class ProductsService {
         return await this.productRepository.find();
     }
 
+    async findProductById(product_id:string):Promise<Product>{
+        const product = await this.productRepository.findOneBy({product_id});
+        if(!product) { throw new NotFoundException(`Product with ${product_id} not found.`);}
+        return product;
+    }
+
     async findProductByName(product_name:string) {
         const product = await this.productRepository.findOneBy({product_name});
         if(!product) { throw new NotFoundException(`Product ${product_name} not found.`); }
         return product;  
     }
+
 
 }

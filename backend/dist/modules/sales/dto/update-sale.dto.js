@@ -12,22 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateSaleDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdateSaleDto {
-    sale_id;
     product_id;
     client_id;
     sign;
-    payment_day;
     payment_frecuency;
+    payment_day;
+    quota_value;
     number_of_payments;
     balance_amount;
-    quota_value;
 }
 exports.UpdateSaleDto = UpdateSaleDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateSaleDto.prototype, "sale_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -44,15 +38,20 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateSaleDto.prototype, "sign", void 0);
 __decorate([
+    (0, class_validator_1.IsEnum)({ diario: 'diario', semanal: 'semanal', quincenal: 'quincenal', mensual: 'mensual' }, { message: 'Must select one' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateSaleDto.prototype, "payment_frecuency", void 0);
+__decorate([
     (0, class_validator_1.IsEnum)({ lunes: 'lunes', martes: 'martes', miercoles: 'miercoles', jueves: 'jueves', viernes: 'viernes', sabado: 'sabado', domingo: 'domingo' }, { message: 'Must select one' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateSaleDto.prototype, "payment_day", void 0);
 __decorate([
-    (0, class_validator_1.IsEnum)({ diario: 'diario', semanal: 'semanal', quincenal: 'quincenal', mensual: 'mensual' }, { message: 'Must select one' }),
+    (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateSaleDto.prototype, "payment_frecuency", void 0);
+    __metadata("design:type", Number)
+], UpdateSaleDto.prototype, "quota_value", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
@@ -63,9 +62,4 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateSaleDto.prototype, "balance_amount", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Number)
-], UpdateSaleDto.prototype, "quota_value", void 0);
 //# sourceMappingURL=update-sale.dto.js.map

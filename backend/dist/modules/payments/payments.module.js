@@ -15,14 +15,19 @@ const payment_entity_1 = require("./entities/payment.entity");
 const database_module_1 = require("../database/database.module");
 const sale_entity_1 = require("../sales/entities/sale.entity");
 const user_entity_1 = require("../users/entities/user.entity");
+const clients_service_1 = require("../clients/clients.service");
+const products_service_1 = require("../products/products.service");
+const sales_service_1 = require("../sales/sales.service");
+const client_entity_1 = require("../clients/entities/client.entity");
+const product_entity_1 = require("../products/entities/product.entity");
 let PaymentsModule = class PaymentsModule {
 };
 exports.PaymentsModule = PaymentsModule;
 exports.PaymentsModule = PaymentsModule = __decorate([
     (0, common_1.Module)({
-        imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([payment_entity_1.Payment, sale_entity_1.Sale, user_entity_1.User])],
+        imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([payment_entity_1.Payment, sale_entity_1.Sale, user_entity_1.User, client_entity_1.Client, product_entity_1.Product])],
         controllers: [payments_controller_1.PaymentsController],
-        providers: [payments_service_1.PaymentsService]
+        providers: [payments_service_1.PaymentsService, clients_service_1.ClientsService, products_service_1.ProductsService, sales_service_1.SalesService]
     })
 ], PaymentsModule);
 //# sourceMappingURL=payments.module.js.map

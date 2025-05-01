@@ -47,13 +47,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Client.prototype, "client_phone", void 0);
 __decorate([
+    (0, typeorm_1.Index)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Client.prototype, "client_address", void 0);
 __decorate([
     (0, typeorm_1.Index)(),
     (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Client.prototype, "client_zone", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),

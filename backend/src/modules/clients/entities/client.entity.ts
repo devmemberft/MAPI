@@ -20,12 +20,13 @@ export class Client {
     @Column()
     client_phone:number;
 
+    @Index()
     @Column()
     client_address:string;
 
     @Index()
     @Column()
-    client_zone: number; // sujeta a normalizacion
+    client_zone: string; // sujeta a normalizacion
 
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // fecha registro del cliente
     createdAt:Date;

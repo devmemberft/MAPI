@@ -15,24 +15,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentsController = void 0;
 const common_1 = require("@nestjs/common");
 const payments_service_1 = require("./payments.service");
-const get_payment_dto_1 = require("./dto/get-payment.dto");
+const create_payment_dto_1 = require("./dto/create-payment.dto");
 let PaymentsController = class PaymentsController {
     paymentsService;
     constructor(paymentsService) {
         this.paymentsService = paymentsService;
     }
-    getTodayPayments(filters) {
-        return this.paymentsService.getTodayPayments(filters);
+    async getDailyRoute() {
+        return await this.paymentsService.buildDailyRoute();
+    }
+    async registerPayment(registerPaymentDto) {
+        return await this.paymentsService.registerClientPayment(registerPaymentDto);
+    }
+    async postponePayment(registerPaymentDto) {
+        return await this.paymentsService.postponePayment(registerPaymentDto);
     }
 };
 exports.PaymentsController = PaymentsController;
 __decorate([
-    (0, common_1.Get)('today'),
-    __param(0, (0, common_1.Query)()),
+    (0, common_1.Get)('daily-route'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [get_payment_dto_1.GetTodayPaymentsDto]),
-    __metadata("design:returntype", void 0)
-], PaymentsController.prototype, "getTodayPayments", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "getDailyRoute", null);
+__decorate([
+    (0, common_1.Post)('register'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "registerPayment", null);
+__decorate([
+    (0, common_1.Post)('postpone'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "postponePayment", null);
 exports.PaymentsController = PaymentsController = __decorate([
     (0, common_1.Controller)('payments'),
     __metadata("design:paramtypes", [payments_service_1.PaymentsService])

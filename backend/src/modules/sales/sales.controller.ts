@@ -9,8 +9,8 @@ export class SalesController {
     constructor(private salesService:SalesService) {}
     
     @Post()
-    async registerSale(@Body() registerSaleDto:RegisterSaleDto):Promise<Sale>{
-        return await this.salesService.registerSale(registerSaleDto);
+    async registerSale(@Param('client_dni') client_dni:number, @Param('product_id') product_id:string, @Body() registerSaleDto:RegisterSaleDto):Promise<Sale>{
+        return await this.salesService.registerSale(client_dni, product_id, registerSaleDto);
     }
 
     async updateSale(@Param('sale_id') sale_id:string, @Body() updateSaleDto:UpdateSaleDto):Promise<Sale>{
@@ -25,6 +25,6 @@ export class SalesController {
 
     @Get(':sale_id')
     async findSaleById(@Param('sale_id') sale_id:string):Promise<Sale>{
-        return await this.salesService.findSaleByFilter(sale_id);
+        return await this.salesService.findSaleById(sale_id);
     }
 }

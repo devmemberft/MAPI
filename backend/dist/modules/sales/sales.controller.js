@@ -22,8 +22,8 @@ let SalesController = class SalesController {
     constructor(salesService) {
         this.salesService = salesService;
     }
-    async registerSale(registerSaleDto) {
-        return await this.salesService.registerSale(registerSaleDto);
+    async registerSale(client_dni, product_id, registerSaleDto) {
+        return await this.salesService.registerSale(client_dni, product_id, registerSaleDto);
     }
     async updateSale(sale_id, updateSaleDto) {
         return await this.salesService.updateSale(sale_id, updateSaleDto);
@@ -31,15 +31,17 @@ let SalesController = class SalesController {
     async deleteSale(sale_id) { return await this.salesService.deleteSale(sale_id); }
     async findAllSales() { return await this.salesService.findAllSales(); }
     async findSaleById(sale_id) {
-        return await this.salesService.findSaleByFilter(sale_id);
+        return await this.salesService.findSaleById(sale_id);
     }
 };
 exports.SalesController = SalesController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Param)('client_dni')),
+    __param(1, (0, common_1.Param)('product_id')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [register_sale_dto_1.RegisterSaleDto]),
+    __metadata("design:paramtypes", [Number, String, register_sale_dto_1.RegisterSaleDto]),
     __metadata("design:returntype", Promise)
 ], SalesController.prototype, "registerSale", null);
 __decorate([

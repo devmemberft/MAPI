@@ -9,5 +9,6 @@ export declare class ProductsController {
     updateProduct(product_name: string, updateProductDto: UpdateProductDto): Promise<Product>;
     deleteProduct(product_name: string): Promise<void>;
     findAllProducts(): Promise<Product[]>;
+    findProductById(product_id: string): Promise<Product>;
     findProductByName(product_name: string): Promise<Product>;
 }

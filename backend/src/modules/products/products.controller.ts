@@ -30,6 +30,11 @@ export class ProductsController {
         return await this.productsService.findAllProducts();
     }
 
+    @Get(':id')
+    async findProductById(product_id:string):Promise<Product>{
+        return await this.productsService.findProductById(product_id);
+    }
+
     @Get(':name')
     async findProductByName(product_name:string):Promise<Product> {
         return await this.productsService.findProductByName(product_name);

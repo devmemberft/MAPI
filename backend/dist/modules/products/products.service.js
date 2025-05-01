@@ -43,6 +43,13 @@ let ProductsService = class ProductsService {
     async findAllProducts() {
         return await this.productRepository.find();
     }
+    async findProductById(product_id) {
+        const product = await this.productRepository.findOneBy({ product_id });
+        if (!product) {
+            throw new common_1.NotFoundException(`Product with ${product_id} not found.`);
+        }
+        return product;
+    }
     async findProductByName(product_name) {
         const product = await this.productRepository.findOneBy({ product_name });
         if (!product) {

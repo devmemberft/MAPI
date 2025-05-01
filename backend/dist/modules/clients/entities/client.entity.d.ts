@@ -6,7 +6,7 @@ export declare class Client {
     client_lastname: string;
     client_phone: number;
     client_address: string;
-    client_zone: number;
+    client_zone: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;

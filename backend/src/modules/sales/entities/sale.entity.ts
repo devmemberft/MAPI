@@ -40,7 +40,7 @@ export class Sale {
     @ManyToOne(() => Client, client => client.sales)
     client:Client;
 
-    // Relacion: muchas ventas pueden tener muchos productos (n:m)
+    // Relacion: muchas ventas pueden tener muchos productos (n:m) | sujeto a revision en servicio registerSale
     @ManyToMany(() => Product, product => product.sales)
     products:Product[];
 

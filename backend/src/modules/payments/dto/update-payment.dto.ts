@@ -1,8 +1,6 @@
 import { IsBoolean, IsOptional, IsNumber, IsString } from 'class-validator'
 
 export class UpdatePaymentDto {
-    @IsBoolean()
-    payment_made: boolean;
 
     @IsOptional()
     @IsNumber()

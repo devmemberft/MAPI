@@ -31,6 +31,9 @@ let ProductsController = class ProductsController {
     async findAllProducts() {
         return await this.productsService.findAllProducts();
     }
+    async findProductById(product_id) {
+        return await this.productsService.findProductById(product_id);
+    }
     async findProductByName(product_name) {
         return await this.productsService.findProductByName(product_name);
     }
@@ -60,6 +63,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "findAllProducts", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductsController.prototype, "findProductById", null);
 __decorate([
     (0, common_1.Get)(':name'),
     __metadata("design:type", Function),

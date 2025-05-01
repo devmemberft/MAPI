@@ -17,13 +17,15 @@ const client_entity_1 = require("../clients/entities/client.entity");
 const product_entity_1 = require("../products/entities/product.entity");
 const payment_entity_1 = require("../payments/entities/payment.entity");
 const user_entity_1 = require("../users/entities/user.entity");
+const clients_service_1 = require("../clients/clients.service");
+const products_service_1 = require("../products/products.service");
 let SalesModule = class SalesModule {
 };
 exports.SalesModule = SalesModule;
 exports.SalesModule = SalesModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([sale_entity_1.Sale, client_entity_1.Client, product_entity_1.Product, payment_entity_1.Payment, user_entity_1.User])],
-        providers: [sales_service_1.SalesService],
+        providers: [sales_service_1.SalesService, clients_service_1.ClientsService, products_service_1.ProductsService],
         controllers: [sales_controller_1.SalesController]
     })
 ], SalesModule);

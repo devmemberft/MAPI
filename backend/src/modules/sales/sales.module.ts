@@ -8,10 +8,12 @@ import { Client } from '../clients/entities/client.entity';
 import { Product } from '../products/entities/product.entity';
 import { Payment } from '../payments/entities/payment.entity';
 import { User } from '../users/entities/user.entity';
+import { ClientsService } from '../clients/clients.service';
+import { ProductsService } from '../products/products.service';
 
 @Module({
   imports:[DataBaseModule,TypeOrmModule.forFeature([Sale, Client, Product, Payment, User])],
-  providers: [SalesService],
+  providers: [SalesService, ClientsService,ProductsService],
   controllers: [SalesController]
 })
 export class SalesModule {}
