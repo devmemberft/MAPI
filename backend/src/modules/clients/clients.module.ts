@@ -6,9 +6,11 @@ import { Client } from './entities/client.entity'
 import {DataBaseModule} from '../database/database.module'
 import { Sale } from '../sales/entities/sale.entity';
 import { User } from '../users/entities/user.entity';
+import { Product } from '../products/entities/product.entity';
+import { Payment } from '../payments/entities/payment.entity';
 
 @Module({
-    imports:[DataBaseModule,TypeOrmModule.forFeature([Client, Sale, User])],
+    imports:[DataBaseModule,TypeOrmModule.forFeature([Client, Sale, User, Product, Payment])],
     controllers:[ClientsController],
     providers:[ClientsService],
 })

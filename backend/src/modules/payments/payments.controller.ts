@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Patch, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { RegisterPaymentDto } from './dto/create-payment.dto';
 

@@ -3,7 +3,6 @@ import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { UpdateResult } from 'typeorm';
 
 @Controller('products')
 export class ProductsController {
@@ -11,17 +10,17 @@ export class ProductsController {
     constructor(private productsService:ProductsService,) {}
 
     @Post()
-    async createProduct(createProductDto:CreateProductDto):Promise<Product> {
+    async createProduct(@Body() createProductDto:CreateProductDto):Promise<Product> {
         return await this.productsService.createProduct(createProductDto);
     }
 
     @Put()
-    async updateProduct(product_name:string, updateProductDto:UpdateProductDto):Promise<Product> {
+    async updateProduct(@Param('product_name') product_name:string, @Body() updateProductDto:UpdateProductDto):Promise<Product> {
         return await this.productsService.updateProduct(product_name,updateProductDto);
     }
 
     @Delete()
-    async deleteProduct(product_name:string):Promise<void> {
+    async deleteProduct(@Param('product_name') product_name:string):Promise<void> {
         return await this.productsService.deleteProduct(product_name);
     }
 

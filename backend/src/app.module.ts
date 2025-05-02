@@ -11,7 +11,7 @@ import { ProductsModule } from './modules/products/products.module'
 import { ClientsModule } from './modules/clients/clients.module'
 
 @Module({
-  imports: [DataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule],
+  imports: [TypeOrmModule, DataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule],
   controllers: [AppController],
   providers: [AppService],
 })

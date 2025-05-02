@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsNumber, IsString } from 'class-validator'
+import { IsOptional, IsNumber, IsString } from 'class-validator'
 
 export class UpdatePaymentDto {
 

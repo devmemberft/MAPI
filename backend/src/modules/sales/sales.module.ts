@@ -13,7 +13,7 @@ import { ProductsService } from '../products/products.service';
 
 @Module({
   imports:[DataBaseModule,TypeOrmModule.forFeature([Sale, Client, Product, Payment, User])],
-  providers: [SalesService, ClientsService,ProductsService],
+  providers: [SalesService, ClientsService, ProductsService],
   controllers: [SalesController]
 })
 export class SalesModule {}

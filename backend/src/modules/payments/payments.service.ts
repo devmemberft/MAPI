@@ -1,12 +1,10 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, SelectQueryBuilder } from 'typeorm';
+import { Repository} from 'typeorm';
 import { Payment } from './entities/payment.entity';
 import { Sale } from '../sales/entities/sale.entity';
 import { RegisterPaymentDto } from './dto/create-payment.dto';
-import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { Client } from '../clients/entities/client.entity';
-import { register } from 'module';
 
 
 @Injectable()

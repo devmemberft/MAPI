@@ -12,6 +12,7 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./modules/users/users.module");
 const auth_module_1 = require("./modules/auth/auth.module");
+const typeorm_1 = require("@nestjs/typeorm");
 const database_module_1 = require("./modules/database/database.module");
 const sales_module_1 = require("./modules/sales/sales.module");
 const payments_module_1 = require("./modules/payments/payments.module");
@@ -22,7 +23,7 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [database_module_1.DataBaseModule, users_module_1.UsersModule, auth_module_1.AuthModule, sales_module_1.SalesModule, payments_module_1.PaymentsModule, products_module_1.ProductsModule, clients_module_1.ClientsModule],
+        imports: [typeorm_1.TypeOrmModule, database_module_1.DataBaseModule, users_module_1.UsersModule, auth_module_1.AuthModule, sales_module_1.SalesModule, payments_module_1.PaymentsModule, products_module_1.ProductsModule, clients_module_1.ClientsModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
