@@ -12,30 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateProductDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdateProductDto {
-    name;
-    category;
-    amount;
-    color;
+    product_name;
+    product_price;
+    product_category;
+    product_stock;
 }
 exports.UpdateProductDto = UpdateProductDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], UpdateProductDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateProductDto.prototype, "category", void 0);
+], UpdateProductDto.prototype, "product_name", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], UpdateProductDto.prototype, "amount", void 0);
+], UpdateProductDto.prototype, "product_price", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsEnum)({ mueble: 'mueble', tecnologia: 'tecnologia' }, { message: 'Must select one' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], UpdateProductDto.prototype, "color", void 0);
+], UpdateProductDto.prototype, "product_category", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateProductDto.prototype, "product_stock", void 0);
 //# sourceMappingURL=update-product.dto.js.map

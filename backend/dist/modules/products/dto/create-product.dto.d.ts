@@ -1,6 +1,6 @@
 export declare class CreateProductDto {
     product_name: string;
-    category: string;
-    amount: number;
-    color: string;
+    product_price: number;
+    product_category: 'mueble' | 'tecnologia';
+    product_stock: number;
 }

@@ -1,20 +1,20 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator'
-
+import { IsString, IsNumber, IsOptional, IsEnum } from 'class-validator'
 export class UpdateProductDto {
 
     @IsString()
     @IsOptional()
-    name?:string;
-
-    @IsString()
-    @IsOptional()
-    category?:string;
+    product_name?:string;
 
     @IsNumber()
     @IsOptional()
-    amount?:number; 
+    product_price?:number; 
 
-    @IsString()
+    @IsEnum({mueble:'mueble',tecnologia:'tecnologia'},{message:'Must select one'})
     @IsOptional()
-    color?:string; 
+    product_category?:'mueble' | 'tecnologia';
+
+    @IsNumber()
+    @IsOptional()
+    product_stock?:number; 
+
 }

@@ -43,14 +43,14 @@ let ProductsController = class ProductsController {
 };
 exports.ProductsController = ProductsController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('add'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_product_dto_1.CreateProductDto]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "createProduct", null);
 __decorate([
-    (0, common_1.Put)(),
+    (0, common_1.Put)('update'),
     __param(0, (0, common_1.Param)('product_name')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "updateProduct", null);
 __decorate([
-    (0, common_1.Delete)(),
+    (0, common_1.Delete)('delete'),
     __param(0, (0, common_1.Param)('product_name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
@@ -15,13 +15,13 @@ export class ProductsService {
 
     async createProduct(createProductDto:CreateProductDto):Promise<Product> {
         const {product_name} = createProductDto;
-        if(product_name) {throw new BadRequestException(`Product ${product_name} already exists.`);}
+        if(await this.productRepository.findOneBy({product_name})) {throw new ConflictException(`Product ${product_name} already exists`);};
         const product = await this.productRepository.save(createProductDto);
         return product;
     }
 
-    async updateProduct(product_name:string, updateProductDto:UpdateProductDto):Promise<Product> {
-        const productExists = await this.findProductByName(product_name);
+    async updateProduct(product_id:string, updateProductDto:UpdateProductDto):Promise<Product> {
+        const productExists = await this.findProductById(product_id);
         Object.assign(productExists,updateProductDto);
         await this.productRepository.save(productExists);
         return productExists;

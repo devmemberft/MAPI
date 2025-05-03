@@ -13,9 +13,9 @@ exports.CreateProductDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateProductDto {
     product_name;
-    category;
-    amount;
-    color;
+    product_price;
+    product_category;
+    product_stock;
 }
 exports.CreateProductDto = CreateProductDto;
 __decorate([
@@ -24,18 +24,18 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "product_name", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateProductDto.prototype, "product_price", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)({ muebles: 'mueble', tecnologia: 'tecnologia' }, { message: 'Must select one' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateProductDto.prototype, "category", void 0);
+], CreateProductDto.prototype, "product_category", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], CreateProductDto.prototype, "amount", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateProductDto.prototype, "color", void 0);
+], CreateProductDto.prototype, "product_stock", void 0);
 //# sourceMappingURL=create-product.dto.js.map

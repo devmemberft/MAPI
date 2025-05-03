@@ -1,6 +1,6 @@
 export declare class UpdateProductDto {
-    name?: string;
-    category?: string;
-    amount?: number;
-    color?: string;
+    product_name?: string;
+    product_price?: number;
+    product_category?: 'mueble' | 'tecnologia';
+    product_stock?: number;
 }

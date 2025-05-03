@@ -24,14 +24,15 @@ let ProductsService = class ProductsService {
     }
     async createProduct(createProductDto) {
         const { product_name } = createProductDto;
-        if (product_name) {
-            throw new common_1.BadRequestException(`Product ${product_name} already exists.`);
+        if (await this.productRepository.findOneBy({ product_name })) {
+            throw new common_1.ConflictException(`Product ${product_name} already exists`);
         }
+        ;
         const product = await this.productRepository.save(createProductDto);
         return product;
     }
-    async updateProduct(product_name, updateProductDto) {
-        const productExists = await this.findProductByName(product_name);
+    async updateProduct(product_id, updateProductDto) {
+        const productExists = await this.findProductById(product_id);
         Object.assign(productExists, updateProductDto);
         await this.productRepository.save(productExists);
         return productExists;

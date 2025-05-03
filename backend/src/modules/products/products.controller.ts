@@ -9,17 +9,17 @@ export class ProductsController {
 
     constructor(private productsService:ProductsService,) {}
 
-    @Post()
+    @Post('add')
     async createProduct(@Body() createProductDto:CreateProductDto):Promise<Product> {
         return await this.productsService.createProduct(createProductDto);
     }
 
-    @Put()
+    @Put('update')
     async updateProduct(@Param('product_name') product_name:string, @Body() updateProductDto:UpdateProductDto):Promise<Product> {
         return await this.productsService.updateProduct(product_name,updateProductDto);
     }
 
-    @Delete()
+    @Delete('delete')
     async deleteProduct(@Param('product_name') product_name:string):Promise<void> {
         return await this.productsService.deleteProduct(product_name);
     }

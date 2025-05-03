@@ -32,10 +32,10 @@ export class PaymentsService {
         const clients = await this.ClientRepository.createQueryBuilder('client')
         .leftJoinAndSelect('client.sales', 'sale')
         .leftJoinAndSelect('sale.payments', 'payment')
-        .where('sale.payment_day = :day', {today})
+        .where('sale.payment_day = :day', {day: today})
         .andWhere('sale.payment_frecuency = :freq', {freq: 'diario'}) // extender si es necesario  (semanal, quincenal,etc)
         .getMany();
-        
+         
         return this.sortClients(clients);
     }
     
