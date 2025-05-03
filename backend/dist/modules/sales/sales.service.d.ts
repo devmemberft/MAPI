@@ -9,7 +9,7 @@ export declare class SalesService {
     private clientsService;
     private productsService;
     constructor(saleRepository: Repository<Sale>, clientsService: ClientsService, productsService: ProductsService);
-    registerSale(client_dni: number, product_id: string, registerSaleDto: RegisterSaleDto): Promise<Sale>;
+    registerSale(client_dni: string, product_id: string, registerSaleDto: RegisterSaleDto): Promise<Sale>;
     updateSale(sale_id: string, updateSaleDto: UpdateSaleDto): Promise<Sale>;
     deleteSale(sale_id: string): Promise<void>;
     findAllSales(): Promise<Sale[]>;

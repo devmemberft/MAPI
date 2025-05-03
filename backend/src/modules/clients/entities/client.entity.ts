@@ -1,5 +1,5 @@
 import { Sale } from 'src/modules/sales/entities/sale.entity';
-import { Entity, Index, Unique, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, OneToMany } from 'typeorm'
+import { Entity, Index, Unique, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, OneToMany, JoinTable } from 'typeorm'
 
 @Entity()
 @Unique(['client_dni'])
@@ -8,8 +8,8 @@ export class Client {
     @PrimaryGeneratedColumn('uuid')
     client_id:string;
 
-    @Column()
-    client_dni:number;
+    @Column({type:'varchar',length:15})
+    client_dni:string;
 
     @Column()
     client_name:string;
@@ -17,8 +17,8 @@ export class Client {
     @Column()
     client_lastname:string;
 
-    @Column()
-    client_phone:number;
+    @Column({type:'varchar', length:15})
+    client_phone:string;
 
     @Index()
     @Column()
@@ -39,5 +39,6 @@ export class Client {
 
     // Relacion: un cliente tiene muchas ventas (1:n)
     @OneToMany(() => Sale, sale => sale.client)
+    @JoinTable()
     sales: Sale[]; 
 }

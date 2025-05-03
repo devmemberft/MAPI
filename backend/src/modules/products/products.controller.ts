@@ -30,12 +30,12 @@ export class ProductsController {
     }
 
     @Get(':id')
-    async findProductById(product_id:string):Promise<Product>{
+    async findProductById(@Param('product_id') product_id:string):Promise<Product>{
         return await this.productsService.findProductById(product_id);
     }
 
     @Get(':name')
-    async findProductByName(product_name:string):Promise<Product> {
+    async findProductByName(@Param('product_name') product_name:string):Promise<Product> {
         return await this.productsService.findProductByName(product_name);
     }
 }

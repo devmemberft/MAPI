@@ -16,6 +16,7 @@ class CreateClientDto {
     client_lastname;
     client_dni;
     client_address;
+    client_zone;
     client_phone;
 }
 exports.CreateClientDto = CreateClientDto;
@@ -30,9 +31,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_lastname", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.Matches)(/^\d{8}$/, { message: 'Client dni must be exactly 8 digits' }),
+    __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_dni", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
@@ -40,8 +42,14 @@ __decorate([
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_address", void 0);
 __decorate([
-    (0, class_validator_1.IsPhoneNumber)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
+], CreateClientDto.prototype, "client_zone", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Matches)(/^\d{11}$/, { message: 'Phone number must be exactly 11 digits.' }),
+    __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_phone", void 0);
 //# sourceMappingURL=create-client.dto.js.map

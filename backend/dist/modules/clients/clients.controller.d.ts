@@ -6,8 +6,9 @@ export declare class ClientsController {
     private clientsService;
     constructor(clientsService: ClientsService);
     createClient(createClientDto: CreateClientDto): Promise<Client>;
-    updateClient(dni: number, updateClientDto: UpdateClientDto): Promise<Client>;
-    deleteClient(dni: number): Promise<void>;
+    updateClient(client_dni: string, updateClientDto: UpdateClientDto): Promise<Client>;
+    deleteClient(client_dni: string): Promise<void>;
     findAllClients(): Promise<Client[]>;
-    findClientByDni(dni: number): Promise<Client>;
+    findClientByDni(client_dni: string): Promise<Client>;
+    findClientByName(client_name: string): Promise<Client>;
 }

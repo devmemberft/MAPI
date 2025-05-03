@@ -17,7 +17,7 @@ export class SalesService {
         private productsService:ProductsService,
     ){}
 
-    async registerSale(client_dni:number, product_id:string, registerSaleDto:RegisterSaleDto):Promise<Sale>{
+    async registerSale(client_dni:string, product_id:string, registerSaleDto:RegisterSaleDto):Promise<Sale>{
         const checkClientExistence = await this.clientsService.findClientByDni(client_dni);
         const checkProductExistence = await this.productsService.findProductById(product_id);
         if(!checkClientExistence || !checkProductExistence) { throw new NotFoundException('Item not found');}

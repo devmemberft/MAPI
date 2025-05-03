@@ -1,7 +1,8 @@
 export declare class CreateClientDto {
     client_name: string;
     client_lastname: string;
-    client_dni: number;
+    client_dni: string;
     client_address: string;
-    client_phone: number;
+    client_zone: string;
+    client_phone: string;
 }

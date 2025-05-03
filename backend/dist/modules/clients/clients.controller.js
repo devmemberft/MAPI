@@ -25,34 +25,35 @@ let ClientsController = class ClientsController {
     async createClient(createClientDto) {
         return await this.clientsService.createClient(createClientDto);
     }
-    async updateClient(dni, updateClientDto) {
-        return await this.clientsService.updateClient(dni, updateClientDto);
+    async updateClient(client_dni, updateClientDto) {
+        return await this.clientsService.updateClient(client_dni, updateClientDto);
     }
-    async deleteClient(dni) { return await this.clientsService.deleteClient(dni); }
+    async deleteClient(client_dni) { return await this.clientsService.deleteClient(client_dni); }
     async findAllClients() { return await this.clientsService.findAllClients(); }
-    async findClientByDni(dni) { return await this.clientsService.findClientByDni(dni); }
+    async findClientByDni(client_dni) { return await this.clientsService.findClientByDni(client_dni); }
+    async findClientByName(client_name) { return await this.clientsService.findClientByName(client_name); }
 };
 exports.ClientsController = ClientsController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('add'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_client_dto_1.CreateClientDto]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "createClient", null);
 __decorate([
-    (0, common_1.Put)(':dni'),
-    __param(0, (0, common_1.Param)('dni')),
+    (0, common_1.Put)('update'),
+    __param(0, (0, common_1.Param)('client_dni')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_client_dto_1.UpdateClientDto]),
+    __metadata("design:paramtypes", [String, update_client_dto_1.UpdateClientDto]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "updateClient", null);
 __decorate([
-    (0, common_1.Delete)('dni'),
-    __param(0, (0, common_1.Param)('dni')),
+    (0, common_1.Delete)('delete'),
+    __param(0, (0, common_1.Param)('client_dni')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "deleteClient", null);
 __decorate([
@@ -63,11 +64,18 @@ __decorate([
 ], ClientsController.prototype, "findAllClients", null);
 __decorate([
     (0, common_1.Get)(':dni'),
-    __param(0, (0, common_1.Param)('dni')),
+    __param(0, (0, common_1.Param)('client_dni')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "findClientByDni", null);
+__decorate([
+    (0, common_1.Get)(':name'),
+    __param(0, (0, common_1.Param)('client_name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ClientsController.prototype, "findClientByName", null);
 exports.ClientsController = ClientsController = __decorate([
     (0, common_1.Controller)('clients'),
     __metadata("design:paramtypes", [clients_service_1.ClientsService])

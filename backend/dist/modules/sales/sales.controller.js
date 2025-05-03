@@ -41,7 +41,7 @@ __decorate([
     __param(1, (0, common_1.Param)('product_id')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, String, register_sale_dto_1.RegisterSaleDto]),
+    __metadata("design:paramtypes", [String, String, register_sale_dto_1.RegisterSaleDto]),
     __metadata("design:returntype", Promise)
 ], SalesController.prototype, "registerSale", null);
 __decorate([

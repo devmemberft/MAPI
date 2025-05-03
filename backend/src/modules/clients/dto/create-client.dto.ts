@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsPhoneNumber  } from 'class-validator'
+import { IsString, IsNotEmpty, Matches  } from 'class-validator'
 
 export class CreateClientDto {
 
@@ -11,17 +11,23 @@ export class CreateClientDto {
     @IsNotEmpty()
     client_lastname:string;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
-    client_dni: number;
+    @Matches(/^\d{8}$/, {message:'Client dni must be exactly 8 digits'})
+    client_dni:string;
 
     @IsString()
     @IsNotEmpty()
     client_address: string;
 
-    @IsPhoneNumber()
+    @IsString()
     @IsNotEmpty()
-    client_phone: number;
+    client_zone: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @Matches(/^\d{11}$/, {message:'Phone number must be exactly 11 digits.'})
+    client_phone: string;
 
 
 }

@@ -9,7 +9,7 @@ export class SalesController {
     constructor(private salesService:SalesService) {}
     
     @Post()
-    async registerSale(@Param('client_dni') client_dni:number, @Param('product_id') product_id:string, @Body() registerSaleDto:RegisterSaleDto):Promise<Sale>{
+    async registerSale(@Param('client_dni') client_dni:string, @Param('product_id') product_id:string, @Body() registerSaleDto:RegisterSaleDto):Promise<Sale>{
         return await this.salesService.registerSale(client_dni, product_id, registerSaleDto);
     }
 

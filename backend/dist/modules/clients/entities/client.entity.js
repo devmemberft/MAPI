@@ -31,8 +31,8 @@ __decorate([
     __metadata("design:type", String)
 ], Client.prototype, "client_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)({ type: 'varchar', length: 15 }),
+    __metadata("design:type", String)
 ], Client.prototype, "client_dni", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -43,8 +43,8 @@ __decorate([
     __metadata("design:type", String)
 ], Client.prototype, "client_lastname", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)({ type: 'varchar', length: 15 }),
+    __metadata("design:type", String)
 ], Client.prototype, "client_phone", void 0);
 __decorate([
     (0, typeorm_1.Index)(),
@@ -70,6 +70,7 @@ __decorate([
 ], Client.prototype, "deletedAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => sale_entity_1.Sale, sale => sale.client),
+    (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], Client.prototype, "sales", void 0);
 exports.Client = Client = __decorate([
