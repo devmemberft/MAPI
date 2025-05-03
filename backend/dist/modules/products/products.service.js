@@ -31,15 +31,14 @@ let ProductsService = class ProductsService {
         const product = await this.productRepository.save(createProductDto);
         return product;
     }
-    async updateProduct(product_id, updateProductDto) {
-        const productExists = await this.findProductById(product_id);
+    async updateProduct(product_name, updateProductDto) {
+        const productExists = await this.findProductById(product_name);
         Object.assign(productExists, updateProductDto);
         await this.productRepository.save(productExists);
         return productExists;
     }
     async deleteProduct(product_name) {
-        const product = await this.findProductByName(product_name);
-        await this.productRepository.delete(product);
+        await this.productRepository.remove(await this.findProductByName(product_name));
     }
     async findAllProducts() {
         return await this.productRepository.find();
@@ -47,14 +46,14 @@ let ProductsService = class ProductsService {
     async findProductById(product_id) {
         const product = await this.productRepository.findOneBy({ product_id });
         if (!product) {
-            throw new common_1.NotFoundException(`Product with ${product_id} not found.`);
+            throw new common_1.NotFoundException(`Product with id: ${product_id} not found.`);
         }
         return product;
     }
     async findProductByName(product_name) {
-        const product = await this.productRepository.findOneBy({ product_name });
+        const product = await this.productRepository.findOne({ where: { product_name: product_name }, relations: ['sales'] });
         if (!product) {
-            throw new common_1.NotFoundException(`Product ${product_name} not found.`);
+            throw new common_1.NotFoundException(`Product with name ${product_name} not found.`);
         }
         return product;
     }

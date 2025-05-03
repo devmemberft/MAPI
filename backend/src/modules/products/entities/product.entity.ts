@@ -1,5 +1,5 @@
 import { Sale } from "src/modules/sales/entities/sale.entity";
-import { PrimaryGeneratedColumn,  CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, Entity, ManyToMany } from "typeorm"
+import { PrimaryGeneratedColumn,  CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, Entity, ManyToMany, JoinTable } from "typeorm"
 
 @Entity()
 export class Product {
@@ -28,6 +28,7 @@ export class Product {
     deletedAt:Date;
 
     // Relacion: muchas ventas pueden tener muchos productos
-    @ManyToMany(()=> Sale, sale => sale.products)
-    sales:Sale[]
+    @ManyToMany(()=> Sale, sale => sale.products, {cascade:true,})
+    @JoinTable()
+    sales:Sale[];
 }

@@ -57,7 +57,8 @@ __decorate([
     __metadata("design:type", Date)
 ], Product.prototype, "deletedAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => sale_entity_1.Sale, sale => sale.products),
+    (0, typeorm_1.ManyToMany)(() => sale_entity_1.Sale, sale => sale.products, { cascade: true, }),
+    (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], Product.prototype, "sales", void 0);
 exports.Product = Product = __decorate([

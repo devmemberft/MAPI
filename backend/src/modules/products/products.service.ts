@@ -20,16 +20,15 @@ export class ProductsService {
         return product;
     }
 
-    async updateProduct(product_id:string, updateProductDto:UpdateProductDto):Promise<Product> {
-        const productExists = await this.findProductById(product_id);
+    async updateProduct(product_name:string, updateProductDto:UpdateProductDto):Promise<Product> {
+        const productExists = await this.findProductById(product_name);
         Object.assign(productExists,updateProductDto);
         await this.productRepository.save(productExists);
         return productExists;
     }
 
     async deleteProduct(product_name:string):Promise<void> {
-        const product = await this.findProductByName(product_name);
-        await this.productRepository.delete(product);
+        await this.productRepository.remove(await this.findProductByName(product_name));
     }
 
     async findAllProducts():Promise<Product[]> {
@@ -38,13 +37,14 @@ export class ProductsService {
 
     async findProductById(product_id:string):Promise<Product>{
         const product = await this.productRepository.findOneBy({product_id});
-        if(!product) { throw new NotFoundException(`Product with ${product_id} not found.`);}
+        if(!product) { throw new NotFoundException(`Product with id: ${product_id} not found.`);}
         return product;
     }
 
-    async findProductByName(product_name:string) {
-        const product = await this.productRepository.findOneBy({product_name});
-        if(!product) { throw new NotFoundException(`Product ${product_name} not found.`); }
+    async findProductByName(product_name:string):Promise<Product> {
+        const product = await this.productRepository.findOne({ where:{product_name:product_name}, relations:['sales']}); // carga las relaciones si el producto tiene
+
+        if(!product) { throw new NotFoundException(`Product with name ${product_name} not found.`); }
         return product;  
     }
 
