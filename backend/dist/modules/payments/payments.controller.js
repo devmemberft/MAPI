@@ -30,6 +30,12 @@ let PaymentsController = class PaymentsController {
     async postponePayment(registerPaymentDto) {
         return await this.paymentsService.postponePayment(registerPaymentDto);
     }
+    async getPaymentById(payment_id) {
+        return await this.paymentsService.findPaymentById(payment_id);
+    }
+    async deletePayment(payment_id) {
+        return await this.paymentsService.deletePayment(payment_id);
+    }
 };
 exports.PaymentsController = PaymentsController;
 __decorate([
@@ -52,6 +58,20 @@ __decorate([
     __metadata("design:paramtypes", [register_payment_dto_1.RegisterPaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "postponePayment", null);
+__decorate([
+    (0, common_1.Get)(':payment_id'),
+    __param(0, (0, common_1.Param)('payment_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "getPaymentById", null);
+__decorate([
+    (0, common_1.Delete)('delete'),
+    __param(0, (0, common_1.Param)('payment_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "deletePayment", null);
 exports.PaymentsController = PaymentsController = __decorate([
     (0, common_1.Controller)('payments'),
     __metadata("design:paramtypes", [payments_service_1.PaymentsService])

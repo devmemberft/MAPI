@@ -13,8 +13,6 @@ exports.RegisterSaleDto = void 0;
 const class_validator_1 = require("class-validator");
 class RegisterSaleDto {
     sale_id;
-    product_id;
-    client_id;
     sign;
     payment_day;
     payment_frecuency;
@@ -28,16 +26,6 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RegisterSaleDto.prototype, "sale_id", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterSaleDto.prototype, "product_id", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterSaleDto.prototype, "client_id", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),

@@ -29,12 +29,12 @@ export class ProductsController {
         return await this.productsService.findAllProducts();
     }
 
-    @Get(':id')
+    @Get(':product_id')
     async findProductById(@Param('product_id') product_id:string):Promise<Product>{
         return await this.productsService.findProductById(product_id);
     }
 
-    @Get(':name')
+    @Get('/product/:product_name')
     async findProductByName(@Param('product_name') product_name:string):Promise<Product> {
         return await this.productsService.findProductByName(product_name);
     }

@@ -63,14 +63,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "findAllClients", null);
 __decorate([
-    (0, common_1.Get)(':dni'),
+    (0, common_1.Get)(':client_dni'),
     __param(0, (0, common_1.Param)('client_dni')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClientsController.prototype, "findClientByDni", null);
 __decorate([
-    (0, common_1.Get)(':name'),
+    (0, common_1.Get)('name/:client_name'),
     __param(0, (0, common_1.Param)('client_name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

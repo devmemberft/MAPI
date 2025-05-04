@@ -42,7 +42,7 @@ export class ProductsService {
     }
 
     async findProductByName(product_name:string):Promise<Product> {
-        const product = await this.productRepository.findOne({ where:{product_name:product_name}, relations:['sales']}); // carga las relaciones si el producto tiene
+        const product = await this.productRepository.findOne({ where:{product_name:product_name}}); // carga las relaciones si el producto tiene
 
         if(!product) { throw new NotFoundException(`Product with name ${product_name} not found.`); }
         return product;  

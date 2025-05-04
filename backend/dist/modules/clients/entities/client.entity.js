@@ -70,7 +70,6 @@ __decorate([
 ], Client.prototype, "deletedAt", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => sale_entity_1.Sale, sale => sale.client),
-    (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], Client.prototype, "sales", void 0);
 exports.Client = Client = __decorate([

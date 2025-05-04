@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { RegisterPaymentDto } from './dto/register-payment.dto';
 
@@ -20,5 +20,15 @@ export class PaymentsController {
     @Post('postpone')
     async postponePayment(@Body() registerPaymentDto:RegisterPaymentDto){
         return await this.paymentsService.postponePayment(registerPaymentDto);
+    }
+
+    @Get(':payment_id')
+    async getPaymentById(@Param('payment_id') payment_id:string){
+        return await this.paymentsService.findPaymentById(payment_id);
+    }
+
+    @Delete('delete')
+    async deletePayment(@Param('payment_id') payment_id:string){
+        return await this.paymentsService.deletePayment(payment_id);
     }
 }

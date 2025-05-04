@@ -1,7 +1,5 @@
 export declare class RegisterSaleDto {
     sale_id: string;
-    product_id: string;
-    client_id: string;
     sign: number;
     payment_day: 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo';
     payment_frecuency: 'diario' | 'semanal' | 'quincenal' | 'mensual';

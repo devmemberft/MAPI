@@ -6,4 +6,6 @@ export declare class PaymentsController {
     getDailyRoute(): Promise<import("../clients/entities/client.entity").Client[]>;
     registerPayment(registerPaymentDto: RegisterPaymentDto): Promise<import("./entities/payment.entity").Payment>;
     postponePayment(registerPaymentDto: RegisterPaymentDto): Promise<import("./entities/payment.entity").Payment>;
+    getPaymentById(payment_id: string): Promise<import("./entities/payment.entity").Payment>;
+    deletePayment(payment_id: string): Promise<void>;
 }

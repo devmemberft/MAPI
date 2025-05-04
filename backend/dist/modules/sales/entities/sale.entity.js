@@ -24,7 +24,7 @@ let Sale = class Sale {
     updatedAt;
     deletedAt;
     client;
-    products;
+    product;
     payments;
 };
 exports.Sale = Sale;
@@ -65,9 +65,9 @@ __decorate([
     __metadata("design:type", client_entity_1.Client)
 ], Sale.prototype, "client", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => product_entity_1.Product, product => product.sales),
-    __metadata("design:type", Array)
-], Sale.prototype, "products", void 0);
+    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, product => product.sales),
+    __metadata("design:type", product_entity_1.Product)
+], Sale.prototype, "product", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => payment_entity_1.Payment, payment => payment.sale),
     (0, typeorm_1.JoinTable)(),

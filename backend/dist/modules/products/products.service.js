@@ -51,7 +51,7 @@ let ProductsService = class ProductsService {
         return product;
     }
     async findProductByName(product_name) {
-        const product = await this.productRepository.findOne({ where: { product_name: product_name }, relations: ['sales'] });
+        const product = await this.productRepository.findOne({ where: { product_name: product_name } });
         if (!product) {
             throw new common_1.NotFoundException(`Product with name ${product_name} not found.`);
         }

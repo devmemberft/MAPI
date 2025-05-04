@@ -39,6 +39,5 @@ export class Client {
 
     // Relacion: un cliente tiene muchas ventas (1:n)
     @OneToMany(() => Sale, sale => sale.client)
-    @JoinTable()
     sales: Sale[]; 
 }

@@ -37,7 +37,7 @@ export class ClientsService {
     }
 
     async findClientByDni(client_dni:string):Promise<Client>{
-        const client = await this.clientRepository.findOne({where:{client_dni:client_dni}, relations:['sales']});
+        const client = await this.clientRepository.findOne({where:{client_dni:client_dni} });
         if(!client) { throw new NotFoundException(`User with dni ${client_dni} not found.`); }
 
         return client;

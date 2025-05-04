@@ -42,7 +42,7 @@ let ClientsService = class ClientsService {
         return await this.clientRepository.find();
     }
     async findClientByDni(client_dni) {
-        const client = await this.clientRepository.findOne({ where: { client_dni: client_dni }, relations: ['sales'] });
+        const client = await this.clientRepository.findOne({ where: { client_dni: client_dni } });
         if (!client) {
             throw new common_1.NotFoundException(`User with dni ${client_dni} not found.`);
         }

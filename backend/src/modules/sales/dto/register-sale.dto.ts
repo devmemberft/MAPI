@@ -6,14 +6,6 @@ export class RegisterSaleDto {
     @IsNotEmpty()
     sale_id:string;
 
-    @IsString()
-    @IsNotEmpty()
-    product_id:string; //apunta a un registro de la tabla de productos
-
-    @IsString()
-    @IsNotEmpty()
-    client_id:string; //apunta a un registro de la tabla de clientes
-
     @IsNumber()
     @IsNotEmpty()
     sign:number;

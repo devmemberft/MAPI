@@ -37,15 +37,15 @@ let SalesController = class SalesController {
 exports.SalesController = SalesController;
 __decorate([
     (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Param)('client_dni')),
-    __param(1, (0, common_1.Param)('product_id')),
+    __param(0, (0, common_1.Query)('client_dni')),
+    __param(1, (0, common_1.Query)('product_id')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, register_sale_dto_1.RegisterSaleDto]),
     __metadata("design:returntype", Promise)
 ], SalesController.prototype, "registerSale", null);
 __decorate([
-    (0, common_1.Put)('update'),
+    (0, common_1.Put)('update/:sale_id'),
     __param(0, (0, common_1.Param)('sale_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SalesController.prototype, "findAllSales", null);
 __decorate([
-    (0, common_1.Get)(':sale'),
+    (0, common_1.Get)(':sale_id'),
     __param(0, (0, common_1.Param)('sale_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

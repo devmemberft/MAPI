@@ -77,6 +77,17 @@ let PaymentsService = class PaymentsService {
     async postponePayment(registerPaymentDto) {
         return await this.registerClientPayment({ ...registerPaymentDto, payment_amount: 0 });
     }
+    async findPaymentById(payment_id) {
+        const payment = await this.PaymentRepository.findOne({ where: { payment_id: payment_id }, relations: ['sale'] });
+        if (!payment) {
+            throw new common_1.NotFoundException(`The payment with id: ${payment_id} was not found.`);
+        }
+        return payment;
+    }
+    async deletePayment(payment_id) {
+        const payment = await this.findPaymentById(payment_id);
+        await this.PaymentRepository.remove(payment);
+    }
 };
 exports.PaymentsService = PaymentsService;
 exports.PaymentsService = PaymentsService = __decorate([

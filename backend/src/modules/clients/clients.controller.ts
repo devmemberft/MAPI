@@ -24,9 +24,9 @@ export class ClientsController {
     @Get()
     async findAllClients():Promise<Client[]>{ return await this.clientsService.findAllClients(); }
 
-    @Get(':dni')
+    @Get(':client_dni')
     async findClientByDni(@Param('client_dni') client_dni:string):Promise<Client> { return await this.clientsService.findClientByDni(client_dni); }
 
-    @Get(':name')
+    @Get('name/:client_name')
     async findClientByName(@Param('client_name') client_name:string):Promise<Client> {return await this.clientsService.findClientByName(client_name); }
 }

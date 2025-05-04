@@ -13,4 +13,6 @@ export declare class PaymentsService {
     private sortClients;
     registerClientPayment(registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
     postponePayment(registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
+    findPaymentById(payment_id: string): Promise<Payment>;
+    deletePayment(payment_id: string): Promise<void>;
 }

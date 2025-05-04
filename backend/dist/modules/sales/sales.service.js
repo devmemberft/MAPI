@@ -29,14 +29,14 @@ let SalesService = class SalesService {
         this.productsService = productsService;
     }
     async registerSale(client_dni, product_id, registerSaleDto) {
-        const checkClientExistence = await this.clientsService.findClientByDni(client_dni);
-        const checkProductExistence = await this.productsService.findProductById(product_id);
-        if (!checkClientExistence || !checkProductExistence) {
+        const client = await this.clientsService.findClientByDni(client_dni);
+        const product = await this.productsService.findProductById(product_id);
+        if (!client || !product) {
             throw new common_1.NotFoundException('Item not found');
         }
         const newSale = new sale_entity_1.Sale();
-        newSale.products = [checkProductExistence];
-        newSale.client = checkClientExistence;
+        newSale.product = product;
+        newSale.client = client;
         newSale.sign = registerSaleDto.sign;
         newSale.payment_frecuency = registerSaleDto.payment_frecuency;
         newSale.payment_day = registerSaleDto.payment_day;
@@ -57,7 +57,7 @@ let SalesService = class SalesService {
     }
     async findAllSales() { return await this.saleRepository.find(); }
     async findSaleById(sale_id) {
-        const checkExistence = await this.saleRepository.findOne({ where: { sale_id: sale_id }, relations: ['products', 'client', 'payments'] });
+        const checkExistence = await this.saleRepository.findOne({ where: { sale_id: sale_id } });
         if (!checkExistence) {
             throw new common_1.NotFoundException(`The sale with id: ${sale_id} was not found`);
         }
