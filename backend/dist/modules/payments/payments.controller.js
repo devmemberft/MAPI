@@ -24,11 +24,11 @@ let PaymentsController = class PaymentsController {
     async getDailyRoute() {
         return await this.paymentsService.buildDailyRoute();
     }
-    async registerPayment(registerPaymentDto) {
-        return await this.paymentsService.registerClientPayment(registerPaymentDto);
+    async registerPayment(sale_id, registerPaymentDto) {
+        return await this.paymentsService.registerClientPayment(sale_id, registerPaymentDto);
     }
-    async postponePayment(registerPaymentDto) {
-        return await this.paymentsService.postponePayment(registerPaymentDto);
+    async postponePayment(sale_id, registerPaymentDto) {
+        return await this.paymentsService.postponePayment(sale_id, registerPaymentDto);
     }
     async getPaymentById(payment_id) {
         return await this.paymentsService.findPaymentById(payment_id);
@@ -45,17 +45,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "getDailyRoute", null);
 __decorate([
-    (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('register/:sale_id'),
+    __param(0, (0, common_1.Param)('sale_id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [register_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:paramtypes", [String, register_payment_dto_1.RegisterPaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "registerPayment", null);
 __decorate([
-    (0, common_1.Post)('postpone'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('postpone/:sale_id'),
+    __param(0, (0, common_1.Param)('sale_id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [register_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:paramtypes", [String, register_payment_dto_1.RegisterPaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "postponePayment", null);
 __decorate([

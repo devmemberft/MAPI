@@ -12,7 +12,4 @@ export class RegisterPaymentDto {
     @IsString()
     observation?:string;
 
-    @IsDateString()
-    payment_date:string;
-
 }

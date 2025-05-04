@@ -12,14 +12,14 @@ export class PaymentsController {
         return await this.paymentsService.buildDailyRoute();
     }
 
-    @Post('register')
-    async registerPayment(@Body() registerPaymentDto:RegisterPaymentDto){
-        return await this.paymentsService.registerClientPayment(registerPaymentDto);
+    @Post('register/:sale_id')
+    async registerPayment(@Param('sale_id') sale_id:string, @Body() registerPaymentDto:RegisterPaymentDto){
+        return await this.paymentsService.registerClientPayment(sale_id,registerPaymentDto);
     }
 
-    @Post('postpone')
-    async postponePayment(@Body() registerPaymentDto:RegisterPaymentDto){
-        return await this.paymentsService.postponePayment(registerPaymentDto);
+    @Post('postpone/:sale_id')
+    async postponePayment(@Param('sale_id') sale_id:string,@Body() registerPaymentDto:RegisterPaymentDto){
+        return await this.paymentsService.postponePayment(sale_id,registerPaymentDto);
     }
 
     @Get(':payment_id')

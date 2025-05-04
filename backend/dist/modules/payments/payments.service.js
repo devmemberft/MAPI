@@ -19,6 +19,7 @@ const typeorm_2 = require("typeorm");
 const payment_entity_1 = require("./entities/payment.entity");
 const sale_entity_1 = require("../sales/entities/sale.entity");
 const client_entity_1 = require("../clients/entities/client.entity");
+const payment_frecuency_enum_1 = require("./payment-frecuency.enum");
 let PaymentsService = class PaymentsService {
     PaymentRepository;
     SaleRepository;
@@ -33,11 +34,17 @@ let PaymentsService = class PaymentsService {
     }
     async buildDailyRoute() {
         const today = this.getToday();
+        const freqs = [
+            payment_frecuency_enum_1.paymentFrecuency.diario,
+            payment_frecuency_enum_1.paymentFrecuency.semanal,
+            payment_frecuency_enum_1.paymentFrecuency.quincenal,
+            payment_frecuency_enum_1.paymentFrecuency.mensual,
+        ];
         const clients = await this.ClientRepository.createQueryBuilder('client')
             .leftJoinAndSelect('client.sales', 'sale')
             .leftJoinAndSelect('sale.payments', 'payment')
             .where('sale.payment_day = :day', { day: today })
-            .andWhere('sale.payment_frecuency = :freq', { freq: 'diario' })
+            .andWhere('sale.payment_frecuency IN (:...freqs)', { freqs })
             .getMany();
         return this.sortClients(clients);
     }
@@ -49,10 +56,10 @@ let PaymentsService = class PaymentsService {
             return a.client_address.localeCompare(b.client_address);
         });
     }
-    async registerClientPayment(registerPaymentDto) {
+    async registerClientPayment(sale_id, registerPaymentDto) {
         const sale = await this.SaleRepository.findOne({
-            where: { sale_id: registerPaymentDto.sale_id },
-            relations: ['client', 'payments'],
+            where: { sale_id: sale_id },
+            relations: ['client', 'product', 'payments'],
         });
         if (!sale) {
             throw new common_1.NotFoundException('Sale not found');
@@ -60,7 +67,6 @@ let PaymentsService = class PaymentsService {
         const existingPayment = await this.PaymentRepository.findOne({
             where: {
                 sale: { sale_id: registerPaymentDto.sale_id },
-                payment_date: new Date(registerPaymentDto.payment_date),
             }
         });
         if (existingPayment) {
@@ -68,14 +74,13 @@ let PaymentsService = class PaymentsService {
         }
         const payment = this.PaymentRepository.create({
             sale,
-            payment_date: new Date(registerPaymentDto.payment_date),
             payment_amount: registerPaymentDto.payment_amount,
             observation: registerPaymentDto.observation,
         });
         return await this.PaymentRepository.save(payment);
     }
-    async postponePayment(registerPaymentDto) {
-        return await this.registerClientPayment({ ...registerPaymentDto, payment_amount: 0 });
+    async postponePayment(sale_id, registerPaymentDto) {
+        return await this.registerClientPayment(sale_id, { ...registerPaymentDto, payment_amount: 0 });
     }
     async findPaymentById(payment_id) {
         const payment = await this.PaymentRepository.findOne({ where: { payment_id: payment_id }, relations: ['sale'] });

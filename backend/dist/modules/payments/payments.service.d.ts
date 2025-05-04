@@ -11,8 +11,8 @@ export declare class PaymentsService {
     private getToday;
     buildDailyRoute(): Promise<Client[]>;
     private sortClients;
-    registerClientPayment(registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
-    postponePayment(registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
+    registerClientPayment(sale_id: string, registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
+    postponePayment(sale_id: string, registerPaymentDto: RegisterPaymentDto): Promise<Payment>;
     findPaymentById(payment_id: string): Promise<Payment>;
     deletePayment(payment_id: string): Promise<void>;
 }

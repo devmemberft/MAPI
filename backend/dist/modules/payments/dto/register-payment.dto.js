@@ -15,7 +15,6 @@ class RegisterPaymentDto {
     sale_id;
     payment_amount;
     observation;
-    payment_date;
 }
 exports.RegisterPaymentDto = RegisterPaymentDto;
 __decorate([
@@ -31,8 +30,4 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], RegisterPaymentDto.prototype, "observation", void 0);
-__decorate([
-    (0, class_validator_1.IsDateString)(),
-    __metadata("design:type", String)
-], RegisterPaymentDto.prototype, "payment_date", void 0);
 //# sourceMappingURL=register-payment.dto.js.map
