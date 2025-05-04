@@ -53,11 +53,13 @@ let SalesService = class SalesService {
     }
     async deleteSale(sale_id) {
         const sale = await this.findSaleById(sale_id);
+        sale.product = null;
+        await this.saleRepository.save(sale);
         await this.saleRepository.remove(sale);
     }
-    async findAllSales() { return await this.saleRepository.find(); }
+    async findAllSales() { return await this.saleRepository.find({ relations: ['product', 'client', 'payments'] }); }
     async findSaleById(sale_id) {
-        const checkExistence = await this.saleRepository.findOne({ where: { sale_id: sale_id } });
+        const checkExistence = await this.saleRepository.findOne({ where: { sale_id: sale_id }, relations: ['client', 'product', 'payments'] });
         if (!checkExistence) {
             throw new common_1.NotFoundException(`The sale with id: ${sale_id} was not found`);
         }

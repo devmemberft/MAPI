@@ -11,6 +11,6 @@ export declare class Sale {
     updatedAt: Date;
     deletedAt?: Date;
     client: Client;
-    product: Product;
+    product: Product | null;
     payments: Payment[];
 }

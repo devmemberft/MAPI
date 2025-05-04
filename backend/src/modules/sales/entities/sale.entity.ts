@@ -42,8 +42,9 @@ export class Sale {
     client:Client;
 
     // Relacion: muchas ventas pueden tener un producto (n:1) 
-    @ManyToOne(() => Product, product => product.sales)
-    product:Product;
+    @ManyToOne(() => Product, product => product.sales,{nullable:true})
+    @JoinTable()
+    product:Product|null;
 
     // Relacion: una venta puede tener muchos pagos (1:n) 
     @OneToMany(() => Payment, payment => payment.sale)

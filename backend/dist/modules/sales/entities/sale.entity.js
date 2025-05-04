@@ -65,8 +65,9 @@ __decorate([
     __metadata("design:type", client_entity_1.Client)
 ], Sale.prototype, "client", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, product => product.sales),
-    __metadata("design:type", product_entity_1.Product)
+    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, product => product.sales, { nullable: true }),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Object)
 ], Sale.prototype, "product", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => payment_entity_1.Payment, payment => payment.sale),
