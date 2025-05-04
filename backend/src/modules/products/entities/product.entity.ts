@@ -15,8 +15,8 @@ export class Product {
     @Column({type:'enum', enum:['mueble', 'tecnologia'], default:'mueble'})
     product_category:'mueble' | 'tecnologia';
 
-    @Column()
-    product_stock:number;
+    /*@Column()
+    product_stock:number;*/
 
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se registro el producto
     createdAt:Date;

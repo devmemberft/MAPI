@@ -13,8 +13,8 @@ export class UpdateProductDto {
     @IsOptional()
     product_category?:'mueble' | 'tecnologia';
 
-    @IsNumber()
+    /*@IsNumber()
     @IsOptional()
-    product_stock?:number; 
+    product_stock?:number; */
 
 }

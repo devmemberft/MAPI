@@ -14,8 +14,8 @@ export class CreateProductDto {
     @IsNotEmpty()
     product_category:'mueble' | 'tecnologia';
 
-    @IsNumber()
+    /*@IsNumber()
     @IsNotEmpty()
-    product_stock:number; 
+    product_stock:number;  */
 
 }

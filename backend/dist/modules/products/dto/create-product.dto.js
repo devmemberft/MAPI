@@ -15,7 +15,6 @@ class CreateProductDto {
     product_name;
     product_price;
     product_category;
-    product_stock;
 }
 exports.CreateProductDto = CreateProductDto;
 __decorate([
@@ -33,9 +32,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "product_category", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], CreateProductDto.prototype, "product_stock", void 0);
 //# sourceMappingURL=create-product.dto.js.map

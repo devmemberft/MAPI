@@ -17,7 +17,6 @@ let Product = class Product {
     product_name;
     product_price;
     product_category;
-    product_stock;
     createdAt;
     updatedAt;
     deletedAt;
@@ -40,10 +39,6 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: ['mueble', 'tecnologia'], default: 'mueble' }),
     __metadata("design:type", String)
 ], Product.prototype, "product_category", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Product.prototype, "product_stock", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)
