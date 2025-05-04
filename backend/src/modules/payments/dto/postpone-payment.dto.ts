@@ -1,6 +1,6 @@
 import { IsOptional, IsNumber, IsString } from 'class-validator'
 
-export class UpdatePaymentDto {
+export class PostponePaymentDto {
 
     @IsOptional()
     @IsNumber()

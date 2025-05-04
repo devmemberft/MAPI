@@ -1,5 +1,5 @@
 import { PaymentsService } from './payments.service';
-import { RegisterPaymentDto } from './dto/create-payment.dto';
+import { RegisterPaymentDto } from './dto/register-payment.dto';
 export declare class PaymentsController {
     private paymentsService;
     constructor(paymentsService: PaymentsService);

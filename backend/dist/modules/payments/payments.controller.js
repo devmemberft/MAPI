@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentsController = void 0;
 const common_1 = require("@nestjs/common");
 const payments_service_1 = require("./payments.service");
-const create_payment_dto_1 = require("./dto/create-payment.dto");
+const register_payment_dto_1 = require("./dto/register-payment.dto");
 let PaymentsController = class PaymentsController {
     paymentsService;
     constructor(paymentsService) {
@@ -42,14 +42,14 @@ __decorate([
     (0, common_1.Post)('register'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:paramtypes", [register_payment_dto_1.RegisterPaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "registerPayment", null);
 __decorate([
     (0, common_1.Post)('postpone'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:paramtypes", [register_payment_dto_1.RegisterPaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "postponePayment", null);
 exports.PaymentsController = PaymentsController = __decorate([

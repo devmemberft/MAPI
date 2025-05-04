@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { Payment } from './entities/payment.entity';
 import { Sale } from '../sales/entities/sale.entity';
-import { RegisterPaymentDto } from './dto/create-payment.dto';
+import { RegisterPaymentDto } from './dto/register-payment.dto';
 import { Client } from '../clients/entities/client.entity';
 export declare class PaymentsService {
     private PaymentRepository;

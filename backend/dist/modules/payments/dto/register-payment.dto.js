@@ -35,4 +35,4 @@ __decorate([
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
 ], RegisterPaymentDto.prototype, "payment_date", void 0);
-//# sourceMappingURL=create-payment.dto.js.map
+//# sourceMappingURL=register-payment.dto.js.map

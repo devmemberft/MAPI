@@ -9,30 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegisterPaymentDto = void 0;
+exports.PostponePaymentDto = void 0;
 const class_validator_1 = require("class-validator");
-class RegisterPaymentDto {
-    sale_id;
+class PostponePaymentDto {
     payment_amount;
     observation;
-    payment_date;
 }
-exports.RegisterPaymentDto = RegisterPaymentDto;
+exports.PostponePaymentDto = PostponePaymentDto;
 __decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], RegisterPaymentDto.prototype, "sale_id", void 0);
-__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], RegisterPaymentDto.prototype, "payment_amount", void 0);
+], PostponePaymentDto.prototype, "payment_amount", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], RegisterPaymentDto.prototype, "observation", void 0);
-__decorate([
-    (0, class_validator_1.IsDateString)(),
-    __metadata("design:type", String)
-], RegisterPaymentDto.prototype, "payment_date", void 0);
-//# sourceMappingURL=create-payment.dto.js.map
+], PostponePaymentDto.prototype, "observation", void 0);
+//# sourceMappingURL=postpone-payment.dto.js.map

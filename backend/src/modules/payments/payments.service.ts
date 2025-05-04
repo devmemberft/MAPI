@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository} from 'typeorm';
 import { Payment } from './entities/payment.entity';
 import { Sale } from '../sales/entities/sale.entity';
-import { RegisterPaymentDto } from './dto/create-payment.dto';
+import { RegisterPaymentDto } from './dto/register-payment.dto';
 import { Client } from '../clients/entities/client.entity';
 
 
@@ -50,7 +50,7 @@ export class PaymentsService {
 
     async registerClientPayment(registerPaymentDto:RegisterPaymentDto):Promise<Payment>{
         const sale = await this.SaleRepository.findOne({
-            where: { sale_id:registerPaymentDto.sale_id},
+            where: { sale_id:registerPaymentDto.sale_id },
             relations: ['client','payments'],
         });
 

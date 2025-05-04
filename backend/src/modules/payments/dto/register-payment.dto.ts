@@ -2,6 +2,9 @@ import { IsOptional, IsNumber, IsString, IsDateString } from 'class-validator'
 
 export class RegisterPaymentDto {
 
+    @IsString()
+    sale_id: string;
+    
     @IsNumber()
     payment_amount:number;
 
@@ -12,6 +15,4 @@ export class RegisterPaymentDto {
     @IsDateString()
     payment_date:string;
 
-    @IsString()
-    sale_id: string;
 }
