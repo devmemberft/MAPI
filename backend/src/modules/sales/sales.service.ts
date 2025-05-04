@@ -29,8 +29,8 @@ export class SalesService {
         newSale.payment_frecuency = registerSaleDto.payment_frecuency;
         newSale.payment_day = registerSaleDto.payment_day;
         newSale.quota_value = registerSaleDto.quota_value;
-        newSale.number_of_payments = registerSaleDto.number_of_payments;
-        newSale.balance_amount = registerSaleDto.balance_amount;
+        //newSale.number_of_payments = registerSaleDto.number_of_payments;
+        //newSale.balance_amount = registerSaleDto.balance_amount;
 
         return await this.saleRepository.save(newSale);
     }
@@ -48,15 +48,13 @@ export class SalesService {
 
     async deleteSale(sale_id:string):Promise<void>{
         const sale = await this.findSaleById(sale_id);
-        await this.saleRepository.delete(sale);
+        await this.saleRepository.remove(sale);
     }
 
-    async findAllSales(){
-        return await this.saleRepository.find();
-    }
+    async findAllSales(){ return await this.saleRepository.find(); }
 
     async findSaleById(sale_id:string):Promise<Sale>{
-        const checkExistence = await this.saleRepository.findOneBy({sale_id});
+        const checkExistence = await this.saleRepository.findOne({where:{sale_id:sale_id}, relations:['products','client','payments']});
         if(!checkExistence) { throw new NotFoundException(`The sale with id: ${sale_id} was not found`);}
 
         return checkExistence;
