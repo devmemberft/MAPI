@@ -39,9 +39,45 @@ export class PaymentsService {
         
         const clients = await this.ClientRepository.createQueryBuilder('client')
         .leftJoinAndSelect('client.sales', 'sale')
-        .leftJoinAndSelect('sale.payments', 'payment')
-        .where('sale.payment_day = :day', {day: today})
-        .andWhere('sale.payment_frecuency IN (:...freqs)', { freqs }) 
+        .leftJoin('sale.payments', 'payment')
+        .groupBy('client.client_id')
+        .addGroupBy('sale.sale_id')
+        .having(`
+            (
+                sale.payment_frecuency = :diario
+            )
+            OR(
+                sale.payment_frecuency = :semanal
+                AND sale.payment_day = :today
+                AND (
+                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '7 days')
+                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '7 days')
+                )
+                
+            )
+            OR(
+                sale.payment_frecuency = :quincenal
+                AND sale.payment_day= :today
+                AND (
+                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '15 days')
+                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '15 days')
+                )
+            )
+            OR(
+                sale.payment_frecuency = :mensual
+                AND sale.payment_day= :today
+                AND (
+                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '30 days')
+                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '30 days')
+                )
+            )
+        `).setParameters({
+            diario:'diario',
+            semanal:'semanal',
+            quincenal:'quincenal',
+            mensual:'mensual',
+            today,
+        })
         .getMany();
          
         return this.sortClients(clients);
