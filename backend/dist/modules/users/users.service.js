@@ -17,7 +17,10 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const update_user_pw_dto_1 = require("./dto/update-user-pw.dto");
 const hash_service_1 = require("../auth/hash.service");
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 let UsersService = class UsersService {
     userRepository;
     bcryptService;
@@ -32,17 +35,29 @@ let UsersService = class UsersService {
         const updatedUser = await this.userRepository.save(user);
         return updatedUser;
     }
-    async updateUserPassword(id, updateUserPasswordDto) {
-        const { password } = updateUserPasswordDto;
-        const user = await this.findUserById(id);
-        const checkPassword = await this.bcryptService.comparePassword(password, user.password);
-        if (checkPassword) {
+    async updateUserPassword(user_id, updateUserPasswordDto) {
+        const dtoInstance = (0, class_transformer_1.plainToInstance)(update_user_pw_dto_1.UpdateUserPasswordDto, updateUserPasswordDto);
+        const error = await (0, class_validator_1.validate)(dtoInstance);
+        if (error.length > 0) {
+            throw new common_1.BadRequestException('Format is not correct.');
+        }
+        const { old_password, new_password } = updateUserPasswordDto;
+        const user = await this.findUserById(user_id);
+        const userObject = await this.findUserByEmail(user.email);
+        const checkPassword = await this.bcryptService.comparePassword(old_password, userObject.password);
+        if (!checkPassword) {
+            throw new common_1.ConflictException('The password entered has no coincidence, the correct password is: for more information visits: http.cat/418.');
+        }
+        if (new_password === old_password) {
             throw new common_1.ConflictException('New password must be different from old password.');
         }
-        const hashedPassword = await this.bcryptService.hashPassword(password);
-        user.password = hashedPassword;
+        if (checkPassword) {
+            const hashedPassword = await this.bcryptService.hashPassword(new_password);
+            user.password = hashedPassword;
+        }
         const updatedUser = await this.userRepository.save(user);
-        return updatedUser;
+        const { password, ...cleanUser } = updatedUser;
+        return cleanUser;
     }
     async deleteUser(id) {
         const user = await this.findUserById(id);

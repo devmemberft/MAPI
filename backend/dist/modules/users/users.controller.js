@@ -21,6 +21,7 @@ const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const roles_enum_1 = require("../auth/roles.enum");
 const roles_decorator_1 = require("../auth/decorators/roles.decorator");
+const update_user_pw_dto_1 = require("./dto/update-user-pw.dto");
 let UsersController = class UsersController {
     usersService;
     constructor(usersService) {
@@ -28,6 +29,9 @@ let UsersController = class UsersController {
     }
     async updateUsername(user_id, updateUsernameDto) {
         return this.usersService.updateUsername(user_id, updateUsernameDto);
+    }
+    async updateUserPassword(user_id, updateUserPasswordDto) {
+        return this.usersService.updateUserPassword(user_id, updateUserPasswordDto);
     }
     async deleteUser(user_id) { return this.usersService.deleteUser(user_id); }
     async findAllUsers() {
@@ -42,13 +46,23 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin, roles_enum_1.Role.Moderator),
-    (0, common_1.Put)('update/:user_id'),
+    (0, common_1.Put)('update/name/:user_id'),
     __param(0, (0, common_1.Param)('user_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_username_dto_1.UpdateUsernameDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateUsername", null);
+__decorate([
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin, roles_enum_1.Role.Moderator),
+    (0, common_1.Put)('/update/pw/:user_id'),
+    __param(0, (0, common_1.Param)('user_id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_user_pw_dto_1.UpdateUserPasswordDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateUserPassword", null);
 __decorate([
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin, roles_enum_1.Role.Moderator),

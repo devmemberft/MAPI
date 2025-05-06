@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -6,6 +6,8 @@ import { UpdateUsernameDto } from './dto/update-username.dto';
 import { findUserDto } from './dto/find-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-pw.dto';
 import { BcryptService } from '../auth/hash.service';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UsersService {
@@ -24,20 +26,25 @@ export class UsersService {
         return updatedUser;
     }
 
-    async updateUserPassword(id:string, updateUserPasswordDto:UpdateUserPasswordDto):Promise<User> {
-        const { password } = updateUserPasswordDto;
-        const user = await this.findUserById(id);
-        const checkPassword = await this.bcryptService.comparePassword(password,user.password);
+    async updateUserPassword(user_id:string, updateUserPasswordDto:UpdateUserPasswordDto):Promise<Partial<User>> {
+        const dtoInstance = plainToInstance(UpdateUserPasswordDto,updateUserPasswordDto);
+        const error = await validate(dtoInstance);
+        if(error.length > 0) { throw new BadRequestException('Format is not correct.');}
 
-        if(checkPassword) { throw new ConflictException('New password must be different from old password.'); }
-
-        const hashedPassword = await this.bcryptService.hashPassword(password);
-
-        user.password=hashedPassword;
+        const { old_password, new_password } = updateUserPasswordDto;
+        const user = await this.findUserById(user_id);
+        const userObject = await this.findUserByEmail(user.email);
+        const checkPassword = await this.bcryptService.comparePassword(old_password,userObject.password);
+        if(!checkPassword){ throw new ConflictException('The password entered has no coincidence, the correct password is: for more information visits: http.cat/418.'); }
+        if(new_password === old_password) { throw new ConflictException('New password must be different from old password.') }
+        if(checkPassword) { 
+            const hashedPassword = await this.bcryptService.hashPassword(new_password);
+            user.password=hashedPassword;
+        }
 
         const updatedUser = await this.userRepository.save(user);
-
-        return updatedUser;
+        const {password,...cleanUser} = updatedUser;
+        return cleanUser;
     }
 
     async deleteUser(id:string):Promise<void> {

@@ -8,6 +8,8 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginUserDto } from './dto/login.dto';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -23,9 +25,12 @@ export class AuthService {
     ) {}
 
     async register(createUserDto:CreateUserDto):Promise<Partial<User>> {
+        const dtoInstance = plainToInstance(CreateUserDto,createUserDto);
+        const error = await validate(dtoInstance);
+        if(error.length > 0) { throw new BadRequestException('Format is not correct.'); }
         const userExists = await this.usersService.checkUsername(createUserDto.username);
         const emailExists = await this.usersService.checkEmail(createUserDto.email);
-        if(userExists || emailExists) { throw new BadRequestException(`User credentials ${createUserDto.username && createUserDto.email} already exists.`); }
+        if(userExists || emailExists) { throw new BadRequestException(`User credentials ${createUserDto.username} and ${createUserDto.email} already exists.`); }
 
         const hashedPassword = await this.bcryptService.hashPassword(createUserDto.password);
         const user = await this.userRepository.save({...createUserDto, password:hashedPassword});

@@ -9,7 +9,7 @@ export declare class UsersService {
     private bcryptService;
     constructor(userRepository: Repository<User>, bcryptService: BcryptService);
     updateUsername(user_id: string, updateUsernameDto: UpdateUsernameDto): Promise<User>;
-    updateUserPassword(id: string, updateUserPasswordDto: UpdateUserPasswordDto): Promise<User>;
+    updateUserPassword(user_id: string, updateUserPasswordDto: UpdateUserPasswordDto): Promise<Partial<User>>;
     deleteUser(id: string): Promise<void>;
     findAllUsers(): Promise<User[]>;
     findUserById(user_id: string): Promise<User>;

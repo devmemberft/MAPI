@@ -18,8 +18,11 @@ const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
 const user_entity_1 = require("../users/entities/user.entity");
 const hash_service_1 = require("./hash.service");
+const create_user_dto_1 = require("../users/dto/create-user.dto");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 const dotenv = require("dotenv");
 dotenv.config();
 let AuthService = class AuthService {
@@ -34,10 +37,15 @@ let AuthService = class AuthService {
         this.bcryptService = bcryptService;
     }
     async register(createUserDto) {
+        const dtoInstance = (0, class_transformer_1.plainToInstance)(create_user_dto_1.CreateUserDto, createUserDto);
+        const error = await (0, class_validator_1.validate)(dtoInstance);
+        if (error.length > 0) {
+            throw new common_1.BadRequestException('Format is not correct.');
+        }
         const userExists = await this.usersService.checkUsername(createUserDto.username);
         const emailExists = await this.usersService.checkEmail(createUserDto.email);
         if (userExists || emailExists) {
-            throw new common_1.BadRequestException(`User credentials ${createUserDto.username && createUserDto.email} already exists.`);
+            throw new common_1.BadRequestException(`User credentials ${createUserDto.username} and ${createUserDto.email} already exists.`);
         }
         const hashedPassword = await this.bcryptService.hashPassword(createUserDto.password);
         const user = await this.userRepository.save({ ...createUserDto, password: hashedPassword });

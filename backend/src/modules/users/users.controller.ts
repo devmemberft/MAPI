@@ -7,6 +7,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Role } from '../auth/roles.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { UpdateUserPasswordDto } from './dto/update-user-pw.dto';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard)
@@ -15,9 +16,16 @@ export class UsersController {
 
     @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.Moderator)
-    @Put('update/:user_id')
+    @Put('update/name/:user_id')
     async updateUsername(@Param('user_id') user_id:string, @Body() updateUsernameDto:UpdateUsernameDto):Promise<User> {
         return this.usersService.updateUsername(user_id,updateUsernameDto);
+    }
+
+    @UseGuards(RolesGuard)
+    @Roles(Role.Admin, Role.Moderator)
+    @Put('/update/pw/:user_id')
+    async updateUserPassword(@Param('user_id') user_id:string, @Body() updateUserPasswordDto:UpdateUserPasswordDto):Promise<Partial<User>>{
+        return this.usersService.updateUserPassword(user_id,updateUserPasswordDto);
     }
 
     @UseGuards(RolesGuard)

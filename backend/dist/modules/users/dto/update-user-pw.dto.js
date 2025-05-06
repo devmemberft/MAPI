@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserPasswordDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdateUserPasswordDto {
-    password;
+    old_password;
+    new_password;
 }
 exports.UpdateUserPasswordDto = UpdateUserPasswordDto;
 __decorate([
@@ -23,5 +24,14 @@ __decorate([
     (0, class_validator_1.Matches)(/(?=.*[0-9])/, { message: 'Password must contain at least one number' }),
     (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
     __metadata("design:type", String)
-], UpdateUserPasswordDto.prototype, "password", void 0);
+], UpdateUserPasswordDto.prototype, "old_password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(8),
+    (0, class_validator_1.MaxLength)(16),
+    (0, class_validator_1.Matches)(/(?=.*[0-9])/, { message: 'Password must contain at least one number' }),
+    (0, class_validator_1.Matches)(/(?=.*[A-Z])/, { message: 'Password must contain at least one uppercase letter' }),
+    __metadata("design:type", String)
+], UpdateUserPasswordDto.prototype, "new_password", void 0);
 //# sourceMappingURL=update-user-pw.dto.js.map
