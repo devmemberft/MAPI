@@ -12,7 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     async validate(user_id:string,email:string,password:string, role:string) {
         const user = await this.authService.validateUser({user_id,email,password,role});
 
-        if(!user) { throw new UnauthorizedException('checkpoing'); }
+        if(!user) { throw new UnauthorizedException('checkpoint'); }
 
         return user;
     }

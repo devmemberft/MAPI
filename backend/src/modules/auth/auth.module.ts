@@ -10,13 +10,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from '../users/users.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 @Module({
   imports:[
     TypeOrmModule.forFeature([User]),
     UsersModule,
     PassportModule,
-    JwtModule.register({secret:'secret', signOptions: { expiresIn: '5m'},}),
+    JwtModule.register({secret:process.env.JWT_SECRET, signOptions: { expiresIn:process.env.JWT_EXPIRATION},}),
   ],
   providers: [UsersService, AuthService, BcryptService, JwtStrategy, JwtAuthGuard],
   controllers: [AuthController],

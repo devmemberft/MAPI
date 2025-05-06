@@ -20,6 +20,8 @@ const user_entity_1 = require("../users/entities/user.entity");
 const hash_service_1 = require("./hash.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const dotenv = require("dotenv");
+dotenv.config();
 let AuthService = class AuthService {
     userRepository;
     usersService;
@@ -43,7 +45,7 @@ let AuthService = class AuthService {
         return user;
     }
     async validateUser(loginUserDto) {
-        const { user_id, email, password, role } = loginUserDto;
+        const { email, password } = loginUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password, user.password);
         if (!checkPassword) {
@@ -54,7 +56,7 @@ let AuthService = class AuthService {
     async login(user) {
         const payload = { email: user.email, sub: user.user_id, role: user.role };
         return {
-            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '5m' }),
+            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION }),
         };
     }
 };

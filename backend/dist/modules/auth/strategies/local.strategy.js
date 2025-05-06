@@ -23,7 +23,7 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
     async validate(user_id, email, password, role) {
         const user = await this.authService.validateUser({ user_id, email, password, role });
         if (!user) {
-            throw new common_1.UnauthorizedException('checkpoing');
+            throw new common_1.UnauthorizedException('checkpoint');
         }
         return user;
     }

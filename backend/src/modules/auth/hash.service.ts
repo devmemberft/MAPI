@@ -11,8 +11,6 @@ export class BcryptService {
     }
 
     async comparePassword(password:string, hash:string):Promise<boolean> {
-        const match = await bcrypt.compare(password,hash);
-        if(match === false) { throw new UnauthorizedException('Credentials does not match.'); }
-        else { return match }
+        return await bcrypt.compare(password,hash);
     }
 }

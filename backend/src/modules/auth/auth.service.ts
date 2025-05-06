@@ -8,6 +8,8 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoginUserDto } from './dto/login.dto';
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 
 @Injectable()
@@ -33,7 +35,7 @@ export class AuthService {
     }
 
     async validateUser(loginUserDto: LoginUserDto):Promise<User> {
-        const {user_id, email, password, role} = loginUserDto;
+        const { email, password } = loginUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password,user.password);
         if(!checkPassword) { throw new UnauthorizedException('Bad credentials.'); }
@@ -44,7 +46,7 @@ export class AuthService {
     async login(user: LoginUserDto) {
         const payload: JwtPayload = { email: user.email, sub: user.user_id, role:user.role };
         return{
-            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION || '5m' }),
+            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION }),
         };
     }
 }

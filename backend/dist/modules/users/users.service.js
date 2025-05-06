@@ -88,7 +88,7 @@ let UsersService = class UsersService {
         return false;
     }
     async findUserByEmail(email) {
-        const userEmail = await this.userRepository.findOne({ where: { email }, select: ['user_id', 'email', 'username',] });
+        const userEmail = await this.userRepository.findOne({ where: { email }, select: ['user_id', 'email', 'username', 'role', 'password'] });
         if (!userEmail) {
             throw new common_1.NotFoundException(`User with email ${email} not found.`);
         }
