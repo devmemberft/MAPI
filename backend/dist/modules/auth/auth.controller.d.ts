@@ -5,7 +5,7 @@ import { LoginUserDto } from './dto/login.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    register(user: CreateUserDto): Promise<User>;
+    register(user: CreateUserDto): Promise<Partial<User>>;
     login(loginUserDto: LoginUserDto): Promise<{
         access_token: string;
     }>;

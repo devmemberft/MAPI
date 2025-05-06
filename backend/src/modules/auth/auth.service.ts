@@ -22,16 +22,15 @@ export class AuthService {
         private bcryptService:BcryptService,
     ) {}
 
-    async register(createUserDto:CreateUserDto):Promise<User> {
-        const {username, email, password} = createUserDto;
+    async register(createUserDto:CreateUserDto):Promise<Partial<User>> {
+        const userExists = await this.usersService.checkUsername(createUserDto.username);
+        const emailExists = await this.usersService.checkEmail(createUserDto.email);
+        if(userExists || emailExists) { throw new BadRequestException(`User credentials ${createUserDto.username && createUserDto.email} already exists.`); }
 
-        const userExists = await this.usersService.checkUsername(username);
-        const emailExists = await this.usersService.checkEmail(email);
-        if(userExists || emailExists) { throw new BadRequestException(`User credentials ${username && email} already exists.`); }
-
-        const hashedPassword = await this.bcryptService.hashPassword(password);
+        const hashedPassword = await this.bcryptService.hashPassword(createUserDto.password);
         const user = await this.userRepository.save({...createUserDto, password:hashedPassword});
-        return user;
+        const {password, ...cleanUser} = user;
+        return cleanUser;
     }
 
     async validateUser(loginUserDto: LoginUserDto):Promise<User> {

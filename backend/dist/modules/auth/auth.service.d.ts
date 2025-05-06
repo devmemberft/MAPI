@@ -11,7 +11,7 @@ export declare class AuthService {
     private jwtService;
     private bcryptService;
     constructor(userRepository: Repository<User>, usersService: UsersService, jwtService: JwtService, bcryptService: BcryptService);
-    register(createUserDto: CreateUserDto): Promise<User>;
+    register(createUserDto: CreateUserDto): Promise<Partial<User>>;
     validateUser(loginUserDto: LoginUserDto): Promise<User>;
     login(user: LoginUserDto): Promise<{
         access_token: string;
