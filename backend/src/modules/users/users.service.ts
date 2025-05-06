@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUsernameDto } from './dto/update-username.dto';
 import { findUserDto } from './dto/find-user.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-pw.dto';
 import { BcryptService } from '../auth/hash.service';
@@ -15,11 +15,10 @@ export class UsersService {
         private bcryptService:BcryptService,
     ) {}
 
-    async updateUserProfile(id:string, updateUserDto:UpdateUserDto): Promise<User> {
-        const {username, email} = updateUserDto;
-        const user = await this.findUserById(id);
-
-        Object.assign(user,{...updateUserDto, username, email});
+    async updateUsername(user_id:string, updateUsernameDto:UpdateUsernameDto): Promise<User> {
+        const { username } = updateUsernameDto;
+        const user = await this.findUserById(user_id);
+        Object.assign(user,{username});
         const updatedUser = await this.userRepository.save(user);
  
         return updatedUser;

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { findUserDto } from './dto/find-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUsernameDto } from './dto/update-username.dto';
 import { User } from './entities/user.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -15,15 +15,15 @@ export class UsersController {
 
     @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.Moderator)
-    @Put(':id')
-    async updateUser(@Param('id') id:string, @Body() updateUserDto:UpdateUserDto):Promise<User> {
-        return this.usersService.updateUserProfile(id,updateUserDto);
+    @Put('update/:user_id')
+    async updateUsername(@Param('user_id') user_id:string, @Body() updateUsernameDto:UpdateUsernameDto):Promise<User> {
+        return this.usersService.updateUsername(user_id,updateUsernameDto);
     }
 
     @UseGuards(RolesGuard)
     @Roles(Role.Admin, Role.Moderator)
-    @Delete(':id')
-    async deleteUser(@Param('id') id:string):Promise<void> { return this.usersService.deleteUser(id); }
+    @Delete('delete/:user_id')
+    async deleteUser(@Param('user_id') user_id:string):Promise<void> { return this.usersService.deleteUser(user_id); }
 
     @UseGuards(RolesGuard)
     @Roles(Role.User, Role.Admin, Role.Moderator)

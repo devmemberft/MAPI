@@ -16,7 +16,7 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const find_user_dto_1 = require("./dto/find-user.dto");
-const update_user_dto_1 = require("./dto/update-user.dto");
+const update_username_dto_1 = require("./dto/update-username.dto");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../auth/guards/roles.guard");
 const roles_enum_1 = require("../auth/roles.enum");
@@ -26,10 +26,10 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async updateUser(id, updateUserDto) {
-        return this.usersService.updateUserProfile(id, updateUserDto);
+    async updateUsername(user_id, updateUsernameDto) {
+        return this.usersService.updateUsername(user_id, updateUsernameDto);
     }
-    async deleteUser(id) { return this.usersService.deleteUser(id); }
+    async deleteUser(user_id) { return this.usersService.deleteUser(user_id); }
     async findAllUsers() {
         return this.usersService.findAllUsers();
     }
@@ -42,18 +42,18 @@ exports.UsersController = UsersController;
 __decorate([
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin, roles_enum_1.Role.Moderator),
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)('update/:user_id'),
+    __param(0, (0, common_1.Param)('user_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [String, update_username_dto_1.UpdateUsernameDto]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "updateUser", null);
+], UsersController.prototype, "updateUsername", null);
 __decorate([
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)(roles_enum_1.Role.Admin, roles_enum_1.Role.Moderator),
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)('delete/:user_id'),
+    __param(0, (0, common_1.Param)('user_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

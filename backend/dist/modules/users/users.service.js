@@ -25,10 +25,10 @@ let UsersService = class UsersService {
         this.userRepository = userRepository;
         this.bcryptService = bcryptService;
     }
-    async updateUserProfile(id, updateUserDto) {
-        const { username, email } = updateUserDto;
-        const user = await this.findUserById(id);
-        Object.assign(user, { ...updateUserDto, username, email });
+    async updateUsername(user_id, updateUsernameDto) {
+        const { username } = updateUsernameDto;
+        const user = await this.findUserById(user_id);
+        Object.assign(user, { username });
         const updatedUser = await this.userRepository.save(user);
         return updatedUser;
     }
