@@ -12,26 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateSaleDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdateSaleDto {
-    product_id;
-    client_id;
     sign;
     payment_frecuency;
     payment_day;
-    quota_value;
     number_of_payments;
+    quota_value;
+    total_sale;
     balance_amount;
 }
 exports.UpdateSaleDto = UpdateSaleDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateSaleDto.prototype, "product_id", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateSaleDto.prototype, "client_id", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
@@ -51,12 +40,17 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
+], UpdateSaleDto.prototype, "number_of_payments", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
 ], UpdateSaleDto.prototype, "quota_value", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], UpdateSaleDto.prototype, "number_of_payments", void 0);
+], UpdateSaleDto.prototype, "total_sale", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),

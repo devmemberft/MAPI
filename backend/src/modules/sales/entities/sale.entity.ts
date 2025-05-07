@@ -17,16 +17,18 @@ export class Sale {
     @Column({type:'enum', enum:['lunes','martes','miercoles','jueves','viernes','sabado','domingo'], nullable:true})
     payment_day:'lunes'|'martes'|'miercoles'|'jueves'|'viernes'|'sabado'|'domingo';
 
-    /*@Column()
-    number_of_payments?:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado
-    */
+    @Column({default:1})
+    number_of_payments:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado
+    
     @Column({type:'numeric'})
     quota_value:number; // por ejemplo, 500 pesos cada semana
 
-    /*
     @Column({type:'numeric'})
-    balance_amount?:number; //valor derivado(debe ser calculado y no guardado directamente): resta entre (precio del producto menos la seña) y (sumatoria de los pagos realizados)
-    */
+    total_sale:number; // product_price * 
+    
+    @Column({type:'numeric'})
+    balance_amount:number; //valor derivado(debe ser calculado y no guardado directamente): resta entre (precio del producto menos la seña) y (sumatoria de los pagos realizados)
+    
     //  Tip: si luego necesito usarlos mucho, podría generarlos con Columnas Virtuales o Vistas Materializadas.
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo la venta
     createdAt:Date;

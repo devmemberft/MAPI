@@ -20,14 +20,17 @@ const payment_entity_1 = require("./entities/payment.entity");
 const sale_entity_1 = require("../sales/entities/sale.entity");
 const client_entity_1 = require("../clients/entities/client.entity");
 const payment_frecuency_enum_1 = require("./payment-frecuency.enum");
+const sales_service_1 = require("../sales/sales.service");
 let PaymentsService = class PaymentsService {
     PaymentRepository;
     SaleRepository;
     ClientRepository;
-    constructor(PaymentRepository, SaleRepository, ClientRepository) {
+    salesService;
+    constructor(PaymentRepository, SaleRepository, ClientRepository, salesService) {
         this.PaymentRepository = PaymentRepository;
         this.SaleRepository = SaleRepository;
         this.ClientRepository = ClientRepository;
+        this.salesService = salesService;
     }
     getToday() {
         return ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'][new Date().getDay()];
@@ -98,7 +101,7 @@ let PaymentsService = class PaymentsService {
             relations: ['client', 'product', 'payments'],
         });
         if (!sale) {
-            throw new common_1.NotFoundException('Sale not found');
+            throw new common_1.NotFoundException('Sale was not found');
         }
         const existingPayment = await this.PaymentRepository.findOne({
             where: {
@@ -106,14 +109,27 @@ let PaymentsService = class PaymentsService {
             }
         });
         if (existingPayment) {
-            throw new common_1.ConflictException('Payment was already registered.');
+            throw new common_1.ConflictException('Payment was already registered today.');
         }
         const payment = this.PaymentRepository.create({
             sale,
             payment_amount: registerPaymentDto.payment_amount,
             observation: registerPaymentDto.observation,
         });
-        return await this.PaymentRepository.save(payment);
+        const paymentIntegrity = await this.PaymentRepository.save(payment);
+        await this.postPaymentSaleUpdate(sale.sale_id, payment.payment_amount);
+        return paymentIntegrity;
+    }
+    async postPaymentSaleUpdate(sale_id, last_payment_amount) {
+        const sale = await this.salesService.findSaleById(sale_id);
+        const { number_of_payments, balance_amount } = sale;
+        const newCantity = number_of_payments + 1;
+        const newBalance = balance_amount - last_payment_amount;
+        Object.assign(sale, {
+            number_of_payments: newCantity,
+            balance_amount: newBalance,
+        });
+        return this.SaleRepository.save(sale);
     }
     async postponePayment(sale_id, registerPaymentDto) {
         return await this.registerClientPayment(sale_id, { ...registerPaymentDto, payment_amount: 0 });
@@ -138,6 +154,7 @@ exports.PaymentsService = PaymentsService = __decorate([
     __param(2, (0, typeorm_1.InjectRepository)(client_entity_1.Client)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        sales_service_1.SalesService])
 ], PaymentsService);
 //# sourceMappingURL=payments.service.js.map

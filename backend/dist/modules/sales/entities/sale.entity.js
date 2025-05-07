@@ -19,7 +19,10 @@ let Sale = class Sale {
     sign;
     payment_frecuency;
     payment_day;
+    number_of_payments;
     quota_value;
+    total_sale;
+    balance_amount;
     createdAt;
     updatedAt;
     deletedAt;
@@ -45,9 +48,21 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "payment_day", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: 1 }),
+    __metadata("design:type", Number)
+], Sale.prototype, "number_of_payments", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
 ], Sale.prototype, "quota_value", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'numeric' }),
+    __metadata("design:type", Number)
+], Sale.prototype, "total_sale", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'numeric' }),
+    __metadata("design:type", Number)
+], Sale.prototype, "balance_amount", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)

@@ -6,6 +6,7 @@ import { Sale } from '../sales/entities/sale.entity';
 import { RegisterPaymentDto } from './dto/register-payment.dto';
 import { Client } from '../clients/entities/client.entity';
 import { paymentFrecuency } from './payment-frecuency.enum';
+import { SalesService } from '../sales/sales.service';
 
 
 @Injectable()
@@ -20,6 +21,8 @@ export class PaymentsService {
 
         @InjectRepository(Client)
         private ClientRepository:Repository<Client>,
+
+        private salesService:SalesService,
     ){}
 
     private getToday():string{
@@ -98,7 +101,7 @@ export class PaymentsService {
             relations: ['client','product','payments'],
         });
 
-        if(!sale) { throw new NotFoundException('Sale not found'); }
+        if(!sale) { throw new NotFoundException('Sale was not found'); }
 
         const existingPayment= await this.PaymentRepository.findOne({
             where:{
@@ -106,7 +109,7 @@ export class PaymentsService {
             }
         })
 
-        if(existingPayment){ throw new ConflictException('Payment was already registered.');}
+        if(existingPayment){ throw new ConflictException('Payment was already registered today.');}
 
         // Crear nuevo pago
         const payment = this.PaymentRepository.create({
@@ -115,7 +118,27 @@ export class PaymentsService {
             observation: registerPaymentDto.observation,
         });
 
-        return await this.PaymentRepository.save(payment);
+        // verificar integridad del pago
+        const paymentIntegrity = await this.PaymentRepository.save(payment);
+
+        // actualizar informacion de la venta
+        await this.postPaymentSaleUpdate(sale.sale_id, payment.payment_amount);
+
+        return paymentIntegrity;
+    }
+
+
+    async postPaymentSaleUpdate(sale_id:string, last_payment_amount:number):Promise<Sale>{
+        const sale = await this.salesService.findSaleById(sale_id);
+        const { number_of_payments, balance_amount } = sale;
+        const newCantity = number_of_payments + 1;
+        const newBalance  = balance_amount - last_payment_amount;
+
+        Object.assign(sale,{
+            number_of_payments: newCantity,
+            balance_amount: newBalance,
+        });
+        return this.SaleRepository.save(sale);
     }
 
     async postponePayment(sale_id:string,registerPaymentDto:RegisterPaymentDto):Promise<Payment>{

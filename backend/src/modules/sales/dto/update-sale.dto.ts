@@ -2,14 +2,6 @@ import { IsEnum, IsNumber, IsString, IsOptional } from 'class-validator'
 
 export class UpdateSaleDto {
 
-    @IsString()
-    @IsOptional()
-    product_id?:string; //apunta a un registro de la tabla de productos
-
-    @IsString()
-    @IsOptional()
-    client_id?:string; //apunta a un registro de la tabla de clientes
-
     @IsNumber()
     @IsOptional()
     sign?:number;
@@ -24,14 +16,19 @@ export class UpdateSaleDto {
 
     @IsNumber()
     @IsOptional()
-    quota_value?:number;
-    
-    @IsNumber()
-    @IsOptional()
     number_of_payments?:number;
 
     @IsNumber()
     @IsOptional()
+    quota_value?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    total_sale?:number;
+
+    @IsNumber()
+    @IsOptional()
     balance_amount?:number;
+
 
 }

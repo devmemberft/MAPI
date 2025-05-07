@@ -16,7 +16,6 @@ let Payment = class Payment {
     payment_id;
     payment_amount;
     observation;
-    payment_date;
     createdAt;
     updatedAt;
     sale;
@@ -34,10 +33,6 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)
 ], Payment.prototype, "observation", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'date' }),
-    __metadata("design:type", Date)
-], Payment.prototype, "payment_date", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', name: 'created_at' }),
     __metadata("design:type", Date)

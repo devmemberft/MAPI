@@ -15,9 +15,6 @@ export class Payment {
     @Column({type:'text',nullable:true})
     observation?:string;
 
-    @Column({ type:'date'})
-    payment_date:Date;
-    
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se realizo el primer pago
     createdAt:Date;
 
