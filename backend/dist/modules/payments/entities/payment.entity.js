@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", String)
 ], Payment.prototype, "payment_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'numeric', precision: 10, scale: 2, default: 0 }),
+    (0, typeorm_1.Column)({ type: 'numeric', default: 0 }),
     __metadata("design:type", Number)
 ], Payment.prototype, "payment_amount", void 0);
 __decorate([

@@ -69,7 +69,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "getPaymentById", null);
 __decorate([
-    (0, common_1.Delete)('delete'),
+    (0, common_1.Delete)('delete/:payment_id'),
     __param(0, (0, common_1.Param)('payment_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

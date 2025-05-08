@@ -143,6 +143,16 @@ let PaymentsService = class PaymentsService {
     }
     async deletePayment(payment_id) {
         const payment = await this.findPaymentById(payment_id);
+        const sale = await this.salesService.findSaleById(payment.sale.sale_id);
+        const { balance_amount } = sale;
+        const { payment_amount } = payment;
+        const newBalance = Number(balance_amount) + Number(payment_amount);
+        const newCantity = (sale.number_of_payments - 1);
+        Object.assign(sale, {
+            number_of_payments: newCantity,
+            balance_amount: newBalance,
+        });
+        await this.SaleRepository.save(sale);
         await this.PaymentRepository.remove(payment);
     }
 };

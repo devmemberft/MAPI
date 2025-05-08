@@ -6,7 +6,7 @@ export class Payment {
     @PrimaryGeneratedColumn('uuid')
     payment_id: string;
 
-    @Column({type:'numeric', precision:10, scale:2, default: 0}) // consultar precision y scale
+    @Column({type:'numeric', default: 0}) // consultar precision y scale
     payment_amount:number; // se actualiza si se realiza el pago
 
     /*@Column({type:'boolean', default:false})

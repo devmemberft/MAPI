@@ -28,7 +28,7 @@ export class PaymentsController {
         return await this.paymentsService.findPaymentById(payment_id);
     }
 
-    @Delete('delete')
+    @Delete('delete/:payment_id')
     async deletePayment(@Param('payment_id') payment_id:string){
         return await this.paymentsService.deletePayment(payment_id);
     }
