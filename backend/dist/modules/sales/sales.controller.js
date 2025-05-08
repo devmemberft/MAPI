@@ -53,7 +53,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SalesController.prototype, "updateSale", null);
 __decorate([
-    (0, common_1.Delete)('delete'),
+    (0, common_1.Delete)('delete/:sale_id'),
     __param(0, (0, common_1.Param)('sale_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

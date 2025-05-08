@@ -1,7 +1,7 @@
 export declare class UpdateClientDto {
-    name?: string;
-    lastname?: string;
-    dni?: number;
-    address?: string;
-    phone?: number;
+    client_name?: string;
+    client_lastname?: string;
+    client_dni?: number;
+    client_address?: string;
+    client_phone?: number;
 }

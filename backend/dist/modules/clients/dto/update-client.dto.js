@@ -12,36 +12,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateClientDto = void 0;
 const class_validator_1 = require("class-validator");
 class UpdateClientDto {
-    name;
-    lastname;
-    dni;
-    address;
-    phone;
+    client_name;
+    client_lastname;
+    client_dni;
+    client_address;
+    client_phone;
 }
 exports.UpdateClientDto = UpdateClientDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], UpdateClientDto.prototype, "name", void 0);
+], UpdateClientDto.prototype, "client_name", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], UpdateClientDto.prototype, "lastname", void 0);
+], UpdateClientDto.prototype, "client_lastname", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], UpdateClientDto.prototype, "dni", void 0);
+], UpdateClientDto.prototype, "client_dni", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], UpdateClientDto.prototype, "address", void 0);
+], UpdateClientDto.prototype, "client_address", void 0);
 __decorate([
     (0, class_validator_1.IsPhoneNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], UpdateClientDto.prototype, "phone", void 0);
+], UpdateClientDto.prototype, "client_phone", void 0);
 //# sourceMappingURL=update-client.dto.js.map

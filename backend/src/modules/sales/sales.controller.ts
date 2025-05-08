@@ -18,7 +18,7 @@ export class SalesController {
         return await this.salesService.updateSale(sale_id, updateSaleDto);
     }
 
-    @Delete('delete')
+    @Delete('delete/:sale_id')
     async deleteSale(@Param('sale_id') sale_id:string):Promise<void>{ return await this.salesService.deleteSale(sale_id); }
 
     @Get()

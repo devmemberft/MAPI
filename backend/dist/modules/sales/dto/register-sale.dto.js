@@ -12,18 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterSaleDto = void 0;
 const class_validator_1 = require("class-validator");
 class RegisterSaleDto {
-    sale_id;
     sign;
     payment_frecuency;
     payment_day;
     quota_value;
 }
 exports.RegisterSaleDto = RegisterSaleDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterSaleDto.prototype, "sale_id", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),

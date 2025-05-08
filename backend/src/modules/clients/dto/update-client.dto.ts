@@ -4,24 +4,24 @@ export class UpdateClientDto {
 
     @IsString()
     @IsOptional()
-    name?: string;
+    client_name?: string;
 
 
     @IsString()
     @IsOptional()
-    lastname?:string;
+    client_lastname?:string;
 
     @IsNumber()
     @IsOptional()
-    dni?: number;
+    client_dni?: number;
 
     @IsString()
     @IsOptional()
-    address?: string;
+    client_address?: string;
 
     @IsPhoneNumber()
     @IsOptional()
-    phone?: number;
+    client_phone?: number;
 
     
 }
