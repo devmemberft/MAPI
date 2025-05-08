@@ -11,6 +11,7 @@ import { LoginUserDto } from './dto/login.dto';
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import * as dotenv from 'dotenv'
+import { ValidateUserDto } from './dto/validate.dto';
 dotenv.config()
 
 
@@ -38,8 +39,8 @@ export class AuthService {
         return cleanUser;
     }
 
-    async validateUser(loginUserDto: LoginUserDto):Promise<User> {
-        const { email, password } = loginUserDto;
+    async validateUser(validateUserDto: ValidateUserDto):Promise<User> {
+        const { email, password } = validateUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password,user.password);
         if(!checkPassword) { throw new UnauthorizedException('Bad credentials.'); }

@@ -16,7 +16,7 @@ exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const create_user_dto_1 = require("../users/dto/create-user.dto");
-const login_dto_1 = require("./dto/login.dto");
+const validate_dto_1 = require("./dto/validate.dto");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -25,9 +25,9 @@ let AuthController = class AuthController {
     async register(user) {
         return await this.authService.register(user);
     }
-    async login(loginUserDto) {
-        const { user_id, email, password, role } = loginUserDto;
-        const userVerification = await this.authService.validateUser({ user_id, email, password, role });
+    async login(validateUserDto) {
+        const { email, password } = validateUserDto;
+        const userVerification = await this.authService.validateUser({ email, password });
         if (!userVerification) {
             throw new common_1.BadRequestException('Imposible to validate user.');
         }
@@ -46,7 +46,7 @@ __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [login_dto_1.LoginUserDto]),
+    __metadata("design:paramtypes", [validate_dto_1.ValidateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([

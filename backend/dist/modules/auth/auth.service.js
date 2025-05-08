@@ -52,8 +52,8 @@ let AuthService = class AuthService {
         const { password, ...cleanUser } = user;
         return cleanUser;
     }
-    async validateUser(loginUserDto) {
-        const { email, password } = loginUserDto;
+    async validateUser(validateUserDto) {
+        const { email, password } = validateUserDto;
         const user = await this.usersService.findUserByEmail(email);
         const checkPassword = await this.bcryptService.comparePassword(password, user.password);
         if (!checkPassword) {

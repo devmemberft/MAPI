@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login.dto';
+import { ValidateUserDto } from './dto/validate.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -14,9 +15,9 @@ export class AuthController {
     }
 
     @Post('login')
-    async login(@Body() loginUserDto:LoginUserDto) {
-        const {user_id, email, password, role} = loginUserDto;
-        const userVerification = await this.authService.validateUser({user_id,email,password,role});
+    async login(@Body() validateUserDto:ValidateUserDto) {
+        const {email, password} = validateUserDto;
+        const userVerification = await this.authService.validateUser({email,password});
         if(!userVerification) { throw new BadRequestException('Imposible to validate user.')}
         return await this.authService.login(userVerification);
     }
