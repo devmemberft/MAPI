@@ -7,6 +7,7 @@ import { RegisterPaymentDto } from './dto/register-payment.dto';
 import { Client } from '../clients/entities/client.entity';
 import { paymentFrecuency } from './payment-frecuency.enum';
 import { SalesService } from '../sales/sales.service';
+import { PostponePaymentDto } from './dto/postpone-payment.dto';
 
 
 @Injectable()
@@ -105,7 +106,7 @@ export class PaymentsService {
 
         const existingPayment= await this.PaymentRepository.findOne({
             where:{
-                sale:{sale_id:registerPaymentDto.sale_id},
+                sale:{sale_id:sale_id},
             }
         })
 
@@ -141,8 +142,8 @@ export class PaymentsService {
         return this.SaleRepository.save(sale);
     }
 
-    async postponePayment(sale_id:string,registerPaymentDto:RegisterPaymentDto):Promise<Payment>{
-        return await this.registerClientPayment(sale_id,{...registerPaymentDto, payment_amount: 0});
+    async postponePayment(sale_id:string,postponePaymentDto:PostponePaymentDto):Promise<Payment>{
+        return await this.registerClientPayment(sale_id,postponePaymentDto);
     }
 
     async findPaymentById(payment_id:string):Promise<Payment>{

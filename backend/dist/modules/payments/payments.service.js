@@ -105,7 +105,7 @@ let PaymentsService = class PaymentsService {
         }
         const existingPayment = await this.PaymentRepository.findOne({
             where: {
-                sale: { sale_id: registerPaymentDto.sale_id },
+                sale: { sale_id: sale_id },
             }
         });
         if (existingPayment) {
@@ -131,8 +131,8 @@ let PaymentsService = class PaymentsService {
         });
         return this.SaleRepository.save(sale);
     }
-    async postponePayment(sale_id, registerPaymentDto) {
-        return await this.registerClientPayment(sale_id, { ...registerPaymentDto, payment_amount: 0 });
+    async postponePayment(sale_id, postponePaymentDto) {
+        return await this.registerClientPayment(sale_id, postponePaymentDto);
     }
     async findPaymentById(payment_id) {
         const payment = await this.PaymentRepository.findOne({ where: { payment_id: payment_id }, relations: ['sale'] });

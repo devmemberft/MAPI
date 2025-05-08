@@ -12,15 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostponePaymentDto = void 0;
 const class_validator_1 = require("class-validator");
 class PostponePaymentDto {
-    payment_amount;
     observation;
 }
 exports.PostponePaymentDto = PostponePaymentDto;
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], PostponePaymentDto.prototype, "payment_amount", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

@@ -16,6 +16,7 @@ exports.PaymentsController = void 0;
 const common_1 = require("@nestjs/common");
 const payments_service_1 = require("./payments.service");
 const register_payment_dto_1 = require("./dto/register-payment.dto");
+const postpone_payment_dto_1 = require("./dto/postpone-payment.dto");
 let PaymentsController = class PaymentsController {
     paymentsService;
     constructor(paymentsService) {
@@ -27,8 +28,8 @@ let PaymentsController = class PaymentsController {
     async registerPayment(sale_id, registerPaymentDto) {
         return await this.paymentsService.registerClientPayment(sale_id, registerPaymentDto);
     }
-    async postponePayment(sale_id, registerPaymentDto) {
-        return await this.paymentsService.postponePayment(sale_id, registerPaymentDto);
+    async postponePayment(sale_id, postponePaymentDto) {
+        return await this.paymentsService.postponePayment(sale_id, postponePaymentDto);
     }
     async getPaymentById(payment_id) {
         return await this.paymentsService.findPaymentById(payment_id);
@@ -57,7 +58,7 @@ __decorate([
     __param(0, (0, common_1.Param)('sale_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, register_payment_dto_1.RegisterPaymentDto]),
+    __metadata("design:paramtypes", [String, postpone_payment_dto_1.PostponePaymentDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "postponePayment", null);
 __decorate([

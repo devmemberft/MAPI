@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { RegisterPaymentDto } from './dto/register-payment.dto';
+import { PostponePaymentDto } from './dto/postpone-payment.dto';
 
 
 @Controller('payments')
@@ -18,8 +19,8 @@ export class PaymentsController {
     }
 
     @Post('postpone/:sale_id')
-    async postponePayment(@Param('sale_id') sale_id:string,@Body() registerPaymentDto:RegisterPaymentDto){
-        return await this.paymentsService.postponePayment(sale_id,registerPaymentDto);
+    async postponePayment(@Param('sale_id') sale_id:string,@Body() postponePaymentDto:PostponePaymentDto){
+        return await this.paymentsService.postponePayment(sale_id,postponePaymentDto);
     }
 
     @Get(':payment_id')
