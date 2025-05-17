@@ -6,6 +6,7 @@ export declare class Sale {
     sign: number;
     payment_frecuency: 'diario' | 'semanal' | 'quincenal' | 'mensual';
     payment_day: 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo';
+    total_number_of_payments: number;
     number_of_payments: number;
     quota_value: number;
     total_sale: number;

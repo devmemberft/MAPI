@@ -14,12 +14,12 @@ export class ProductsController {
         return await this.productsService.createProduct(createProductDto);
     }
 
-    @Put('update')
+    @Put('update/:product_name')
     async updateProduct(@Param('product_name') product_name:string, @Body() updateProductDto:UpdateProductDto):Promise<Product> {
         return await this.productsService.updateProduct(product_name,updateProductDto);
     }
 
-    @Delete('delete')
+    @Delete('delete/:product_name')
     async deleteProduct(@Param('product_name') product_name:string):Promise<void> {
         return await this.productsService.deleteProduct(product_name);
     }

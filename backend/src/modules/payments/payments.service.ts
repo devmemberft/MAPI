@@ -154,13 +154,13 @@ export class PaymentsService {
 
     async deletePayment(payment_id:string):Promise<void>{
         const payment = await this.findPaymentById(payment_id);
-        // encontrar relacion con la venta
         const sale = await this.salesService.findSaleById(payment.sale.sale_id);
-        // disminuir la cantidad del pago del balance de la venta
+
         const { balance_amount } = sale;
         const { payment_amount } = payment;
+        
         const newBalance = Number(balance_amount) + Number(payment_amount);
-        // disminuir en 1 el numero de pagos realizados
+
         const newCantity =  (sale.number_of_payments - 1);
         Object.assign(sale,{
             number_of_payments: newCantity,

@@ -19,6 +19,7 @@ let Sale = class Sale {
     sign;
     payment_frecuency;
     payment_day;
+    total_number_of_payments;
     number_of_payments;
     quota_value;
     total_sale;
@@ -47,6 +48,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'], nullable: true }),
     __metadata("design:type", String)
 ], Sale.prototype, "payment_day", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: 2 }),
+    __metadata("design:type", Number)
+], Sale.prototype, "total_number_of_payments", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: 1 }),
     __metadata("design:type", Number)

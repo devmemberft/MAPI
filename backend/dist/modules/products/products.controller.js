@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "createProduct", null);
 __decorate([
-    (0, common_1.Put)('update'),
+    (0, common_1.Put)('update/:product_name'),
     __param(0, (0, common_1.Param)('product_name')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "updateProduct", null);
 __decorate([
-    (0, common_1.Delete)('delete'),
+    (0, common_1.Delete)('delete/:product_name'),
     __param(0, (0, common_1.Param)('product_name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
