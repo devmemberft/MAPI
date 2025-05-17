@@ -3,10 +3,18 @@ import { ImportController } from './import.controller';
 import { ImportService } from './import.service';
 import { ClientsModule } from '../clients/clients.module';
 import { FullImportStrategy } from './strategies/full-import.strategy';
+import { ClientsService } from '../clients/clients.service';
+import { Client } from '../clients/entities/client.entity';
+import { DataBaseModule } from '../database/database.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Payment } from '../payments/entities/payment.entity';
+import { Sale } from '../sales/entities/sale.entity';
+import { User } from '../users/entities/user.entity';
+import { Product } from '../products/entities/product.entity';
 
 @Module({
-  imports:[ClientsModule],
+  imports:[DataBaseModule,TypeOrmModule.forFeature([Payment, Sale, User, Client, Product])],
   controllers: [ImportController],
-  providers: [ImportService,FullImportStrategy],
+  providers: [ImportService,FullImportStrategy, ClientsService,],
 })
 export class ImportModule {}

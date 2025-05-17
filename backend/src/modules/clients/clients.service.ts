@@ -43,6 +43,11 @@ export class ClientsService {
         return client;
     }
 
+    async checkDuplication(client_dni:string):Promise<Client | null>{
+        const client = await this.clientRepository.findOne({where:{client_dni:client_dni} });
+        return client ?? null;
+    }
+
     async findClientByName(client_name:string):Promise<Client>{
         const client = await this.clientRepository.findOneBy({client_name});
         if(!client) { throw new NotFoundException(`Client with ${client_name} was not found.`);}

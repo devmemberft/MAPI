@@ -10,16 +10,23 @@ exports.ImportModule = void 0;
 const common_1 = require("@nestjs/common");
 const import_controller_1 = require("./import.controller");
 const import_service_1 = require("./import.service");
-const clients_module_1 = require("../clients/clients.module");
 const full_import_strategy_1 = require("./strategies/full-import.strategy");
+const clients_service_1 = require("../clients/clients.service");
+const client_entity_1 = require("../clients/entities/client.entity");
+const database_module_1 = require("../database/database.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const payment_entity_1 = require("../payments/entities/payment.entity");
+const sale_entity_1 = require("../sales/entities/sale.entity");
+const user_entity_1 = require("../users/entities/user.entity");
+const product_entity_1 = require("../products/entities/product.entity");
 let ImportModule = class ImportModule {
 };
 exports.ImportModule = ImportModule;
 exports.ImportModule = ImportModule = __decorate([
     (0, common_1.Module)({
-        imports: [clients_module_1.ClientsModule],
+        imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([payment_entity_1.Payment, sale_entity_1.Sale, user_entity_1.User, client_entity_1.Client, product_entity_1.Product])],
         controllers: [import_controller_1.ImportController],
-        providers: [import_service_1.ImportService, full_import_strategy_1.FullImportStrategy],
+        providers: [import_service_1.ImportService, full_import_strategy_1.FullImportStrategy, clients_service_1.ClientsService,],
     })
 ], ImportModule);
 //# sourceMappingURL=import.module.js.map

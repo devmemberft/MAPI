@@ -48,6 +48,10 @@ let ClientsService = class ClientsService {
         }
         return client;
     }
+    async checkDuplication(client_dni) {
+        const client = await this.clientRepository.findOne({ where: { client_dni: client_dni } });
+        return client ?? null;
+    }
     async findClientByName(client_name) {
         const client = await this.clientRepository.findOneBy({ client_name });
         if (!client) {

@@ -16,9 +16,9 @@ let Client = class Client {
     client_id;
     client_dni;
     client_name;
-    client_lastname;
-    client_phone;
     client_address;
+    client_phone;
+    client_rute;
     client_zone;
     createdAt;
     updatedAt;
@@ -39,18 +39,18 @@ __decorate([
     __metadata("design:type", String)
 ], Client.prototype, "client_name", void 0);
 __decorate([
+    (0, typeorm_1.Index)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Client.prototype, "client_lastname", void 0);
+], Client.prototype, "client_address", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 15 }),
     __metadata("design:type", String)
 ], Client.prototype, "client_phone", void 0);
 __decorate([
-    (0, typeorm_1.Index)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Client.prototype, "client_address", void 0);
+], Client.prototype, "client_rute", void 0);
 __decorate([
     (0, typeorm_1.Index)(),
     (0, typeorm_1.Column)(),

@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ImportService } from './import.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerExcelOptions } from './utils/file-validation';
@@ -11,8 +11,8 @@ export class ImportController {
     @Post()
     @UseInterceptors(FileInterceptor('file', multerExcelOptions))
     async ImportAllFromExcel(@UploadedFile() file: Express.Multer.File){
-        if(!file) throw new Error('Not file uploaded');
-        await this.importService.importExcel(file.buffer);
-        return { message: 'Importation completed.'};
+        if(!file) throw new BadRequestException('Not file uploaded');
+        await this.importService.importExcel(file);
+        return { message: 'File imported completed.'};
     }
 }

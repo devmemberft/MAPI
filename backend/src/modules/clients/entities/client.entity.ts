@@ -14,15 +14,15 @@ export class Client {
     @Column()
     client_name:string;
 
-    @Column()
-    client_lastname:string;
-
-    @Column({type:'varchar', length:15})
-    client_phone:string;
-
     @Index()
     @Column()
     client_address:string;
+    
+    @Column({type:'varchar', length:15})
+    client_phone:string;
+
+    @Column()
+    client_rute:string;
 
     @Index()
     @Column()

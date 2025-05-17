@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.multerExcelOptions = exports.excelFileFilter = void 0;
-const common_1 = require("@nestjs/common");
-const excelFileFilter = (req, file, callback) => {
+exports.multerExcelOptions = exports.FileFilterExcel = void 0;
+const FileFilterExcel = (req, file, callback) => {
     if (!file.originalname.match(/\.(xlsx)$/)) {
-        return callback(new common_1.BadRequestException('Only .xlsx or .xls files are allowed'), false);
+        return callback(new Error('Only .xlsx files are allowed'), false);
     }
     callback(null, true);
 };
-exports.excelFileFilter = excelFileFilter;
+exports.FileFilterExcel = FileFilterExcel;
 exports.multerExcelOptions = {
-    fileFilter: exports.excelFileFilter,
+    limits: { fileSize: 2 * 1024 * 1024 },
+    fileFilter: exports.FileFilterExcel,
 };
 //# sourceMappingURL=file-validation.js.map

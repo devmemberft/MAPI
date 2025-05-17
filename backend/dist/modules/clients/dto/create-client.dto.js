@@ -12,24 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateClientDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateClientDto {
-    client_name;
-    client_lastname;
     client_dni;
+    client_name;
     client_address;
-    client_zone;
     client_phone;
+    client_rute;
+    client_zone;
 }
 exports.CreateClientDto = CreateClientDto;
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateClientDto.prototype, "client_name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateClientDto.prototype, "client_lastname", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -40,16 +30,26 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateClientDto.prototype, "client_address", void 0);
+], CreateClientDto.prototype, "client_name", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateClientDto.prototype, "client_zone", void 0);
+], CreateClientDto.prototype, "client_address", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.Matches)(/^\d{11}$/, { message: 'Phone number must be exactly 11 digits.' }),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_phone", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateClientDto.prototype, "client_rute", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateClientDto.prototype, "client_zone", void 0);
 //# sourceMappingURL=create-client.dto.js.map

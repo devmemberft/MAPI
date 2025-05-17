@@ -6,9 +6,9 @@ import { Workbook } from 'exceljs';
 export class ImportService {
     constructor(private readonly fullImportStrategy: FullImportStrategy){}
 
-    async importExcel(buffer:Buffer):Promise<void>{
+    async importExcel(file:Express.Multer.File):Promise<void>{
         const workbook = new Workbook();
-        await workbook.xlsx.load(buffer);
+        await workbook.xlsx.load(file.buffer);
 
         await this.fullImportStrategy.import(workbook);
     }

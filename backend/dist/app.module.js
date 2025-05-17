@@ -18,12 +18,13 @@ const sales_module_1 = require("./modules/sales/sales.module");
 const payments_module_1 = require("./modules/payments/payments.module");
 const products_module_1 = require("./modules/products/products.module");
 const clients_module_1 = require("./modules/clients/clients.module");
+const import_module_1 = require("./modules/import/import.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule, database_module_1.DataBaseModule, users_module_1.UsersModule, auth_module_1.AuthModule, sales_module_1.SalesModule, payments_module_1.PaymentsModule, products_module_1.ProductsModule, clients_module_1.ClientsModule],
+        imports: [typeorm_1.TypeOrmModule, database_module_1.DataBaseModule, users_module_1.UsersModule, auth_module_1.AuthModule, sales_module_1.SalesModule, payments_module_1.PaymentsModule, products_module_1.ProductsModule, clients_module_1.ClientsModule, import_module_1.ImportModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

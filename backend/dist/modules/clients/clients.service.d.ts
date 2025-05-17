@@ -10,5 +10,6 @@ export declare class ClientsService {
     deleteClient(client_dni: string): Promise<void>;
     findAllClients(): Promise<Client[]>;
     findClientByDni(client_dni: string): Promise<Client>;
+    checkDuplication(client_dni: string): Promise<Client | null>;
     findClientByName(client_name: string): Promise<Client>;
 }

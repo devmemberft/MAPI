@@ -18,9 +18,12 @@ let FullImportStrategy = class FullImportStrategy {
         this.clientService = clientService;
     }
     async import(workbook) {
-        const sheet = workbook.getWorksheet('Clientes');
-        if (!sheet)
-            return;
+        const sheet = workbook.getWorksheet('clientes');
+        if (!sheet) {
+            return console.log('error al encontrar nombre de la hoja, hojas disponibles: ', workbook.worksheets.map(ws => ws.name));
+        }
+        console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
+        const MAX_ROWS = 51;
         function getRequiredCellValue(cell, rowIndex, cellIndex) {
             const value = cell?.value?.toString().trim();
             if (!value) {
@@ -28,18 +31,26 @@ let FullImportStrategy = class FullImportStrategy {
             }
             return value;
         }
-        for (let i = 2; i <= sheet.rowCount; i++) {
+        for (let i = 2; i <= Math.min(sheet.rowCount, MAX_ROWS); i++) {
             const row = sheet.getRow(i);
+            console.log(`Fila ${i}: `, row.values);
             const dto = {
-                client_name: getRequiredCellValue(row.getCell(1), i, 1),
-                client_lastname: getRequiredCellValue(row.getCell(2), i, 2),
-                client_dni: getRequiredCellValue(row.getCell(3), i, 3),
+                client_dni: getRequiredCellValue(row.getCell(1), i, 1),
+                client_name: getRequiredCellValue(row.getCell(2), i, 2),
+                client_address: getRequiredCellValue(row.getCell(3), i, 3),
                 client_phone: getRequiredCellValue(row.getCell(4), i, 4),
-                client_address: getRequiredCellValue(row.getCell(5), i, 5),
+                client_rute: getRequiredCellValue(row.getCell(5), i, 5),
                 client_zone: getRequiredCellValue(row.getCell(6), i, 6),
             };
             try {
+                const existing = await this.clientService.checkDuplication(dto.client_dni);
+                if (existing) {
+                    console.warn(`Row ${i}: Duplicate DNI - Skipping.`);
+                    continue;
+                }
+                ;
                 await this.clientService.createClient(dto);
+                console.log(`Cliente agregado exitosamente en fila ${i}: ${dto.client_name}`);
             }
             catch (error) {
                 console.error(`Error importing row ${i}:`, { error: true, message: error.message, dto });
