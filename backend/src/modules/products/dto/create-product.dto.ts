@@ -1,4 +1,5 @@
 import { IsString, IsNumber, IsNotEmpty, IsEnum } from 'class-validator'
+import { ProductCategoryEnum } from '../enums/product-category.enum';
 
 export class CreateProductDto {
 
@@ -10,12 +11,8 @@ export class CreateProductDto {
     @IsNotEmpty()
     product_price:number; 
 
-    @IsEnum({muebles:'mueble',tecnologia:'tecnologia'},{message:'Must select one'})
+    @IsEnum(ProductCategoryEnum,{message:'Must select one'})
     @IsNotEmpty()
-    product_category:'mueble' | 'tecnologia';
-
-    /*@IsNumber()
-    @IsNotEmpty()
-    product_stock:number;  */
+    product_category:ProductCategoryEnum;
 
 }

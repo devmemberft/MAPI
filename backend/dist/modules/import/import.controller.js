@@ -26,7 +26,7 @@ let ImportController = class ImportController {
         if (!file)
             throw new common_1.BadRequestException('Not file uploaded');
         await this.importService.importExcel(file);
-        return { message: 'File imported completed.' };
+        return { message: 'The file was imported successfully.' };
     }
 };
 exports.ImportController = ImportController;

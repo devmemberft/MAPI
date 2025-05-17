@@ -14,10 +14,11 @@ import { Product } from '../products/entities/product.entity';
 import { ProductsService } from '../products/products.service';
 import { SalesService } from '../sales/sales.service';
 import { PaymentsService } from '../payments/payments.service';
+import { ProductsImportStrategy } from './strategies/products-import.strategy';
 
 @Module({
   imports:[DataBaseModule,TypeOrmModule.forFeature([Payment, Sale, User, Client, Product])],
   controllers: [ImportController],
-  providers: [ImportService,FullImportStrategy, ClientsService, ProductsService, SalesService, PaymentsService],
+  providers: [ImportService,FullImportStrategy, ProductsImportStrategy, ClientsService, ProductsService, SalesService, PaymentsService],
 })
 export class ImportModule {}

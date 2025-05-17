@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const sale_entity_1 = require("../../sales/entities/sale.entity");
 const typeorm_1 = require("typeorm");
+const product_category_enum_1 = require("../enums/product-category.enum");
 let Product = class Product {
     product_id;
     product_name;
@@ -36,7 +37,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "product_price", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: ['mueble', 'tecnologia'], default: 'mueble' }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: product_category_enum_1.ProductCategoryEnum }),
     __metadata("design:type", String)
 ], Product.prototype, "product_category", void 0);
 __decorate([

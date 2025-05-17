@@ -13,20 +13,24 @@ exports.ImportService = void 0;
 const common_1 = require("@nestjs/common");
 const full_import_strategy_1 = require("./strategies/full-import.strategy");
 const exceljs_1 = require("exceljs");
+const products_import_strategy_1 = require("./strategies/products-import.strategy");
 let ImportService = class ImportService {
     fullImportStrategy;
-    constructor(fullImportStrategy) {
+    productsImportStrategy;
+    constructor(fullImportStrategy, productsImportStrategy) {
         this.fullImportStrategy = fullImportStrategy;
+        this.productsImportStrategy = productsImportStrategy;
     }
     async importExcel(file) {
         const workbook = new exceljs_1.Workbook();
         await workbook.xlsx.load(file.buffer);
-        await this.fullImportStrategy.importClients(workbook);
+        await this.productsImportStrategy.importProducts(workbook);
     }
 };
 exports.ImportService = ImportService;
 exports.ImportService = ImportService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [full_import_strategy_1.FullImportStrategy])
+    __metadata("design:paramtypes", [full_import_strategy_1.FullImportStrategy,
+        products_import_strategy_1.ProductsImportStrategy])
 ], ImportService);
 //# sourceMappingURL=import.service.js.map

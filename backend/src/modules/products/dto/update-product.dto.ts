@@ -1,4 +1,5 @@
 import { IsString, IsNumber, IsOptional, IsEnum } from 'class-validator'
+import { ProductCategoryEnum } from '../enums/product-category.enum';
 export class UpdateProductDto {
 
     @IsString()
@@ -9,9 +10,9 @@ export class UpdateProductDto {
     @IsOptional()
     product_price?:number; 
 
-    @IsEnum({mueble:'mueble',tecnologia:'tecnologia'},{message:'Must select one'})
+    @IsEnum(ProductCategoryEnum,{message:'Must select one'})
     @IsOptional()
-    product_category?:'mueble' | 'tecnologia';
+    product_category?:ProductCategoryEnum;
 
     /*@IsNumber()
     @IsOptional()

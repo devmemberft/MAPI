@@ -48,5 +48,9 @@ export class ProductsService {
         return product;  
     }
 
+    async checkDuplication(product_name:string):Promise<Product | null>{
+        const product = await this.productRepository.findOne({ where:{product_name:product_name}}); // carga las relaciones si el producto tiene
+        return product ?? null;
+    }
 
 }

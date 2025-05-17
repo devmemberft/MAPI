@@ -1,6 +1,8 @@
 import { FullImportStrategy } from './strategies/full-import.strategy';
+import { ProductsImportStrategy } from './strategies/products-import.strategy';
 export declare class ImportService {
     private readonly fullImportStrategy;
-    constructor(fullImportStrategy: FullImportStrategy);
+    private readonly productsImportStrategy;
+    constructor(fullImportStrategy: FullImportStrategy, productsImportStrategy: ProductsImportStrategy);
     importExcel(file: Express.Multer.File): Promise<void>;
 }

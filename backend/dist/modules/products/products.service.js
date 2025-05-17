@@ -57,6 +57,10 @@ let ProductsService = class ProductsService {
         }
         return product;
     }
+    async checkDuplication(product_name) {
+        const product = await this.productRepository.findOne({ where: { product_name: product_name } });
+        return product ?? null;
+    }
 };
 exports.ProductsService = ProductsService;
 exports.ProductsService = ProductsService = __decorate([

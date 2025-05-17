@@ -13,6 +13,6 @@ export class ImportController {
     async ImportAllFromExcel(@UploadedFile() file: Express.Multer.File){
         if(!file) throw new BadRequestException('Not file uploaded');
         await this.importService.importExcel(file);
-        return { message: 'File imported completed.'};
+        return { message: 'The file was imported successfully.'};
     }
 }

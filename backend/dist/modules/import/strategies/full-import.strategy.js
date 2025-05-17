@@ -12,13 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FullImportStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const clients_service_1 = require("../../clients/clients.service");
-const products_service_1 = require("../../products/products.service");
+const excel_utils_1 = require("../utils/excel-utils");
 let FullImportStrategy = class FullImportStrategy {
     clientService;
-    productsService;
-    constructor(clientService, productsService) {
+    constructor(clientService) {
         this.clientService = clientService;
-        this.productsService = productsService;
     }
     async importClients(workbook) {
         const sheet = workbook.getWorksheet('clientes');
@@ -27,23 +25,16 @@ let FullImportStrategy = class FullImportStrategy {
         }
         console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
         const MAX_ROWS = 51;
-        function getRequiredCellValue(cell, rowIndex, cellIndex) {
-            const value = cell?.value?.toString().trim();
-            if (!value) {
-                throw new common_1.BadRequestException(`Missing required value at row ${rowIndex}, column ${cellIndex}.`);
-            }
-            return value;
-        }
         for (let i = 2; i <= Math.min(sheet.rowCount, MAX_ROWS); i++) {
             const row = sheet.getRow(i);
             console.log(`Fila ${i}: `, row.values);
             const dto = {
-                client_dni: getRequiredCellValue(row.getCell(1), i, 1),
-                client_name: getRequiredCellValue(row.getCell(2), i, 2),
-                client_address: getRequiredCellValue(row.getCell(3), i, 3),
-                client_phone: getRequiredCellValue(row.getCell(4), i, 4),
-                client_rute: getRequiredCellValue(row.getCell(5), i, 5),
-                client_zone: getRequiredCellValue(row.getCell(6), i, 6),
+                client_dni: (0, excel_utils_1.getRequiredString)(row.getCell(1), i, 1),
+                client_name: (0, excel_utils_1.getRequiredString)(row.getCell(2), i, 2),
+                client_address: (0, excel_utils_1.getRequiredString)(row.getCell(3), i, 3),
+                client_phone: (0, excel_utils_1.getRequiredString)(row.getCell(4), i, 4),
+                client_rute: (0, excel_utils_1.getRequiredString)(row.getCell(5), i, 5),
+                client_zone: (0, excel_utils_1.getRequiredString)(row.getCell(6), i, 6),
             };
             try {
                 const existing = await this.clientService.checkDuplication(dto.client_dni);
@@ -64,7 +55,6 @@ let FullImportStrategy = class FullImportStrategy {
 exports.FullImportStrategy = FullImportStrategy;
 exports.FullImportStrategy = FullImportStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [clients_service_1.ClientsService,
-        products_service_1.ProductsService])
+    __metadata("design:paramtypes", [clients_service_1.ClientsService])
 ], FullImportStrategy);
 //# sourceMappingURL=full-import.strategy.js.map

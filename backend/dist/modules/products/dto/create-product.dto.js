@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateProductDto = void 0;
 const class_validator_1 = require("class-validator");
+const product_category_enum_1 = require("../enums/product-category.enum");
 class CreateProductDto {
     product_name;
     product_price;
@@ -28,7 +29,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "product_price", void 0);
 __decorate([
-    (0, class_validator_1.IsEnum)({ muebles: 'mueble', tecnologia: 'tecnologia' }, { message: 'Must select one' }),
+    (0, class_validator_1.IsEnum)(product_category_enum_1.ProductCategoryEnum, { message: 'Must select one' }),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "product_category", void 0);

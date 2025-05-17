@@ -11,4 +11,5 @@ export declare class ProductsService {
     findAllProducts(): Promise<Product[]>;
     findProductById(product_id: string): Promise<Product>;
     findProductByName(product_name: string): Promise<Product>;
+    checkDuplication(product_name: string): Promise<Product | null>;
 }
