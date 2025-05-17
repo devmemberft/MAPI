@@ -11,10 +11,13 @@ import { Payment } from '../payments/entities/payment.entity';
 import { Sale } from '../sales/entities/sale.entity';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
+import { ProductsService } from '../products/products.service';
+import { SalesService } from '../sales/sales.service';
+import { PaymentsService } from '../payments/payments.service';
 
 @Module({
   imports:[DataBaseModule,TypeOrmModule.forFeature([Payment, Sale, User, Client, Product])],
   controllers: [ImportController],
-  providers: [ImportService,FullImportStrategy, ClientsService,],
+  providers: [ImportService,FullImportStrategy, ClientsService, ProductsService, SalesService, PaymentsService],
 })
 export class ImportModule {}

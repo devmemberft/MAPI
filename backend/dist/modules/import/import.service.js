@@ -21,7 +21,7 @@ let ImportService = class ImportService {
     async importExcel(file) {
         const workbook = new exceljs_1.Workbook();
         await workbook.xlsx.load(file.buffer);
-        await this.fullImportStrategy.import(workbook);
+        await this.fullImportStrategy.importClients(workbook);
     }
 };
 exports.ImportService = ImportService;

@@ -12,12 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FullImportStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const clients_service_1 = require("../../clients/clients.service");
+const products_service_1 = require("../../products/products.service");
 let FullImportStrategy = class FullImportStrategy {
     clientService;
-    constructor(clientService) {
+    productsService;
+    constructor(clientService, productsService) {
         this.clientService = clientService;
+        this.productsService = productsService;
     }
-    async import(workbook) {
+    async importClients(workbook) {
         const sheet = workbook.getWorksheet('clientes');
         if (!sheet) {
             return console.log('error al encontrar nombre de la hoja, hojas disponibles: ', workbook.worksheets.map(ws => ws.name));
@@ -61,6 +64,7 @@ let FullImportStrategy = class FullImportStrategy {
 exports.FullImportStrategy = FullImportStrategy;
 exports.FullImportStrategy = FullImportStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [clients_service_1.ClientsService])
+    __metadata("design:paramtypes", [clients_service_1.ClientsService,
+        products_service_1.ProductsService])
 ], FullImportStrategy);
 //# sourceMappingURL=full-import.strategy.js.map

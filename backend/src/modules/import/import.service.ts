@@ -10,6 +10,6 @@ export class ImportService {
         const workbook = new Workbook();
         await workbook.xlsx.load(file.buffer);
 
-        await this.fullImportStrategy.import(workbook);
+        await this.fullImportStrategy.importClients(workbook);
     }
 }
