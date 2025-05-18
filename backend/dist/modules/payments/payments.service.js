@@ -36,7 +36,9 @@ let PaymentsService = class PaymentsService {
         return ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'][new Date().getDay()];
     }
     async buildDailyRoute() {
-        const today = this.getToday();
+        const today = new Date();
+        const weekday = today.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase();
+        const monthday = today.getDate().toString().padStart(2, '0') + ' de mes';
         const freqs = [
             payment_frecuency_enum_1.paymentFrecuency.diario,
             payment_frecuency_enum_1.paymentFrecuency.semanal,
@@ -50,39 +52,57 @@ let PaymentsService = class PaymentsService {
             .addGroupBy('sale.sale_id')
             .having(`
             (
-                sale.payment_frecuency = :diario
+            sale.payment_day = :diario
             )
-            OR(
-                sale.payment_frecuency = :semanal
-                AND sale.payment_day = :today
+            OR (
+                sale.payment_day = :weekday
+            )
+            OR (
+                sale.payment_day = :monthday
+            )
+            OR (
+                sale.payment_day = 'semanal'
                 AND (
-                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '7 days')
-                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '7 days')
+                    (
+                        MAX(payment.created_at) IS NOT NULL
+                        AND MAX(payment.created_at) <= NOW() - INTERVAL '7 days'
+                    )
+                    OR (
+                        MAX(payment.created_at) IS NULL
+                        AND sale.created_at <= NOW() - INTERVAL '7 days'
+                    )
                 )
-                
             )
-            OR(
-                sale.payment_frecuency = :quincenal
-                AND sale.payment_day= :today
+            OR (
+                sale.payment_day = 'quincenal'
                 AND (
-                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '15 days')
-                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '15 days')
+                    (
+                        MAX(payment.created_at) IS NOT NULL
+                        AND MAX(payment.created_at) <= NOW() - INTERVAL '15 days'
+                    )
+                    OR (
+                        MAX(payment.created_at) IS NULL
+                        AND sale.created_at <= NOW() - INTERVAL '15 days'
+                    )
                 )
             )
-            OR(
-                sale.payment_frecuency = :mensual
-                AND sale.payment_day= :today
+            OR (
+                sale.payment_day = 'mensual'
                 AND (
-                    (MAX(payment.created_at) IS NOT NULL AND MAX(payment.created_at) <= NOW() - INTERVAL '30 days')
-                    OR (MAX(payment.created_at) IS NOT NULL AND sale.created_at <= NOW() - INTERVAL '30 days')
+                    (
+                        MAX(payment.created_at) IS NOT NULL
+                        AND MAX(payment.created_at) <= NOW() - INTERVAL '30 days'
+                    )
+                    OR (
+                        MAX(payment.created_at) IS NULL
+                        AND sale.created_at <= NOW() - INTERVAL '30 days'
+                    )
                 )
             )
         `).setParameters({
             diario: 'diario',
-            semanal: 'semanal',
-            quincenal: 'quincenal',
-            mensual: 'mensual',
-            today,
+            weekday,
+            monthday,
         })
             .getMany();
         return this.sortClients(clients);
