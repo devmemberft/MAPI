@@ -8,19 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImportService = void 0;
 const common_1 = require("@nestjs/common");
 const full_import_strategy_1 = require("./strategies/full-import.strategy");
 const exceljs_1 = require("exceljs");
-const products_import_strategy_1 = require("./strategies/products-import.strategy");
 let ImportService = class ImportService {
     fullImportStrategy;
-    productsImportStrategy;
-    constructor(fullImportStrategy, productsImportStrategy) {
+    constructor(fullImportStrategy) {
         this.fullImportStrategy = fullImportStrategy;
-        this.productsImportStrategy = productsImportStrategy;
     }
     async importExcel(file) {
         const workbook = new exceljs_1.Workbook();
@@ -31,6 +27,6 @@ let ImportService = class ImportService {
 exports.ImportService = ImportService;
 exports.ImportService = ImportService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [full_import_strategy_1.FullImportStrategy, typeof (_a = typeof products_import_strategy_1.ProductsImportStrategy !== "undefined" && products_import_strategy_1.ProductsImportStrategy) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [full_import_strategy_1.FullImportStrategy])
 ], ImportService);
 //# sourceMappingURL=import.service.js.map
