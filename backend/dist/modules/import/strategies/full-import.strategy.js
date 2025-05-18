@@ -13,10 +13,21 @@ exports.FullImportStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const clients_service_1 = require("../../clients/clients.service");
 const excel_utils_1 = require("../utils/excel-utils");
+const products_service_1 = require("../../products/products.service");
+const sales_service_1 = require("../../sales/sales.service");
+const payments_service_1 = require("../../payments/payments.service");
+const product_category_enum_1 = require("../../products/enums/product-category.enum");
+const sale_method_enum_1 = require("../../sales/enums/sale-method.enum");
 let FullImportStrategy = class FullImportStrategy {
     clientService;
-    constructor(clientService) {
+    productsService;
+    salesService;
+    paymentsService;
+    constructor(clientService, productsService, salesService, paymentsService) {
         this.clientService = clientService;
+        this.productsService = productsService;
+        this.salesService = salesService;
+        this.paymentsService = paymentsService;
     }
     async importClients(workbook) {
         const sheet = workbook.getWorksheet('clientes');
@@ -51,10 +62,100 @@ let FullImportStrategy = class FullImportStrategy {
             }
         }
     }
+    async importProducts(workbook) {
+        const sheet = workbook.getWorksheet('productos');
+        if (!sheet) {
+            return console.log(`Error al obtener la hoja "productos", hojas disponibles: `, workbook.worksheets.map(ws => ws.name));
+        }
+        console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
+        for (let i = 2; i <= sheet.rowCount; i++) {
+            const row = sheet.getRow(i);
+            console.log(`Fila ${i}: `, row.values);
+            const productDto = {
+                product_name: (0, excel_utils_1.getRequiredString)(row.getCell(1), i, 1),
+                product_price: (0, excel_utils_1.getRequiredNumber)(row.getCell(3), i, 3),
+                product_category: (0, excel_utils_1.getEnumValue)(row.getCell(7), i, 7, product_category_enum_1.ProductCategoryEnum),
+            };
+            try {
+                const existing = await this.productsService.checkDuplication(productDto.product_name);
+                if (existing) {
+                    console.warn(`Row ${i}: Duplicate product - Skipping.`);
+                    continue;
+                }
+                ;
+                await this.productsService.createProduct(productDto);
+                console.log(`Producto agregado exitosamente en fila ${i}: ${productDto.product_name}`);
+            }
+            catch (error) {
+                console.error(`Error importing row ${i}:`, { error: true, message: error.message, productDto });
+            }
+        }
+    }
+    async importSalesAndPayments(workbook) {
+        const sheet = workbook.getWorksheet('completest');
+        if (!sheet) {
+            return console.log(`La hoja "Clientes" no ha sido encontrada, hojas disponibles: `, workbook.worksheets.map(ws => ws.name));
+        }
+        const MAX_ROWS = 51;
+        const PAYMENTS_COLUMNS_START = 17;
+        const LAST_PAYMENT_COLUMN = 46;
+        for (let i = 2; i <= Math.min(sheet.rowCount, MAX_ROWS); i++) {
+            const row = sheet.getRow(i);
+            console.log(`Fila ${i}:`, row.values);
+            try {
+                const client_dni = (0, excel_utils_1.getRequiredString)(row.getCell(2), i, 2);
+                const product_name = (0, excel_utils_1.getRequiredString)(row.getCell(9), i, 9);
+                const seller = (0, excel_utils_1.getRequiredString)(row.getCell(10), i, 10);
+                const sale_method = (0, excel_utils_1.getEnumValue)(row.getCell(11), i, 11, sale_method_enum_1.SaleMethodEnum);
+                const total_number_of_payments = (0, excel_utils_1.getRequiredNumber)(row.getCell(13), i, 13);
+                const quota_value = (0, excel_utils_1.getRequiredNumber)(row.getCell(14), i, 14);
+                const sign = (0, excel_utils_1.getRequiredNumber)(row.getCell(16), i, 16);
+                const client = await this.clientService.findClientByDni(client_dni);
+                if (!client) {
+                    throw new Error(`Cliente no encontrado: ${client_dni}`);
+                }
+                const product = await this.productsService.findProductByName(product_name);
+                if (!product) {
+                    throw new Error(`Producto no encontrado: ${product_name}`);
+                }
+                const registerSaleDto = {
+                    seller,
+                    sale_method,
+                    total_number_of_payments,
+                    sign,
+                    quota_value,
+                };
+                const sale = await this.salesService.registerSale(client_dni, product.product_id, registerSaleDto);
+                console.log(`Venta registrada (fila ${i}) para cliente ${client_dni} y producto ${product_name}`);
+                for (let j = PAYMENTS_COLUMNS_START; j < Math.min(row.cellCount, LAST_PAYMENT_COLUMN); j += 2) {
+                    const dateCell = row.getCell(j);
+                    const paymentCell = row.getCell(j + 1);
+                    if (!paymentCell || !dateCell || !paymentCell.value || !dateCell.value) {
+                        break;
+                    }
+                    ;
+                    const registerPaymentDto = {
+                        payment_amount: Number(paymentCell.value),
+                        payment_date: new Date(dateCell.value),
+                    };
+                    await this.paymentsService.registerClientPayment(sale.sale_id, registerPaymentDto);
+                    console.log(`Pago registrado (fila ${i}, columna ${j})`);
+                }
+                console.log(`Fila ${i}: Venta y pagos importados correctamente.`);
+            }
+            catch (error) {
+                console.error(`Error en fila ${i}: `, { message: error.message });
+                continue;
+            }
+        }
+    }
 };
 exports.FullImportStrategy = FullImportStrategy;
 exports.FullImportStrategy = FullImportStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [clients_service_1.ClientsService])
+    __metadata("design:paramtypes", [clients_service_1.ClientsService,
+        products_service_1.ProductsService,
+        sales_service_1.SalesService,
+        payments_service_1.PaymentsService])
 ], FullImportStrategy);
 //# sourceMappingURL=full-import.strategy.js.map

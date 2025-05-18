@@ -11,31 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterSaleDto = void 0;
 const class_validator_1 = require("class-validator");
+const sale_method_enum_1 = require("../enums/sale-method.enum");
 class RegisterSaleDto {
-    sign;
-    payment_frecuency;
-    payment_day;
+    seller;
+    sale_method;
+    total_number_of_payments;
     quota_value;
+    sign;
 }
 exports.RegisterSaleDto = RegisterSaleDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RegisterSaleDto.prototype, "seller", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(sale_method_enum_1.SaleMethodEnum),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RegisterSaleDto.prototype, "sale_method", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], RegisterSaleDto.prototype, "sign", void 0);
-__decorate([
-    (0, class_validator_1.IsEnum)({ diario: 'diario', semanal: 'semanal', quincenal: 'quincenal', mensual: 'mensual' }, { message: 'Must select one' }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterSaleDto.prototype, "payment_frecuency", void 0);
-__decorate([
-    (0, class_validator_1.IsEnum)({ lunes: 'lunes', martes: 'martes', miercoles: 'miercoles', jueves: 'jueves', viernes: 'viernes', sabado: 'sabado', domingo: 'domingo' }, { message: 'Must select one' }),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], RegisterSaleDto.prototype, "payment_day", void 0);
+], RegisterSaleDto.prototype, "total_number_of_payments", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], RegisterSaleDto.prototype, "quota_value", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], RegisterSaleDto.prototype, "sign", void 0);
 //# sourceMappingURL=register-sale.dto.js.map

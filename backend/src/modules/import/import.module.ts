@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ImportController } from './import.controller';
 import { ImportService } from './import.service';
-import { ClientsModule } from '../clients/clients.module';
 import { FullImportStrategy } from './strategies/full-import.strategy';
 import { ClientsService } from '../clients/clients.service';
 import { Client } from '../clients/entities/client.entity';
@@ -14,11 +13,10 @@ import { Product } from '../products/entities/product.entity';
 import { ProductsService } from '../products/products.service';
 import { SalesService } from '../sales/sales.service';
 import { PaymentsService } from '../payments/payments.service';
-import { ProductsImportStrategy } from './strategies/products-import.strategy';
 
 @Module({
   imports:[DataBaseModule,TypeOrmModule.forFeature([Payment, Sale, User, Client, Product])],
   controllers: [ImportController],
-  providers: [ImportService,FullImportStrategy, ProductsImportStrategy, ClientsService, ProductsService, SalesService, PaymentsService],
+  providers: [ImportService,FullImportStrategy, ClientsService, ProductsService, SalesService, PaymentsService],
 })
 export class ImportModule {}

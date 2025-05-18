@@ -1,7 +1,10 @@
-import { IsOptional, IsNumber, IsString, IsDateString } from 'class-validator'
+import { IsOptional, IsNumber, IsString, IsDateString, IsDate } from 'class-validator'
 
 export class RegisterPaymentDto {
-    
+
+    @IsDate()
+    payment_date?:Date;
+
     @IsNumber()
     payment_amount?:number;
 

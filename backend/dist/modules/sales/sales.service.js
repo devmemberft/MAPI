@@ -37,12 +37,12 @@ let SalesService = class SalesService {
         const newSale = new sale_entity_1.Sale();
         newSale.product = product;
         newSale.client = client;
-        newSale.sign = registerSaleDto.sign;
-        newSale.payment_frecuency = registerSaleDto.payment_frecuency;
-        newSale.payment_day = registerSaleDto.payment_day;
-        newSale.number_of_payments;
-        newSale.quota_value = registerSaleDto.quota_value;
+        newSale.seller = registerSaleDto.seller;
+        newSale.sale_method = registerSaleDto.sale_method;
         newSale.total_sale = product.product_price;
+        newSale.total_number_of_payments = registerSaleDto.total_number_of_payments;
+        newSale.quota_value = registerSaleDto.quota_value;
+        newSale.sign = registerSaleDto.sign;
         newSale.balance_amount = (newSale.total_sale - registerSaleDto.sign);
         return await this.saleRepository.save(newSale);
     }

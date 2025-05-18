@@ -6,6 +6,9 @@ export class Payment {
     @PrimaryGeneratedColumn('uuid')
     payment_id: string;
 
+    @Column()
+    payment_date:Date;
+
     @Column({type:'numeric', default: 0}) // consultar precision y scale
     payment_amount:number; // se actualiza si se realiza el pago
 

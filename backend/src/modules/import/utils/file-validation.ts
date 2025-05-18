@@ -17,6 +17,6 @@ export const FileFilterExcel = (
 };
 
 export const multerExcelOptions: MulterOptions = {
-    limits: { fileSize: 2 * 1024 * 1024 }, // "2MB por archivo"
+    limits: { fileSize: 3 * 1024 * 1024 }, // "3MB por archivo"
     fileFilter:FileFilterExcel,
 }; 

@@ -1,21 +1,40 @@
-import { IsEnum, IsNumber, IsNotEmpty } from 'class-validator'
+import { IsString, IsEnum, IsNumber, IsNotEmpty } from 'class-validator'
+import { SaleMethodEnum } from '../enums/sale-method.enum';
+import { PaymentDayEnum } from '../enums/payment-day.enum';
+import { PaymentFrecuencyEnum } from '../enums/payment-frecuency.enum';
 
 export class RegisterSaleDto {
 
+    @IsString()
+    @IsNotEmpty()
+    seller:string;
+
+    @IsEnum(SaleMethodEnum)
+    @IsNotEmpty()
+    sale_method:SaleMethodEnum;
+
     @IsNumber()
     @IsNotEmpty()
-    sign:number;
-
-    @IsEnum({diario:'diario', semanal:'semanal', quincenal:'quincenal', mensual:'mensual'},{message:'Must select one'})
-    @IsNotEmpty()
-    payment_frecuency:'diario'|'semanal'|'quincenal'|'mensual';
-
-    @IsEnum({lunes:'lunes',martes:'martes',miercoles:'miercoles',jueves:'jueves',viernes:'viernes',sabado:'sabado',domingo:'domingo'},{message:'Must select one'})
-    @IsNotEmpty()
-    payment_day:'lunes'|'martes'|'miercoles'|'jueves'|'viernes'|'sabado'|'domingo';
+    total_number_of_payments:number;
 
     @IsNumber()
     @IsNotEmpty()
     quota_value:number;
+
+    /*
+    @IsEnum(PaymentDayEnum,{message:'Must select one'})
+    @IsNotEmpty()
+    payment_day:PaymentDayEnum;
+    @IsEnum(PaymentFrecuencyEnum,{message:'Must select one'})
+    @IsNotEmpty()
+    payment_frecuency:PaymentFrecuencyEnum;
+    */
+    
+    @IsNumber()
+    @IsNotEmpty()
+    sign:number;
+
+
+
 
 }

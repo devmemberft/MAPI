@@ -14,6 +14,7 @@ const sale_entity_1 = require("../../sales/entities/sale.entity");
 const typeorm_1 = require("typeorm");
 let Payment = class Payment {
     payment_id;
+    payment_date;
     payment_amount;
     observation;
     createdAt;
@@ -25,6 +26,10 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], Payment.prototype, "payment_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], Payment.prototype, "payment_date", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric', default: 0 }),
     __metadata("design:type", Number)

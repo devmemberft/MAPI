@@ -9,7 +9,7 @@ const FileFilterExcel = (req, file, callback) => {
 };
 exports.FileFilterExcel = FileFilterExcel;
 exports.multerExcelOptions = {
-    limits: { fileSize: 2 * 1024 * 1024 },
+    limits: { fileSize: 3 * 1024 * 1024 },
     fileFilter: exports.FileFilterExcel,
 };
 //# sourceMappingURL=file-validation.js.map

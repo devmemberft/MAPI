@@ -2,33 +2,44 @@ import { Client } from "src/modules/clients/entities/client.entity";
 import { Payment } from "src/modules/payments/entities/payment.entity";
 import { Product } from "src/modules/products/entities/product.entity";
 import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, Entity, ManyToOne, ManyToMany, OneToMany, JoinTable } from "typeorm"
+import { PaymentFrecuencyEnum } from "../enums/payment-frecuency.enum";
+import { PaymentDayEnum } from "../enums/payment-day.enum";
+import { SaleMethodEnum } from "../enums/sale-method.enum";
 
 @Entity()
 export class Sale {
     @PrimaryGeneratedColumn('uuid')
     sale_id: string;
 
-    @Column({type:'numeric'})
-    sign:number; // equivalente al pago inicial en la entidad de producto
+    @Column()
+    seller:string;
 
-    @Column({type:'enum', enum:['diario','semanal', 'quincenal', 'mensual']})
-    payment_frecuency:'diario'|'semanal'|'quincenal'|'mensual'; // diario(1) semanal(7) quincenal(15) mensual(30) dia? (lunes,martes...)
-
-    @Column({type:'enum', enum:['lunes','martes','miercoles','jueves','viernes','sabado','domingo'], nullable:true})
-    payment_day:'lunes'|'martes'|'miercoles'|'jueves'|'viernes'|'sabado'|'domingo';
-
-    @Column({default:2})
-    total_number_of_payments:number; // equivalente al numero de cuotas en la entidad de producto
-
-    @Column({default:1})
-    number_of_payments:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado
-    //valor derivado donde se compara number of payments con total number of payments, cuando llegue a 0 se cierra la venta, o cuando el balance llegue a 0
-    @Column({type:'numeric'})
-    quota_value:number; // por ejemplo, 500 pesos cada semana
+    @Column({type:'enum', enum:SaleMethodEnum})
+    sale_method:SaleMethodEnum;
 
     @Column({type:'numeric'})
     total_sale:number; // product_price * 
     
+    @Column({default:2})
+    total_number_of_payments:number; // total cuotas
+    
+    @Column({type:'numeric'})
+    quota_value:number; 
+    
+    /*
+    @Column({type:'enum', enum:PaymentDayEnum, nullable:true})
+    payment_day:PaymentDayEnum;
+    
+    @Column({type:'enum', enum:PaymentFrecuencyEnum})
+    payment_frecuency:PaymentFrecuencyEnum; // diario(1) semanal(7) quincenal(15) mensual(30) dia? (lunes,martes...)
+    */
+    @Column({type:'numeric'})
+    sign:number; // equivalente al pago inicial en la entidad de producto
+
+    @Column({default:1})
+    number_of_payments:number; //valor derivado(debe ser calculado y no guardado directamente): cuantos pagos a realizado
+    //valor derivado donde se compara number of payments con total number of payments, cuando llegue a 0 se cierra la venta, o cuando el balance llegue a 0
+ 
     @Column({type:'numeric'})
     balance_amount:number; //valor derivado(debe ser calculado y no guardado directamente): resta entre (precio del producto menos la seña) y (sumatoria de los pagos realizados)
     

@@ -14,15 +14,16 @@ const client_entity_1 = require("../../clients/entities/client.entity");
 const payment_entity_1 = require("../../payments/entities/payment.entity");
 const product_entity_1 = require("../../products/entities/product.entity");
 const typeorm_1 = require("typeorm");
+const sale_method_enum_1 = require("../enums/sale-method.enum");
 let Sale = class Sale {
     sale_id;
-    sign;
-    payment_frecuency;
-    payment_day;
-    total_number_of_payments;
-    number_of_payments;
-    quota_value;
+    seller;
+    sale_method;
     total_sale;
+    total_number_of_payments;
+    quota_value;
+    sign;
+    number_of_payments;
     balance_amount;
     createdAt;
     updatedAt;
@@ -37,25 +38,21 @@ __decorate([
     __metadata("design:type", String)
 ], Sale.prototype, "sale_id", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Sale.prototype, "seller", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: sale_method_enum_1.SaleMethodEnum }),
+    __metadata("design:type", String)
+], Sale.prototype, "sale_method", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
-], Sale.prototype, "sign", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: ['diario', 'semanal', 'quincenal', 'mensual'] }),
-    __metadata("design:type", String)
-], Sale.prototype, "payment_frecuency", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'], nullable: true }),
-    __metadata("design:type", String)
-], Sale.prototype, "payment_day", void 0);
+], Sale.prototype, "total_sale", void 0);
 __decorate([
     (0, typeorm_1.Column)({ default: 2 }),
     __metadata("design:type", Number)
 ], Sale.prototype, "total_number_of_payments", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ default: 1 }),
-    __metadata("design:type", Number)
-], Sale.prototype, "number_of_payments", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
@@ -63,7 +60,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
-], Sale.prototype, "total_sale", void 0);
+], Sale.prototype, "sign", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ default: 1 }),
+    __metadata("design:type", Number)
+], Sale.prototype, "number_of_payments", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)

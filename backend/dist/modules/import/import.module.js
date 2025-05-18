@@ -22,7 +22,6 @@ const product_entity_1 = require("../products/entities/product.entity");
 const products_service_1 = require("../products/products.service");
 const sales_service_1 = require("../sales/sales.service");
 const payments_service_1 = require("../payments/payments.service");
-const products_import_strategy_1 = require("./strategies/products-import.strategy");
 let ImportModule = class ImportModule {
 };
 exports.ImportModule = ImportModule;
@@ -30,7 +29,7 @@ exports.ImportModule = ImportModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DataBaseModule, typeorm_1.TypeOrmModule.forFeature([payment_entity_1.Payment, sale_entity_1.Sale, user_entity_1.User, client_entity_1.Client, product_entity_1.Product])],
         controllers: [import_controller_1.ImportController],
-        providers: [import_service_1.ImportService, full_import_strategy_1.FullImportStrategy, products_import_strategy_1.ProductsImportStrategy, clients_service_1.ClientsService, products_service_1.ProductsService, sales_service_1.SalesService, payments_service_1.PaymentsService],
+        providers: [import_service_1.ImportService, full_import_strategy_1.FullImportStrategy, clients_service_1.ClientsService, products_service_1.ProductsService, sales_service_1.SalesService, payments_service_1.PaymentsService],
     })
 ], ImportModule);
 //# sourceMappingURL=import.module.js.map

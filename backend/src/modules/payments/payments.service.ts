@@ -104,6 +104,7 @@ export class PaymentsService {
 
         if(!sale) { throw new NotFoundException('Sale was not found'); }
 
+        /*
         const existingPayment= await this.PaymentRepository.findOne({
             where:{
                 sale:{sale_id:sale_id},
@@ -111,12 +112,12 @@ export class PaymentsService {
         })
 
         if(existingPayment){ throw new ConflictException('Payment was already registered today.');}
-
+        */
         // Crear nuevo pago
         const payment = this.PaymentRepository.create({
             sale,
+            payment_date:registerPaymentDto.payment_date,
             payment_amount: registerPaymentDto.payment_amount,
-            observation: registerPaymentDto.observation,
         });
 
         // verificar integridad del pago

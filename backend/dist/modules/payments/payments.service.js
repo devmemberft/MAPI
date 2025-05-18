@@ -103,18 +103,10 @@ let PaymentsService = class PaymentsService {
         if (!sale) {
             throw new common_1.NotFoundException('Sale was not found');
         }
-        const existingPayment = await this.PaymentRepository.findOne({
-            where: {
-                sale: { sale_id: sale_id },
-            }
-        });
-        if (existingPayment) {
-            throw new common_1.ConflictException('Payment was already registered today.');
-        }
         const payment = this.PaymentRepository.create({
             sale,
+            payment_date: registerPaymentDto.payment_date,
             payment_amount: registerPaymentDto.payment_amount,
-            observation: registerPaymentDto.observation,
         });
         const paymentIntegrity = await this.PaymentRepository.save(payment);
         await this.postPaymentSaleUpdate(sale.sale_id, payment.payment_amount);

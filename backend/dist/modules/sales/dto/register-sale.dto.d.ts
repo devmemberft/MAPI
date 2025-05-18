@@ -1,6 +1,8 @@
+import { SaleMethodEnum } from '../enums/sale-method.enum';
 export declare class RegisterSaleDto {
-    sign: number;
-    payment_frecuency: 'diario' | 'semanal' | 'quincenal' | 'mensual';
-    payment_day: 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' | 'sabado' | 'domingo';
+    seller: string;
+    sale_method: SaleMethodEnum;
+    total_number_of_payments: number;
     quota_value: number;
+    sign: number;
 }

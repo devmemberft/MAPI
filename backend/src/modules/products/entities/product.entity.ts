@@ -16,9 +16,6 @@ export class Product {
     @Column({type:'enum', enum:ProductCategoryEnum})
     product_category:ProductCategoryEnum;
 
-    /*@Column()
-    product_stock:number;*/
-
     @CreateDateColumn({type:'timestamp', name:'created_at'}) // dia que se registro el producto
     createdAt:Date;
 

@@ -14,6 +14,6 @@ export class ImportService {
         const workbook = new Workbook();
         await workbook.xlsx.load(file.buffer);
 
-        await this.productsImportStrategy.importProducts(workbook);
+        await this.fullImportStrategy.importSalesAndPayments(workbook);
     }
 }
