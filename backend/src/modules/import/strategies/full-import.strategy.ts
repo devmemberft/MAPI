@@ -3,7 +3,7 @@ import { ClientsService } from "src/modules/clients/clients.service";
 import { CreateClientDto } from "src/modules/clients/dto/create-client.dto";
 import * as ExcelJS from 'exceljs';
 import { Workbook } from "exceljs";
-import { getEnumValue, getRequiredNumber, getRequiredString} from "../utils/excel-utils";
+import { getEnumValue, getRequiredDate, getRequiredNumber, getRequiredString} from "../utils/excel-utils";
 import { ProductsService } from "src/modules/products/products.service";
 import { SalesService } from "src/modules/sales/sales.service";
 import { PaymentsService } from "src/modules/payments/payments.service";
@@ -26,25 +26,23 @@ export class FullImportStrategy {
 
     
     async importClients(workbook:Workbook):Promise<void>{
-        const sheet = workbook.getWorksheet('clientes');
+        const sheet = workbook.getWorksheet('Clientes');
         if(!sheet) { return console.log('error al encontrar nombre de la hoja, hojas disponibles: ', workbook.worksheets.map(ws => ws.name));}
 
         console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
 
-        const MAX_ROWS=51;
-
-        for (let i=2; i<= Math.min(sheet.rowCount,MAX_ROWS); i++){
+        for (let i=2; i<= sheet.rowCount; i++){
             const row = sheet.getRow(i);
             console.log(`Fila ${i}: `, row.values);
 
             
             const dto:CreateClientDto = {
-                client_dni: getRequiredString(row.getCell(1), i, 1),
-                client_name: getRequiredString(row.getCell(2), i, 2),
-                client_address: getRequiredString(row.getCell(3), i, 3),
-                client_phone: getRequiredString(row.getCell(4), i, 4),
-                client_rute: getRequiredString(row.getCell(5), i, 5),
-                client_zone: getRequiredString(row.getCell(6), i, 6),
+                client_dni: getRequiredString(row.getCell(2), i, 2),
+                client_name: getRequiredString(row.getCell(3), i, 3),
+                client_address: getRequiredString(row.getCell(4), i, 4),
+                client_phone: getRequiredString(row.getCell(5), i, 5),
+                client_rute: getRequiredString(row.getCell(6), i, 6),
+                client_zone: getRequiredString(row.getCell(7), i, 7),
             };
 
 
@@ -64,7 +62,7 @@ export class FullImportStrategy {
     }
 
     async importProducts(workbook:Workbook):Promise<void>{
-        const sheet = workbook.getWorksheet('productos');
+        const sheet = workbook.getWorksheet('productosactualizados');
         if(!sheet){ return console.log(`Error al obtener la hoja "productos", hojas disponibles: `, workbook.worksheets.map(ws => ws.name)); }
 
         console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
@@ -76,8 +74,8 @@ export class FullImportStrategy {
             
             const productDto:CreateProductDto = {
                 product_name: getRequiredString(row.getCell(1), i, 1),
-                product_price: getRequiredNumber(row.getCell(3), i, 3),
-                product_category: getEnumValue(row.getCell(7), i, 7, ProductCategoryEnum),
+                product_price: getRequiredNumber(row.getCell(2), i, 2),
+                product_category: getEnumValue(row.getCell(3), i, 3, ProductCategoryEnum),
             };
 
 
@@ -97,26 +95,27 @@ export class FullImportStrategy {
     }
 
     async importSalesAndPayments(workbook:Workbook):Promise<void>{
-        const sheet = workbook.getWorksheet('completest');
+        const sheet = workbook.getWorksheet('Clientes');
         if(!sheet) { return console.log(`La hoja "Clientes" no ha sido encontrada, hojas disponibles: `, workbook.worksheets.map(ws => ws.name)); }
         
-        const MAX_ROWS=51;
         const PAYMENTS_COLUMNS_START = 17; 
-        const LAST_PAYMENT_COLUMN = 46;
+        const LAST_PAYMENT_COLUMN = 48;
 
 
-        for(let i = 2; i<=Math.min(sheet.rowCount,MAX_ROWS);i++){
+        for(let i = 2; i<= sheet.rowCount; i++){
             const row = sheet.getRow(i);
             console.log(`Fila ${i}:`,row.values);
 
             try{
                 const client_dni = getRequiredString(row.getCell(2), i, 2);
+                console.log(`Fila ${i}, columna 8 (sale_date):`, row.getCell(8).value);
+                const sale_date = getRequiredDate(row.getCell(8), i, 8);
                 const product_name = getRequiredString(row.getCell(9), i, 9);
                 const seller = getRequiredString(row.getCell(10), i, 10);
                 const sale_method = getEnumValue(row.getCell(11), i, 11, SaleMethodEnum);
                 const total_number_of_payments = getRequiredNumber(row.getCell(13), i, 13);
                 const quota_value = getRequiredNumber(row.getCell(14), i, 14);
-                //const payment_day = getEnumValue(row.getCell(15), i, 15, PaymentDayEnum);
+                const payment_day = getEnumValue(row.getCell(15), i, 15, PaymentDayEnum);
                 //const payment_frecuency = getEnumValue(row.getCell(6), i, 6, PaymentFrecuencyEnum);
                 const sign = getRequiredNumber(row.getCell(16), i, 16);
 
@@ -127,15 +126,16 @@ export class FullImportStrategy {
                 if(!product){ throw new Error(`Producto no encontrado: ${product_name}`); }
 
                 const registerSaleDto:RegisterSaleDto = {
+                    sale_date,
                     seller,
                     sale_method,
                     total_number_of_payments,
-                    //payment_day,
+                    payment_day,
                     //payment_frecuency,
                     sign,
                     quota_value,
                 };
-
+                console.log(`DTO fila ${i}:`, registerSaleDto);
                 const sale = await this.salesService.registerSale(client_dni,product.product_id, registerSaleDto);
                 console.log(`Venta registrada (fila ${i}) para cliente ${client_dni} y producto ${product_name}`);
 

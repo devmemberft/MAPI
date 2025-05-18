@@ -23,7 +23,7 @@ exports.CreateClientDto = CreateClientDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Matches)(/^\d{8}$/, { message: 'Client dni must be exactly 8 digits' }),
+    (0, class_validator_1.Matches)(/^\d{9}$/, { message: 'Client dni must be exactly 9 digits' }),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_dni", void 0);
 __decorate([
@@ -39,7 +39,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Matches)(/^\d{11}$/, { message: 'Phone number must be exactly 11 digits.' }),
+    (0, class_validator_1.Matches)(/^\d{22}$/, { message: 'Phone number must be exactly 22 digits.' }),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "client_phone", void 0);
 __decorate([

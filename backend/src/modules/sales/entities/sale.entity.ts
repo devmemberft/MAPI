@@ -12,6 +12,9 @@ export class Sale {
     sale_id: string;
 
     @Column()
+    sale_date:Date;
+
+    @Column()
     seller:string;
 
     @Column({type:'enum', enum:SaleMethodEnum})
@@ -26,10 +29,10 @@ export class Sale {
     @Column({type:'numeric'})
     quota_value:number; 
     
-    /*
     @Column({type:'enum', enum:PaymentDayEnum, nullable:true})
     payment_day:PaymentDayEnum;
     
+    /*
     @Column({type:'enum', enum:PaymentFrecuencyEnum})
     payment_frecuency:PaymentFrecuencyEnum; // diario(1) semanal(7) quincenal(15) mensual(30) dia? (lunes,martes...)
     */

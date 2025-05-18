@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", String)
 ], Client.prototype, "client_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 15 }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 22 }),
     __metadata("design:type", String)
 ], Client.prototype, "client_dni", void 0);
 __decorate([
@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", String)
 ], Client.prototype, "client_address", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 15 }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 22 }),
     __metadata("design:type", String)
 ], Client.prototype, "client_phone", void 0);
 __decorate([

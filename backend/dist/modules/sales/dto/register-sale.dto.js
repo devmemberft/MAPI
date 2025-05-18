@@ -12,14 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisterSaleDto = void 0;
 const class_validator_1 = require("class-validator");
 const sale_method_enum_1 = require("../enums/sale-method.enum");
+const payment_day_enum_1 = require("../enums/payment-day.enum");
 class RegisterSaleDto {
+    sale_date;
     seller;
     sale_method;
     total_number_of_payments;
     quota_value;
+    payment_day;
     sign;
 }
 exports.RegisterSaleDto = RegisterSaleDto;
+__decorate([
+    (0, class_validator_1.IsDate)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Date)
+], RegisterSaleDto.prototype, "sale_date", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -40,6 +48,11 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], RegisterSaleDto.prototype, "quota_value", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(payment_day_enum_1.PaymentDayEnum, { message: 'Must select one' }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], RegisterSaleDto.prototype, "payment_day", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),

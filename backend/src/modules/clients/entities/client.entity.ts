@@ -8,7 +8,7 @@ export class Client {
     @PrimaryGeneratedColumn('uuid')
     client_id:string;
 
-    @Column({type:'varchar',length:15})
+    @Column({type:'varchar',length:22})
     client_dni:string;
 
     @Column()
@@ -18,7 +18,7 @@ export class Client {
     @Column()
     client_address:string;
     
-    @Column({type:'varchar', length:15})
+    @Column({type:'varchar', length:22})
     client_phone:string;
 
     @Column()

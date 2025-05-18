@@ -16,9 +16,26 @@ export function getRequiredNumber(cell: ExcelJS.Cell, row: number, col: number):
 }
 
 export function getEnumValue<T extends Record<string, string | number >>(cell: ExcelJS.Cell, row: number, col: number, enumObj: T): T[keyof T] {
-  const raw = cell?.value?.toString().trim();
+  const raw = cell?.value?.toString().toLowerCase().trim();
   if (!raw || !Object.values(enumObj).includes(raw as any)) {
     throw new BadRequestException(`Invalid enum value at row ${row}, column ${col}. Expected one of: ${Object.values(enumObj).join(', ')}`);
   }
   return raw as T[keyof T];
+}
+
+export function getRequiredDate(cell: ExcelJS.Cell, row:number, col:number): Date {
+  if(!cell || cell.value == null) { throw new BadRequestException(`Invalid or missing date in row ${row}, column ${col}`); }
+
+  const raw = cell.value;
+
+  if(raw instanceof Date) { return raw; }
+
+  if(typeof raw === 'string' || typeof raw === 'number') {
+    const parsed = new Date(raw);
+    if(isNaN(parsed.getTime())) { throw new BadRequestException(`Invalid date format in row ${row}, column ${col}: "${raw}"`); }
+    return parsed;
+  }
+  
+  throw new Error(`Unsupported date type in row ${row}, column ${col}: ${JSON.stringify(raw)}`);
+
 }

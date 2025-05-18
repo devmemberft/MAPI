@@ -18,6 +18,7 @@ const sales_service_1 = require("../../sales/sales.service");
 const payments_service_1 = require("../../payments/payments.service");
 const product_category_enum_1 = require("../../products/enums/product-category.enum");
 const sale_method_enum_1 = require("../../sales/enums/sale-method.enum");
+const payment_day_enum_1 = require("../../sales/enums/payment-day.enum");
 let FullImportStrategy = class FullImportStrategy {
     clientService;
     productsService;
@@ -30,22 +31,21 @@ let FullImportStrategy = class FullImportStrategy {
         this.paymentsService = paymentsService;
     }
     async importClients(workbook) {
-        const sheet = workbook.getWorksheet('clientes');
+        const sheet = workbook.getWorksheet('Clientes');
         if (!sheet) {
             return console.log('error al encontrar nombre de la hoja, hojas disponibles: ', workbook.worksheets.map(ws => ws.name));
         }
         console.log(`Procesando hoja: ${sheet.name}, filas: ${sheet.rowCount}`);
-        const MAX_ROWS = 51;
-        for (let i = 2; i <= Math.min(sheet.rowCount, MAX_ROWS); i++) {
+        for (let i = 2; i <= sheet.rowCount; i++) {
             const row = sheet.getRow(i);
             console.log(`Fila ${i}: `, row.values);
             const dto = {
-                client_dni: (0, excel_utils_1.getRequiredString)(row.getCell(1), i, 1),
-                client_name: (0, excel_utils_1.getRequiredString)(row.getCell(2), i, 2),
-                client_address: (0, excel_utils_1.getRequiredString)(row.getCell(3), i, 3),
-                client_phone: (0, excel_utils_1.getRequiredString)(row.getCell(4), i, 4),
-                client_rute: (0, excel_utils_1.getRequiredString)(row.getCell(5), i, 5),
-                client_zone: (0, excel_utils_1.getRequiredString)(row.getCell(6), i, 6),
+                client_dni: (0, excel_utils_1.getRequiredString)(row.getCell(2), i, 2),
+                client_name: (0, excel_utils_1.getRequiredString)(row.getCell(3), i, 3),
+                client_address: (0, excel_utils_1.getRequiredString)(row.getCell(4), i, 4),
+                client_phone: (0, excel_utils_1.getRequiredString)(row.getCell(5), i, 5),
+                client_rute: (0, excel_utils_1.getRequiredString)(row.getCell(6), i, 6),
+                client_zone: (0, excel_utils_1.getRequiredString)(row.getCell(7), i, 7),
             };
             try {
                 const existing = await this.clientService.checkDuplication(dto.client_dni);
@@ -63,7 +63,7 @@ let FullImportStrategy = class FullImportStrategy {
         }
     }
     async importProducts(workbook) {
-        const sheet = workbook.getWorksheet('productos');
+        const sheet = workbook.getWorksheet('productosactualizados');
         if (!sheet) {
             return console.log(`Error al obtener la hoja "productos", hojas disponibles: `, workbook.worksheets.map(ws => ws.name));
         }
@@ -73,8 +73,8 @@ let FullImportStrategy = class FullImportStrategy {
             console.log(`Fila ${i}: `, row.values);
             const productDto = {
                 product_name: (0, excel_utils_1.getRequiredString)(row.getCell(1), i, 1),
-                product_price: (0, excel_utils_1.getRequiredNumber)(row.getCell(3), i, 3),
-                product_category: (0, excel_utils_1.getEnumValue)(row.getCell(7), i, 7, product_category_enum_1.ProductCategoryEnum),
+                product_price: (0, excel_utils_1.getRequiredNumber)(row.getCell(2), i, 2),
+                product_category: (0, excel_utils_1.getEnumValue)(row.getCell(3), i, 3, product_category_enum_1.ProductCategoryEnum),
             };
             try {
                 const existing = await this.productsService.checkDuplication(productDto.product_name);
@@ -92,23 +92,25 @@ let FullImportStrategy = class FullImportStrategy {
         }
     }
     async importSalesAndPayments(workbook) {
-        const sheet = workbook.getWorksheet('completest');
+        const sheet = workbook.getWorksheet('Clientes');
         if (!sheet) {
             return console.log(`La hoja "Clientes" no ha sido encontrada, hojas disponibles: `, workbook.worksheets.map(ws => ws.name));
         }
-        const MAX_ROWS = 51;
         const PAYMENTS_COLUMNS_START = 17;
-        const LAST_PAYMENT_COLUMN = 46;
-        for (let i = 2; i <= Math.min(sheet.rowCount, MAX_ROWS); i++) {
+        const LAST_PAYMENT_COLUMN = 48;
+        for (let i = 2; i <= sheet.rowCount; i++) {
             const row = sheet.getRow(i);
             console.log(`Fila ${i}:`, row.values);
             try {
                 const client_dni = (0, excel_utils_1.getRequiredString)(row.getCell(2), i, 2);
+                console.log(`Fila ${i}, columna 8 (sale_date):`, row.getCell(8).value);
+                const sale_date = (0, excel_utils_1.getRequiredDate)(row.getCell(8), i, 8);
                 const product_name = (0, excel_utils_1.getRequiredString)(row.getCell(9), i, 9);
                 const seller = (0, excel_utils_1.getRequiredString)(row.getCell(10), i, 10);
                 const sale_method = (0, excel_utils_1.getEnumValue)(row.getCell(11), i, 11, sale_method_enum_1.SaleMethodEnum);
                 const total_number_of_payments = (0, excel_utils_1.getRequiredNumber)(row.getCell(13), i, 13);
                 const quota_value = (0, excel_utils_1.getRequiredNumber)(row.getCell(14), i, 14);
+                const payment_day = (0, excel_utils_1.getEnumValue)(row.getCell(15), i, 15, payment_day_enum_1.PaymentDayEnum);
                 const sign = (0, excel_utils_1.getRequiredNumber)(row.getCell(16), i, 16);
                 const client = await this.clientService.findClientByDni(client_dni);
                 if (!client) {
@@ -119,12 +121,15 @@ let FullImportStrategy = class FullImportStrategy {
                     throw new Error(`Producto no encontrado: ${product_name}`);
                 }
                 const registerSaleDto = {
+                    sale_date,
                     seller,
                     sale_method,
                     total_number_of_payments,
+                    payment_day,
                     sign,
                     quota_value,
                 };
+                console.log(`DTO fila ${i}:`, registerSaleDto);
                 const sale = await this.salesService.registerSale(client_dni, product.product_id, registerSaleDto);
                 console.log(`Venta registrada (fila ${i}) para cliente ${client_dni} y producto ${product_name}`);
                 for (let j = PAYMENTS_COLUMNS_START; j < Math.min(row.cellCount, LAST_PAYMENT_COLUMN); j += 2) {

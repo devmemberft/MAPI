@@ -4,7 +4,7 @@ export class CreateClientDto {
 
     @IsString()
     @IsNotEmpty()
-    @Matches(/^\d{8}$/, {message:'Client dni must be exactly 8 digits'})
+    @Matches(/^\d{9}$/, {message:'Client dni must be exactly 9 digits'})
     client_dni:string;
 
     @IsString()
@@ -17,7 +17,7 @@ export class CreateClientDto {
     
     @IsString()
     @IsNotEmpty()
-    @Matches(/^\d{11}$/, {message:'Phone number must be exactly 11 digits.'})
+    @Matches(/^\d{22}$/, {message:'Phone number must be exactly 22 digits.'})
     client_phone: string;
 
     @IsString()

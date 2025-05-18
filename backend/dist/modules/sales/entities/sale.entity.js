@@ -14,14 +14,17 @@ const client_entity_1 = require("../../clients/entities/client.entity");
 const payment_entity_1 = require("../../payments/entities/payment.entity");
 const product_entity_1 = require("../../products/entities/product.entity");
 const typeorm_1 = require("typeorm");
+const payment_day_enum_1 = require("../enums/payment-day.enum");
 const sale_method_enum_1 = require("../enums/sale-method.enum");
 let Sale = class Sale {
     sale_id;
+    sale_date;
     seller;
     sale_method;
     total_sale;
     total_number_of_payments;
     quota_value;
+    payment_day;
     sign;
     number_of_payments;
     balance_amount;
@@ -37,6 +40,10 @@ __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
 ], Sale.prototype, "sale_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], Sale.prototype, "sale_date", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -57,6 +64,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)
 ], Sale.prototype, "quota_value", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: payment_day_enum_1.PaymentDayEnum, nullable: true }),
+    __metadata("design:type", String)
+], Sale.prototype, "payment_day", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'numeric' }),
     __metadata("design:type", Number)

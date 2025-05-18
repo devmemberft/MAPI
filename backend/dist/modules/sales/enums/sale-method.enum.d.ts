@@ -1,4 +1,4 @@
 export declare enum SaleMethodEnum {
-    contado = "Contado",
-    credito = "Credito"
+    contado = "contado",
+    credito = "credito"
 }

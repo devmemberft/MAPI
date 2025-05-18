@@ -1,9 +1,13 @@
-import { IsString, IsEnum, IsNumber, IsNotEmpty } from 'class-validator'
+import { IsString, IsEnum, IsNumber, IsNotEmpty, IsDate } from 'class-validator'
 import { SaleMethodEnum } from '../enums/sale-method.enum';
 import { PaymentDayEnum } from '../enums/payment-day.enum';
 import { PaymentFrecuencyEnum } from '../enums/payment-frecuency.enum';
 
 export class RegisterSaleDto {
+
+    @IsDate()
+    @IsNotEmpty()
+    sale_date:Date;
 
     @IsString()
     @IsNotEmpty()
@@ -21,10 +25,11 @@ export class RegisterSaleDto {
     @IsNotEmpty()
     quota_value:number;
 
-    /*
     @IsEnum(PaymentDayEnum,{message:'Must select one'})
     @IsNotEmpty()
     payment_day:PaymentDayEnum;
+
+    /*
     @IsEnum(PaymentFrecuencyEnum,{message:'Must select one'})
     @IsNotEmpty()
     payment_frecuency:PaymentFrecuencyEnum;
