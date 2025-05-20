@@ -3,6 +3,35 @@
 
 - Soft delete (eliminación suave): En lugar de eliminar usuarios permanentemente, podrías optar por una "eliminación suave" (soft delete), donde solo marcas a los usuarios como eliminados, pero sigues guardando sus datos en la base de datos. Esto es útil por si necesitas restaurar un usuario más tarde o hacer un seguimiento.
 
+✅ Implementados
+
+    - Diseño de entidades robusto: Clientes, productos, ventas, pagos — todo conectado lógicamente. ✔️
+
+    - Relaciones consistentes y funcionales entre ventas y pagos, con manejo correcto de saldos. ✔️
+
+    - Importación masiva desde Excel con validación por fila, manejo de enums y estructura compleja ✔️
+
+    - Uso de enums inteligentes (payment_day combina días de semana, días del mes y frecuencias). ✔️
+
+    - Lógica de rutas dinámicas para visitas, configurable por tipo de frecuencia — ya lista para producción. ✔️
+
+    - Servicios reutilizables y DTOs limpios, buena arquitectura. ✔️
+
+    - Validaciones de negocio implementadas en cada servicio crítico (registerSale, registerPayment, etc.). ✔️ 
+    - Autenticación/autorización: si tu backend se va a abrir, agregar JWT, Roles, o al menos una capa básica. ✔️
+
+    - Endpoints probados manualmente y funcionales, lo cual es fundamental antes de automatizar pruebas. ✔️
+
+🟡 Listo para demo beta, puntos de evolución:
+
+    - Automatizar pruebas (unitarias/integración) sería el siguiente paso para robustecer el backend.
+
+    - Monitoreo y logging: agregar logs útiles o herramientas tipo Sentry, para exponer esto a usuarios reales.
+
+    - Panel frontend o admin para facilitar pruebas o visualizar los datos (lo que ya estás considerando con filtros de rutas).
+
+    - Tal vez preparar un seed de datos o script de precarga para mostrar un flujo completo en demo sin necesidad de Excel.
+
 
 ## Deployment
 
