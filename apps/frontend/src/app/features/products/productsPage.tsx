@@ -19,7 +19,7 @@ export default function CheckProducts() {
         <h2>Lista de productos</h2>
         <ul>
           {products.map((product:any) => (
-          <li className='p-4 bg-white rounded shadow'>
+          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>Nombre del producto: {product.product_name}</p>
             <p>precio del producto: {product.product_price}</p>
           </li>

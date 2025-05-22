@@ -5,16 +5,16 @@ import Link from "next/link";
 export default function Home() {
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h2>Menu principal</h2>
-          <ul>
-            <li><Link href='/clients'>Ver lista de clientes</Link></li>
-            <li><Link href='/products'>Ver lista de productos</Link></li>
-            <li><Link href='/sales'>Ver lista de ventas</Link></li>
-            <li><Link href='/routes'>Ver la ruta de hoy</Link></li>
-          </ul>
+      <main className="flex h-auto w-auto justify-between">
+        <div className="flex flex-row justify-between items-center w-full border-b-1 border-b-slate-500">
+          <h2 className="flex text-2xl p-1 m-2">Menu principal</h2>
+            <ul className="flex flex-row p-1 m-2 space-x-4">
+              <li><Link href='/clients'>Ver lista de clientes</Link></li>
+              <li><Link href='/products'>Ver lista de productos</Link></li>
+              <li><Link href='/sales'>Ver lista de ventas</Link></li>
+              <li><Link href='/routes'>Ver la ruta de hoy</Link></li>
+            </ul>
+        </div>
       </main>
-    </div>
   );
 }

@@ -19,7 +19,7 @@ export default function CheckClients() {
         <h2>Lista de clientes</h2>
         <ul>
           {clients.map((client:any) => (
-          <li className='p-4 bg-white rounded shadow'>
+          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>Nombre:{client.client_name}</p>
             <p>DNI:{client.client_dni}</p>
           </li>

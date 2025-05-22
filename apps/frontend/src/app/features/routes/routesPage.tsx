@@ -19,7 +19,7 @@ export default function CheckRoute() {
         <h2>Ruta del dia</h2>
         <ul>
           {routes.map((route:any) => (
-          <li className='p-4 bg-white rounded shadow'>
+          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>nombre del cliente: {route.client_name}</p>
             <p>direccion del cliente: {route.client_address}</p>
           </li>

@@ -19,7 +19,7 @@ export default function CheckSales() {
         <h2>Lista de ventas activas</h2>
         <ul>
           {sales.map((sale:any) => (
-          <li className='p-4 bg-white rounded shadow'>
+          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>fecha de la venta: {sale.sale_date}</p>
             <p>valor de la cuota: {sale.quota_value}</p>
           </li>
