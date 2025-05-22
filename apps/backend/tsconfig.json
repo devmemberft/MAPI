@@ -22,15 +22,6 @@
     ],
     "types": [
       "node",
-      "babel__generator",
-      "babel__template",
-      "body-parser",
-      "istanbul-lib-report",
-      "qs",
-      "range-parser",
-      "send",
-      "serve-static",
-      "yargs-parser"
     ]
   }
 }

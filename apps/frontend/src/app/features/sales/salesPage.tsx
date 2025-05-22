@@ -2,26 +2,26 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 
-export default function checkProducts() {
+export default function CheckSales() {
 
-  const [products, setProducts] = useState([]);
+  const [sales, setSales] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/products")
+    fetch("http://localhost:4000/sales")
       .then((res) => res.json())
-      .then(setProducts)
-      .catch((err) => console.error("Error fetching products: ", err));
+      .then(setSales)
+      .catch((err) => console.error("Error fetching sales: ", err));
   }, []);
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h2>Lista de productos</h2>
+        <h2>Lista de ventas activas</h2>
         <ul>
-          {products.map((product:any) => (
+          {sales.map((sale:any) => (
           <li className='p-4 bg-white rounded shadow'>
-            <p>Nombre del producto: {product.product_name}</p>
-            <p>precio del producto: {product.product_price}</p>
+            <p>fecha de la venta: {sale.sale_date}</p>
+            <p>valor de la cuota: {sale.quota_value}</p>
           </li>
           ))}
         </ul>
