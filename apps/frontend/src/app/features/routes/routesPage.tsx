@@ -1,17 +1,12 @@
 
 'use client'
-import React, { useEffect, useState } from 'react';
+import { useApi } from "@/app/hooks/useApi";
 
 export default function CheckRoute() {
+  const {data:routes, loading, error } = useApi('/payments/daily-route');
 
-  const [routes, setRoutes] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:4000/payments/daily-route")
-      .then((res) => res.json())
-      .then(setRoutes)
-      .catch((err) => console.error("Error fetching route: ", err));
-  }, []);
+  if(loading) return <p className="m1">Cargando ruta del dia...</p>
+  if(error) return <p className="m1 text-red-700">Error: {error}</p>
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">

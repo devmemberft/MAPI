@@ -9,10 +9,10 @@ export default function CheckClients() {
   if(error) return <p className='text-red-700'>Error: {error}</p>
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div className="items-center justify-items-center min-h-screen py-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col gap-[20px] row-start-2 items-center sm:items-start">
         <h2>Lista de clientes</h2>
-        <ul>
+        <ul className='w-full'>
           {clients?.map((client:any) => (
           <li key={client.client_id} className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>Nombre:{client.client_name}</p>
