@@ -1,25 +1,20 @@
 
 'use client'
-import React, { useEffect, useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function CheckClients() {
+  const { data:clients, loading, error } = useApi('/clients');
 
-  const [clients, setClients] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:4000/clients")
-      .then((res) => res.json())
-      .then(setClients)
-      .catch((err) => console.error("Error fetching clients: ", err));
-  }, []);
+  if(loading) return <p className='m-1'>Cargando clientes...</p>
+  if(error) return <p className='text-red-700'>Error: {error}</p>
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <h2>Lista de clientes</h2>
         <ul>
-          {clients.map((client:any) => (
-          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
+          {clients?.map((client:any) => (
+          <li key={client.client_id} className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>Nombre:{client.client_name}</p>
             <p>DNI:{client.client_dni}</p>
           </li>

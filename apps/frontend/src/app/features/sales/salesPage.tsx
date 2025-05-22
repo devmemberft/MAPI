@@ -1,17 +1,12 @@
 
 'use client'
-import React, { useEffect, useState } from 'react';
+import { useApi } from "@/app/hooks/useApi";
 
 export default function CheckSales() {
+  const {data:sales, loading, error } = useApi('/sales');
 
-  const [sales, setSales] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:4000/sales")
-      .then((res) => res.json())
-      .then(setSales)
-      .catch((err) => console.error("Error fetching sales: ", err));
-  }, []);
+  if(loading) return <p className="m-1">Cargando ventas...</p>
+  if(error) return <p className="m-1 text-red-700">Error: {error}</p>
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -19,7 +14,7 @@ export default function CheckSales() {
         <h2>Lista de ventas activas</h2>
         <ul>
           {sales.map((sale:any) => (
-          <li className='p-4 bg-slate-500 mb-2 rounded shadow'>
+          <li key={sale.sale_id} className='p-4 bg-slate-500 mb-2 rounded shadow'>
             <p>fecha de la venta: {sale.sale_date}</p>
             <p>valor de la cuota: {sale.quota_value}</p>
           </li>
