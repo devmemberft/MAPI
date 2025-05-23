@@ -1,5 +1,7 @@
 
 'use client'
+import { useState } from 'react';
+import { useClientsSearch } from '@/app/hooks/useClients';
 import { useApi } from '@/app/hooks/useApi';
 import { ArrowDownWideNarrow, Search, Users } from 'lucide-react';
 

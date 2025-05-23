@@ -11,11 +11,11 @@ export function MainPanel() {
                 <ul className="flex flex-col justify-start items-start space-y-6 p-2 h-screen w-full">
                     <li><Link href='/' className='flex font-semibold text-slate-600 px-4 py-1 shadow hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded'><BriefcaseBusiness/><p className='px-2'>Portafolio</p></Link></li>
                     <li><Link href='/clients' className="flex  w-full bg-transparent font-semibold text-slate-600 px-4 py-1 shadow hover:text-white hover:border-b-1 border-b-slate-100/20"><Users/><p className='px-2'>Clientes</p></Link></li>
-                    <li><Link href='/products' className="flex bg-transparent text-slate-600 font-semibold px-4 py-1  shadow hover:text-white hover:border-b-1 border-b-slate-100/20"><Package/><p className='px-2'>Productos</p></Link></li>
+                    <li><Link href='/products' className="flex bg-transparent text-slate-600 font-semibold px-4 py-1  shadow hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><Package/><p className='px-2'>Productos</p></Link></li>
                     <li><Link href='/sales' className="flex  bg-transparent text-slate-600 font-semibold px-4 py-1  shadow hover:text-white hover:border-b-1 border-b-slate-100/20"><Store/><p className='px-2'>Ventas</p></Link></li>
-                    <li><Link href='/routes' className="flex  bg-transparent text-slate-600 font-semibold px-4 py-1  shadow hover:text-white hover:border-b-1 border-b-slate-100/20"><Truck/><p className='px-2'>Rutas</p></Link></li>
+                    <li><Link href='/routes' className="flex  bg-transparent text-slate-600 font-semibold px-4 py-1  shadow hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><Truck/><p className='px-2'>Rutas</p></Link></li>
                     <li><Link href='/routes' className="flex font-semibold text-slate-600 px-4 py-1  shadow hover:text-white hover:border-b-1 hover:border-b-slate-100/10"><Settings/><p className='px-2'>Config</p></Link></li>
-                    <li><Link href='/routes' className="flex font-semibold text-slate-600 px-4 py-1  shadow hover:text-white hover:border-b-1 hover:border-b-slate-100/20"><LogOut/><p className='px-2'>Salir</p></Link></li>
+                    <li><Link href='/routes' className="flex font-semibold text-slate-600 px-4 py-1  shadow hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><LogOut/><p className='px-2'>Salir</p></Link></li>
                 </ul>
             </div>
         </main>
