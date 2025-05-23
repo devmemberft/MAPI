@@ -10,7 +10,7 @@ export default function CheckProducts() {
   if(error) return <p className='m1 text-red-700'>Error: {error}</p>
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[1px_1fr_1px] items-center justify-items-center min-h-screen sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="min-w-full flex flex-col gap-[12px] row-start-2 items-center sm:items-start">
         <h2 className='w-full h-full text-center text-xl'>Lista de productos</h2>
         <ul className="flex flex-wrap gap-6 justify-center items-center sm:items-start">

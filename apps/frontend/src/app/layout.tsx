@@ -29,13 +29,11 @@ export default function DashboardLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <div className="fixed">
-        < MainPanel />
-      </div>
-      <div className="flex-1 flex flex-col ml-52">
-        < PersistentHeader />
-        <main className="p-4 overflow-auto">{children}</main>
-      </div>  
+        <div className="flex-1 flex flex-col ">
+          < MainPanel />
+          < PersistentHeader />
+          <main className="fixed top-16 left-42 overflow-y-auto">{children}</main>
+        </div>  
       </body>
     </html>
   );
