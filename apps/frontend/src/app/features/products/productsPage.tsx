@@ -2,9 +2,10 @@
 'use client'
 import { useState } from 'react';
 import { useApi } from '@/app/hooks/useApi';
+import { Package } from 'lucide-react';
 
 export default function CheckProducts() {
-  const productsPerPage = 8;
+  const productsPerPage = 4;
 
   const [actualPage,setActualPage] = useState(1);
 
@@ -22,28 +23,29 @@ export default function CheckProducts() {
 
   return (
     <>
-    <div className='products-options fixed top-16 h-16 w-full'>
-      <div className='buttons flex flex-row space-x-4 h-full'>
-        <button onClick={
-          () => setActualPage(p => p - 1)}
-          disabled={actualPage === 1}
-          className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'
-          >Anterior
-        </button>
-
-        <button onClick={
-          () => setActualPage(p => p + 1)}
-          disabled={actualPage === totalPages}
-          className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>
-          Siguiente
-        </button>
-      </div>
-    </div>
-    <div className="get-section fixed top-32 left-42 h-screen overflow-auto font-[family-name:var(--font-geist-sans)]">
+    <div className="get-section fixed top-16 h-screen w-[700px] overflow-auto font-[family-name:var(--font-geist-sans)]">
 
       <div className="flex min-w-full w-full p-4">
 
         <div className='flex flex-wrap items-center justify-center px-6 py-2 gap-6 bg-neutral-500/40 border-1 border-slate-100/10 rounded shadow'>
+          
+          <div className='methods-buttons flex text-center items-center justify-center w-full h-auto p-2 space-x-6'>
+            <button onClick={
+              () => setActualPage(p => p - 1)}
+              disabled={actualPage === 1}
+              className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'
+              >Anterior
+            </button>
+
+            <button onClick={
+              () => setActualPage(p => p + 1)}
+              disabled={actualPage === totalPages}
+              className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>
+              Siguiente
+            </button>
+            <button className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>Agregar producto</button>
+          </div>
+
           {visibleProducts.map((product:any) => (
             <div key={product.product_id} className='w-64 h-50 p-0.5 bg-slate-900 border-1 border-slate-100/10 mb-2 rounded-xl shadow'>
               <div className='flex w-full h-32 border-1 bg-slate-100/10 border-slate-100/10 rounded-xl'></div>
@@ -52,6 +54,15 @@ export default function CheckProducts() {
           </div>
           ))}
         </div>
+      </div>
+
+    </div>
+
+    <div className='post-section fixed top-16 right-0 border-l-1 border-slate-100/10 w-[499px] h-screen'>
+      <div className='flex flex-col items-center justify-center h-full text-slate-500'>
+        <span className='text-3xl mb-4'><Package/></span>
+        <p className='text-lg'>Selecciona un producto de la lista</p>
+        <p className='text-md'>Para ver informacion y editarla</p>   
       </div>
     </div>
     </>

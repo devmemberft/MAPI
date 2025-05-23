@@ -1,6 +1,7 @@
 
 'use client'
 import { useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import { useClientsSearch } from '@/app/hooks/useClients';
 import { useApi } from '@/app/hooks/useApi';
 import { ArrowDownWideNarrow, Search, Users } from 'lucide-react';
@@ -11,6 +12,18 @@ export default function CheckClients() {
   if(loading) return <p className='m-1'>Cargando clientes...</p>
   if(error) return <p className='text-red-700'>Error: {error}</p>
 
+  /*
+  const [dni,setDni] = useState('');
+  const [name,setName] = useState('');
+
+  const [debounceDni] = useDebounce(dni,500);
+  const [debounceName] = useDebounce(name,500);
+
+  const {clients, loading, error } = useClientsSearch({
+    dni:debounceDni,
+    name:debounceName,
+  })
+*/
   return (
     <>
     <div className='get-section fixed top-16 h-screen w-[700px] border-r-1 border-slate-100/10'>
