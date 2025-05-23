@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
@@ -24,9 +24,9 @@ export class ClientsController {
     @Get()
     async findAllClients():Promise<Client[]>{ return await this.clientsService.findAllClients(); }
 
-    @Get(':client_dni')
-    async findClientByDni(@Param('client_dni') client_dni:string):Promise<Client> { return await this.clientsService.findClientByDni(client_dni); }
+    @Get('search')
+    async findClientByDni(@Query('client_dni') client_dni:string):Promise<Client> { return await this.clientsService.findClientByDni(client_dni); }
 
-    @Get('name/:client_name')
-    async findClientByName(@Param('client_name') client_name:string):Promise<Client> {return await this.clientsService.findClientByName(client_name); }
+    @Get('search')
+    async findClientByName(@Query('client_name') client_name:string):Promise<Client> {return await this.clientsService.findClientByName(client_name); }
 }
