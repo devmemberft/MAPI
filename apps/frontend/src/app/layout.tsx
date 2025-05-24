@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { MainPanel } from "./components/panel";
 import { PersistentHeader } from "./components/header";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,15 @@ export default function DashboardLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+
         <div className="flex-1 flex flex-col ">
           < MainPanel />
           < PersistentHeader />
           <main className="fixed top-16 left-42 overflow-y-auto">{children}</main>
         </div>  
+        
+      </ThemeProvider>
       </body>
     </html>
   );

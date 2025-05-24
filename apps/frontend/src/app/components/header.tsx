@@ -2,11 +2,11 @@
 import { CircleUser, Search } from "lucide-react";
 export function PersistentHeader() {
     return (
-      <header className="header-container fixed left-42 right-0 w-100% h-16 bg-neutral-950 border-b-1 border-b-slate-100/10">
+      <header className="static-component fixed left-42 right-0 w-100% h-16  border-b-1 border-b-black/10">
         <div className="header-subcontainer flex flex-row justify-between items-center">
             <div className="header-items flex flex-row h-16 w-full justify-between items-center px-4">
 
-                <div className="route "><p className="text-lg text-slate-100/10">Nombre de la ruta actual</p></div>
+                <div className=""><p className="text-lg text-slate-100/10">Nombre de la ruta actual</p></div>
 
                 <div className="search flex flex-row rounded-2xl border-1 border-slate-100/10 py-1 px-4">
                     <p className="enter-search text-slate-100/10 items-center justify-center text-center px-2">Escriba aqui</p>

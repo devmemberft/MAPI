@@ -33,14 +33,25 @@ export default function CheckSales() {
 
         <div className="flex flex-col items-center justify-center overflow-auto">
           <h2 className="text-semibold text-white text-lg mb-4">Lista de ventas activas</h2>
-          <ul>
+
+          <div className="flex flex-row w-full">
+            <div>fecha de la venta</div>
+            <div>valor de la cuota</div>
+          </div>
+
+          <div className="flex flex-col w-full  bg-slate-900 rounded">
             {sales.map((sale:any) => (
-              <li key={sale.sale_id} className='p-4 bg-slate-900 border-1 border-slate-100/10 mb-2 rounded shadow'>
-              <p>fecha de la venta: {sale.sale_date}</p>
-              <p>valor de la cuota: {sale.quota_value}</p>
-            </li>
+              <div key={sale.sale_id} className='w-full px-4 py-2 space-x-2 flex flex-row border-b-1 border-slate-100/10 shadow'>
+              <div>{sale.sale_date.slice(0,10)}</div>
+              <div>{sale.quota_value}$</div>
+              <div>{sale.balance_amount}$</div>
+              <div>{sale.number_of_payments}</div>
+              <div>{sale.payment_day}</div>
+              <div>{sale.client.client_name}</div>
+              <div>{sale.product.product_name}</div>
+            </div>
             ))}
-          </ul>
+          </div>
         </div>
 
       </div>

@@ -2,27 +2,37 @@
 
 @tailwind utilities;
 
-:root {
-  --background: #000000;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #acacac;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
+html {
+  transition: background-color 0.2s ease,color 0.2s ease;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html {
+    @apply transition-colors duration-10;
+}
+
+html.light {
+  @apply bg-amber-50 text-black;
+}
+html.light .static-component {
+  @apply bg-amber-50 text-black;
+}
+
+html.dark {
+  @apply bg-black text-slate-200;
+}
+
+html.dark .static-component{
+  @apply text-white bg-black;
+  @apply border-r-slate-100/10;
+  @apply border-b-slate-100/10;
+}
+
+html.light .route {
+  @apply flex w-36 font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-800/80 hover:bg-slate-800/10 hover:rounded;
+}
+
+html.dark .route {
+  @apply flex w-36 font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
+}
+
