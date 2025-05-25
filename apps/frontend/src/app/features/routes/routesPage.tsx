@@ -11,16 +11,18 @@ export default function CheckRoute() {
 
   return (
     <>
-    <div className="main-section font-[family-name:var(--font-geist-sans)] overflow-auto p-4 border-1 border-slate-100/10 ">
+    <div className="search-bar"></div>
+    
+    <div className="main-section font-[family-name:var(--font-geist-sans)] overflow-auto p-4">
 
       <div className="m-4 p-4 items-center justify-center text-center">
 
         <h2 className="text-semibold text-lg mb-2">Ruta del dia</h2>
 
 
-        <div className="table rounded-xl bg-gray-200/60 w-full shadow shadow-amber-100/20">
+        <div className="table rounded-xl border-1 border-slate-100/20 bg-gray-200/60 w-full shadow shadow-amber-100/20">
           {routes.map((route:any) => (
-            <div key={route.client_id} className='grid grid-cols-[300px_300px_100px_30px_150px_100px] items-center justify-between space-x-2 px-2 h-8 border-b-1 border-slate-100/10'> 
+            <div key={route.client_id} className='table-grid grid grid-cols-[300px_300px_100px_30px_150px_100px] items-center justify-between space-x-2 px-2 h-8 border-b-1 border-b-slate-100/10 shadow'> 
               <div className="truncate overflow-auto items-center text-start">{route.client_name}</div>
               <div className="truncate overflow-auto items-center text-start">{route.client_address}</div>
               <div className="truncate overflow-auto items-center text-start">{route.client_phone}</div>

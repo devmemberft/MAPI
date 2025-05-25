@@ -29,15 +29,59 @@ html.dark .static-component{
   @apply border-b-slate-100/10;
 }
 
+
+
+/* tablas con informacion */
+
 html.dark .table {
   @apply bg-neutral-800/30;
 }
+
+
+html.dark .table .table-grid {
+  @apply border-slate-100/10;
+}
+
+/* Barra de busqueda estatica */
+html.light .search-bar {
+  @apply  fixed h-12 top-0 left-18 right-0 border-b-1 border-b-black/10 ;
+}
+
+html.dark .search-bar {
+  @apply  fixed h-12 top-0 left-18 right-0 border-b-1 border-slate-100/10;
+}
+
+
+
+/* rutas del sidebar */
 
 html.light .route {
   @apply flex font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-800/80 hover:bg-slate-800/10 hover:rounded;
 }
 
 html.dark .route {
-  @apply flex font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
+  @apply flex font-semibold text-slate-400 px-4 py-2 shadow shadow-neutral-900 hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
 }
 
+
+/* PRODUCTS */
+
+/* contenedor de productos */
+
+html.dark .products-container {
+  @apply bg-neutral-800/30;  
+}
+
+html.dark .product-box {
+  @apply bg-neutral-950/80;  
+}
+
+
+
+/* SALES */
+
+/* contenedor de ventas */
+
+html.dark .sales-container {
+  @apply bg-neutral-800/30;  
+}
