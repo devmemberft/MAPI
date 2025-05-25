@@ -5,6 +5,7 @@
 html {
   transition: background-color 0.2s ease,color 0.2s ease;
   font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
 }
 
 html {
@@ -28,11 +29,15 @@ html.dark .static-component{
   @apply border-b-slate-100/10;
 }
 
+html.dark .table {
+  @apply bg-neutral-800/30;
+}
+
 html.light .route {
-  @apply flex w-36 font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-800/80 hover:bg-slate-800/10 hover:rounded;
+  @apply flex font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-800/80 hover:bg-slate-800/10 hover:rounded;
 }
 
 html.dark .route {
-  @apply flex w-36 font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
+  @apply flex font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
 }
 

@@ -6,20 +6,20 @@ import ThemeToggle from './ThemeToggle';
 export function MainPanel() {
     return (
         <main className="">
-            <div className="static-component min-h-full fixed top-0 left-0 justify-between items-center w-42 border-r-1 border-r-black/10 shadow">
-                <div className="flex items-center text-center justify-center text-xl font-semibold w-full h-16"><Pyramid /></div>
+            <div className="static-component min-h-full fixed top-0 left-0 p-2 justify-between items-center w-18 border-r-1 border-r-black/10 shadow">
 
-                <ul className="flex flex-col justify-start items-start space-y-6 p-2 mt-6 h-screen w-full">
+                <div className="flex flex-col h-screen items-center text-center space-y-6 justify-center w-full">
 
-                    <li><Link href='/' className='route'><BriefcaseBusiness/><p className='px-2'>Portafolio</p></Link></li>
-                    <li><Link href='/clients' className="route"><Users/><p className='px-2'>Clientes</p></Link></li>
-                    <li><Link href='/products' className="route"><Package/><p className='px-2'>Productos</p></Link></li>
-                    <li><Link href='/sales' className="route"><Store/><p className='px-2'>Ventas</p></Link></li>
-                    <li><Link href='/routes' className="route"><Truck/><p className='px-2'>Rutas</p></Link></li>
-                    <li><Link href='/settings' className="route"><Settings/><p className='px-2'>Ajustes</p></Link></li>
-                    <li><Link href='/login' className="route"><LogOut/><p className='px-2'>Salir</p></Link></li>
-                    <li className="flex w-36 hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><ThemeToggle /></li>
-                </ul>
+                    <div className="route"><Pyramid /></div>
+                    <div title='Portafolio'><Link href='/' className='route'><BriefcaseBusiness/></Link></div>
+                    <div title='Clientes'><Link href='/clients' className="route"><Users/></Link></div>
+                    <div title='Productos'><Link href='/products' className="route"><Package/></Link></div>
+                    <div title='Ventas'><Link href='/sales' className="route"><Store/></Link></div>
+                    <div title='Rutas'><Link href='/routes' className="route"><Truck/></Link></div>
+                    <div title='Ajustes'><Link href='/settings' className="route"><Settings/></Link></div>
+                    <div title='Cerrar Sesión'><Link href='/login' className="route"><LogOut/></Link></div>
+                    <div className="flex hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><ThemeToggle /></div>
+                </div>
             </div>
         </main>
     );
