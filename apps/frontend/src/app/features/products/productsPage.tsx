@@ -29,7 +29,7 @@ export default function CheckProducts() {
 
       <div className="flex min-w-full w-full p-4">
 
-        <div className='products-container flex flex-wrap items-center justify-center px-6 py-2 gap-6 bg-gray-200/60 border-1 border-slate-100/10 rounded shadow'>
+        <div className='products-container flex flex-wrap items-center justify-center px-6 py-2 gap-6 rounded shadow'>
           
           <div className='methods-buttons flex text-center items-center justify-center w-full h-auto p-2 space-x-6'>
             <button onClick={
@@ -49,10 +49,10 @@ export default function CheckProducts() {
           </div>
 
           {visibleProducts.map((product:any) => (
-            <div key={product.product_id} className='product-box w-64 h-50 p-0.5 bg-gray-100/80 border-1 border-slate-100/10 mb-2 rounded-xl shadow'>
+            <div key={product.product_id} className='product-box w-64 h-50 p-2 bg-gray-100/80 border-1 border-slate-100/10 mb-2 rounded-xl shadow'>
               <div className='flex w-full h-32 border-b-1 border-neutral-600/10'></div>
-              <p className='p-1'>{product.product_name}</p>
-              <p className='p-1'>{product.product_price}$UYU</p>
+              <div className='truncate overflow-auto items-center text-start'>{product.product_name.slice(0,30)}</div>
+              <div className='truncate overflow-auto items-center text-start'>{product.product_price}$UYU</div>
           </div>
           ))}
         </div>

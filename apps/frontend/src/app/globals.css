@@ -13,10 +13,11 @@ html {
 }
 
 html.light {
-  @apply bg-amber-50 text-black;
+  @apply bg-gray-200/60 text-black;
 }
+
 html.light .static-component {
-  @apply bg-amber-50 text-black;
+  @apply bg-gray-200/20 text-black;
 }
 
 html.dark {
@@ -44,11 +45,11 @@ html.dark .table .table-grid {
 
 /* Barra de busqueda estatica */
 html.light .search-bar {
-  @apply  fixed h-12 top-0 left-18 right-0 border-b-1 border-b-black/10 ;
+  @apply  fixed h-12 top-0 left-42 right-0 border-b-1 border-b-black/10 ;
 }
 
 html.dark .search-bar {
-  @apply  fixed h-12 top-0 left-18 right-0 border-b-1 border-slate-100/10;
+  @apply  fixed h-12 top-0 left-42 right-0 border-b-1 border-slate-100/10;
 }
 
 
@@ -56,11 +57,11 @@ html.dark .search-bar {
 /* rutas del sidebar */
 
 html.light .route {
-  @apply flex font-semibold text-slate-600 px-4 py-2 shadow hover:text-slate-800/80 hover:bg-slate-800/10 hover:rounded;
+  @apply flex w-38 font-light text-slate-900 px-2 py-1 hover:text-black hover:border-b-1 border-b-slate-800/10 hover:shadow-xs shadow-slate-600/10 hover:rounded-b-md;
 }
 
 html.dark .route {
-  @apply flex font-semibold text-slate-400 px-4 py-2 shadow shadow-neutral-900 hover:text-slate-100/80 hover:bg-slate-100/20 hover:rounded;
+  @apply flex w-38 font-light text-slate-200 px-2 py-1 hover:text-slate-100/80 hover:bg-slate-100/2;
 }
 
 
@@ -68,20 +69,30 @@ html.dark .route {
 
 /* contenedor de productos */
 
-html.dark .products-container {
-  @apply bg-neutral-800/30;  
-}
-
 html.dark .product-box {
   @apply bg-neutral-950/80;  
 }
 
 
 
-/* SALES */
+/* MODAL */
 
-/* contenedor de ventas */
+/* contenedor */
 
-html.dark .sales-container {
-  @apply bg-neutral-800/30;  
+html.light .modal {
+  @apply fixed z-50 top-16 left-46 h-[450px] w-[700px] border-1 border-amber-100/20 bg-neutral-100 rounded-xl shadow p-8;
+}
+
+html.dark .modal {
+  @apply fixed z-50 top-16 left-46 h-[450px] w-[700px] border-1 border-slate-100/10 bg-neutral-700 shadow shadow-amber-100/10 rounded-xl p-8;
+}
+
+/* formulario */
+
+html.light .modal .form {
+  @apply rounded-xl border-1 border-neutral-800/10 px-6;
+}
+
+html.dark .modal .form {
+  @apply rounded-xl border-1 border-slate-100/10 px-6;
 }

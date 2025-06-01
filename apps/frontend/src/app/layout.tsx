@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
-import { MainPanel } from "./components/panel";
-import { PersistentHeader } from "./components/header";
+import { MainPanel } from "./components/ui/panel";
+import { PersistentHeader } from "./components/ui/header";
 import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
@@ -34,7 +34,7 @@ export default function DashboardLayout({
 
         <div className="">
           < MainPanel />
-          <main className="fixed top-12 right-0 left-18 bottom-0 overflow-auto">{children}</main>
+          <main className="fixed top-12 right-0 left-42 bottom-0 overflow-auto">{children}</main>
         </div>  
         
       </ThemeProvider>
