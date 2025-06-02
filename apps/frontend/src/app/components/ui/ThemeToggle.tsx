@@ -16,9 +16,9 @@ export default function ThemeToggle(){
         <>
             <button
                 onClick={()=> setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="flex w-38 px-2 py-1 text-slate-600 cursor-pointer hover:bg-neutral-400/60 hover:rounded"
+                className="flex w-auto px-2 py-1 cursor-pointer"
             >
-                {theme === 'dark' ? <Sun className='w-5 h-5 items-center justify-center text-center'/> : <Moon className='w-5 h-5 items-center justify-center text-center'/>}
+                {theme === 'dark' ? <Sun strokeWidth={1.5} size={20}/> : <Moon strokeWidth={1.5} size={20}/>}
             </button>
         </>
     );

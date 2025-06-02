@@ -5,8 +5,9 @@ import ThemeToggle from './ThemeToggle';
 
 export function MainPanel() {
     return (
-        <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/10 shadow">
-            <div className="flex h-12 font-semibold text-slate-600 border-b-1 border-black/10 justify-center items-center text-center"><Pyramid /></div>    
+        <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
+            
+            <div className="flex h-12 font-semibold text-white border-b-1 border-b-slate-50/5 justify-center items-center text-center"><Pyramid /><p className='px-2 font-medium text-2xl'>Miselio</p></div>    
 
             <div className="flex flex-col h-auto w-38 space-y-3 m-2 my-6 items-center text-center justify-center">
 
@@ -17,11 +18,26 @@ export function MainPanel() {
                 <div title='Rutas'><Link href='/routes' className="route"><Truck strokeWidth={1.5} size={20}/><p className='px-3'>Rutas</p></Link></div>
             </div>
 
-            <div className='flex flex-col h-auto w-38 space-y-3 m-2 items-center text-center justify-center'>
-                <div title='Ajustes'><Link href='/settings' className="route"><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></Link></div>
+            <div className='flex flex-col h-auto w-38 space-y-3 mx-2 my-46 items-center text-center justify-center'>
+                
+                <div className='relative group'>
+                    
+                    <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>
+                    
+                    <div className='
+                        absolute top-0 left-full z-50 p-2 w-20 opacity-0 scale-95 
+                        group-hover:opacity-100 group-hover:scale-100
+                        transition-all duration-200 origin-top-left
+                        shadow-lg rounded-2xl
+                        pointer-events-auto'>
+                        <a href="" className='block px-2 py-1'><ThemeToggle/></a>
+                    </div>
+                </div>
+
                 <div title='Cerrar Sesión'><Link href='/login' className="route"><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></Link></div>
-                <div className="flex hover:text-slate-100/80 hover:bg-slate-100/10 hover:rounded"><ThemeToggle /></div>
+
             </div>
+
 
         </div>
     );
