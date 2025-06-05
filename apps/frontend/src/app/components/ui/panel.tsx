@@ -25,10 +25,10 @@ export function MainPanel() {
                     <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>
                     
                     <div className='
-                        absolute top-0 left-full z-50 p-2 w-20 opacity-0 scale-95 
+                        absolute left-0 top-full z-50 p-1 w-15 opacity-0 scale-95 
                         group-hover:opacity-100 group-hover:scale-100
                         transition-all duration-200 origin-top-left
-                        shadow-lg rounded-2xl
+                        shadow-lg rounded-2xl bg-[#191e20] border-1 border-slate-100/10
                         pointer-events-auto'>
                         <a href="" className='block px-2 py-1'><ThemeToggle/></a>
                     </div>

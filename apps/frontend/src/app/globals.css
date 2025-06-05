@@ -56,7 +56,7 @@ html.dark .search-bar {
 /* rutas del sidebar */
 
 html.light .route {
-  @apply flex w-38 font-light text-slate-700 px-2 py-1 hover:text-black hover:border-b-1 border-b-slate-800/10;
+  @apply flex w-38 font-light text-sm text-slate-700 px-2 py-1 hover:text-black hover:font-medium;
 }
 
 html.dark .route {
@@ -71,7 +71,6 @@ html.dark .route {
 html.dark .product-box {
   @apply bg-neutral-950/80;  
 }
-
 
 
 /* MODAL */
