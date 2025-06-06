@@ -31,6 +31,25 @@ html.dark .static-component{
 }
 
 
+
+
+
+/* Tarjeta para inicio de sesion
+
+html.light .loginCard {
+
+}
+
+html.dark .loginCard {
+  @apply ;
+}
+
+/*
+
+
+
+
+
 /* Botones */
 
 html.light .paginationButton {

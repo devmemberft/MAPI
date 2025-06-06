@@ -2,9 +2,11 @@
 'use client'
 import { useApi } from "@/app/hooks/useApi";
 import { Store, Receipt } from "lucide-react";
+import { usePagination } from "@/app/hooks/usePagination";
 
 export default function CheckSales() {
   const {data:sales, loading, error } = useApi('/sales');
+  const {visibleItems, page, totalPages, setPage} = usePagination(10,sales ?? [],1);
 
   if(loading) return <p className="m-1">Cargando ventas...</p>
   if(error) return <p className="m-1 text-red-700">Error: {error}</p>
@@ -19,6 +21,10 @@ export default function CheckSales() {
       <div className="sales-container m-4 p-4 items-center justify-center">
 
         <h2 className="text-semibold text-lg mb-4">Lista de ventas activas</h2>
+        <div className="space-x-2">
+          <button className="paginationButton" onClick={() => setPage(p => p - 1 )} disabled={ page === 1 }>Anterior</button>
+          <button className="paginationButton" onClick={() => setPage(p => p + 1)} disabled={ page >= totalPages }>Siguiente</button>
+        </div>
 
         <div className="flex flex-row w-full">
           <div>fecha de la venta</div>
@@ -26,7 +32,7 @@ export default function CheckSales() {
         </div>
 
         <div className="table rounded-xl border-1 border-slate-100/20 bg-gray-200/60 w-full shadow shadow-amber-100/20">
-          {sales.map((sale:any) => (
+          {visibleItems.map((sale:any) => (
             <div key={sale.sale_id} className='table-grid grid grid-cols-[100px_100px_100px_20px_100px_300px_200px] items-center justify-between space-x-2 px-2 h-8 border-b-1 border-b-slate-100/10 shadow'>
               <div className="truncate overflow-auto items-center text-start">{sale.sale_date.slice(0,10)}</div>
               <div className="truncate overflow-auto items-center text-start">{sale.quota_value}$</div>

@@ -4,7 +4,7 @@ export default function LoginView(){
     return(
         <>
         <div className="h-screen flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center w-120 p-8 bg-linear-30 from-[#191e20] via-slate-800/40 to-bg-[#191e20] border-1 border-slate-100/10 rounded-2xl shadow">
+            <div className="flex flex-col justify-center items-center w-120 p-8 bg-linear-30 from-#191e20 via-slate-800/40 to-#191e20 border-1 border-slate-100/10 rounded-2xl shadow">
 
                 <div className="w-full space-y-3">
                     <div className="items-center text-center font-semibold">

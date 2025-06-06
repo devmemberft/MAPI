@@ -3,23 +3,13 @@
 import { useState } from 'react';
 import { useApi } from '@/app/hooks/useApi';
 import { Package } from 'lucide-react';
+import { usePagination } from '@/app/hooks/usePagination';
 
 export default function CheckProducts() {
-  const productsPerPage = 10;
-
-  const [actualPage,setActualPage] = useState(1);
-
   const { data:products,loading,error } = useApi('/products');
-
+  const {visibleItems, page, totalPages, setPage} = usePagination(10, products ?? [],1);
   if(loading) return <p className='m1'>Cargando productos...</p>
   if(error) return <p className='m1 text-red-700'>Error: {error}</p>
-
-  const totalPages = Math.ceil(products.lenght / productsPerPage);
-
-  const firstIndex = (actualPage - 1) * productsPerPage;
-  const lastIndex = firstIndex + productsPerPage;
-  const visibleProducts = products.slice(firstIndex,lastIndex);
-
 
   return (
     <>
@@ -33,22 +23,22 @@ export default function CheckProducts() {
           
           <div className='methods-buttons flex text-center items-center justify-center w-full h-auto p-2 space-x-6'>
             <button onClick={
-              () => setActualPage(p => p - 1)}
-              disabled={actualPage === 1}
+              () => setPage(p => p - 1)}
+              disabled={ page === 1 }
               className='paginationButton'
               >Anterior
             </button>
 
             <button onClick={
-              () => setActualPage(p => p + 1)}
-              disabled={actualPage >= totalPages}
+              () => setPage(p => p + 1)}
+              disabled={page >= totalPages}
               className='paginationButton'>
               Siguiente
             </button>
             <button className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>Agregar producto</button>
           </div>
 
-          {visibleProducts.map((product:any) => (
+          {visibleItems.map((product:any) => (
             <div key={product.product_id} className='product-box w-64 h-50 p-2 bg-gray-100/80 border-1 border-slate-100/10 mb-2 rounded-xl shadow'>
               <div className='flex w-full h-32 border-b-1 border-neutral-600/10'></div>
               <div className='truncate overflow-auto items-center text-start'>{product.product_name.slice(0,30)}</div>
