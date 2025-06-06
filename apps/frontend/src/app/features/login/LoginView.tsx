@@ -8,7 +8,7 @@ export default function LoginView(){
 
                 <div className="w-full space-y-3">
                     <div className="items-center text-center font-semibold">
-                        <p>Welcome to PayCo</p>
+                        <p>Bienvenido a PayCo</p>
                     </div>
 
                     <div className="p-1">

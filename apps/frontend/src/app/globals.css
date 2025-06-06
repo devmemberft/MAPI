@@ -21,13 +21,25 @@ html.light .static-component {
 }
 
 html.dark {
-  @apply bg-[#191e20] text-slate-200;
+  @apply bg-neutral-950 text-slate-200;
 }
 
 html.dark .static-component{
-  @apply text-white bg-[#191e20];
+  @apply text-white bg-transparent;
   @apply border-r-slate-50/5;
   @apply border-b-slate-50/5;
+}
+
+
+/* Botones */
+
+html.light .paginationButton {
+  @apply px-3 py-1 bg-slate-100/80 text-black rounded disabled:opacity-50 cursor-pointer;
+}
+
+html.dark .paginationButton { 
+  @apply px-3 py-1 bg-slate-100/10 text-white/50 rounded disabled:opacity-50 cursor-pointer;
+
 }
 
 

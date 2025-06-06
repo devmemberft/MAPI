@@ -35,14 +35,14 @@ export default function CheckProducts() {
             <button onClick={
               () => setActualPage(p => p - 1)}
               disabled={actualPage === 1}
-              className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'
+              className='paginationButton'
               >Anterior
             </button>
 
             <button onClick={
               () => setActualPage(p => p + 1)}
-              disabled={actualPage === totalPages}
-              className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>
+              disabled={actualPage >= totalPages}
+              className='paginationButton'>
               Siguiente
             </button>
             <button className='px-3 py-1 bg-slate-100/10 rounded disabled:opacity-50 cursor-pointer'>Agregar producto</button>

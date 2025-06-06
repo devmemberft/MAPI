@@ -12,6 +12,7 @@ export function MainPanel() {
             <div className="flex flex-col h-auto w-38 space-y-3 m-2 my-6 items-center text-center justify-center">
 
                 <div title='Portafolio'><Link href='/' className='route'><BriefcaseBusiness strokeWidth={1.5} size={20} /><p className='px-3'>Inicio</p></Link></div>
+                
                 <div title='Clientes'><Link href='/clients' className="route"><Users strokeWidth={1.5} size={20}/><p className='px-3'>Clientes</p></Link></div>
                 <div title='Productos'><Link href='/products' className="route"><Package strokeWidth={1.5} size={20}/><p className='px-3'>Productos</p></Link></div>
                 <div title='Ventas'><Link href='/sales' className="route"><Store strokeWidth={1.5} size={20}/><p className='px-3'>Registros</p></Link></div>

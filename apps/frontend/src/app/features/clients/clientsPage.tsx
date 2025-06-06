@@ -6,6 +6,7 @@ import { useClientsSearch } from '@/app/hooks/useClients';
 import { useApi } from '@/app/hooks/useApi';
 import { ArrowDownWideNarrow, Pencil, Search, Users } from 'lucide-react';
 import { mutate } from 'swr';
+import { usePagination } from '@/app/hooks/usePagination';
 
 interface Client {
   dni:string,
@@ -19,46 +20,12 @@ export default function CheckClients() {
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [formData, setFormData] = useState<Client>({ dni:'', name:'', address:'', phone:'' });
 
-  const { data:selectedClients, loading, error } = useApi('/clients');
-
-  
-  /*
-  const [dni,setDni] = useState('');
-  const [name,setName] = useState('');
-  
-  const [debounceDni] = useDebounce(dni,500);
-  const [debounceName] = useDebounce(name,500);
-  
-  const {clients, loading, error } = useClientsSearch({
-    dni:debounceDni,
-    name:debounceName,
-    })
-    */  
-  useEffect(() => {
-    if(selectedClient) {
-        setFormData({
-          dni: selectedClients.client_dni,
-          name: selectedClients.client_name,
-          address: selectedClients.client_address,
-          phone: selectedClients.client_phone,
-        });
-    }
-  },[selectedClient])
-  
-  const handleUpdate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await fetch(`/clients/${selectedClients.selectedClient?.client_id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-    //mutate(); // swr refresh
-    setSelectedClient(null);
-  }
-    
+  const { data:clients, loading, error } = useApi('/clients');
+ 
+  const {visibleItems, page, totalPages, setPage} = usePagination(10,clients ?? [],1);
   if(loading) return <p className='m-1'>Cargando clientes...</p>
   if(error) return <p className='text-red-700'>Error: {error}</p>
-
+         
 
   return (
   <>
@@ -77,6 +44,10 @@ export default function CheckClients() {
   <div className='main-section p-4 border-r-1 border-slate-100/10'>
 
     <div className="client-list-container m-4 p-4 items-center justify-items-center font-[family-name:var(--font-geist-sans)]">     
+      <div className='space-x-2'>
+        <button className="paginationButton" onClick={() => setPage(p => p - 1)} disabled={page===1}>Anterior</button>
+        <button className="paginationButton" onClick={() => setPage(p => p + 1)} disabled={ page >= totalPages}>Siguiente</button>
+      </div>
 
         <section className='client-info-columns grid grid-cols-[50px_80px_300px_80px_300px] w-full mt-6 px-2 py-1 justify-between text-sm font-semibold'>
           <div className='truncate overflow-auto'>Editar</div>
@@ -87,7 +58,7 @@ export default function CheckClients() {
         </section>
 
       <div className="table h-full w-full overflow-y-scroll border-1 border-slate-100/20 bg-gray-200/60 rounded-2xl shadow shadow-amber-100/20">
-        {selectedClients?.map((client: any) => (
+        {visibleItems?.map((client: any) => (
           <div key={client.client_id} className='grid grid-cols-[50px_80px_300px_80px_300px] space-x-2 px-2 h-8 justify-between items-center text-sm border-b-1 border-b-slate-100/10 shadow'>
               
               <button className='truncate overflow-auto cursor-pointer' onClick={() => setSelectedClient(client)}><Pencil/></button>
@@ -146,3 +117,44 @@ export default function CheckClients() {
     </div>
 
 */
+
+
+
+
+  
+  /*
+  const [dni,setDni] = useState('');
+  const [name,setName] = useState('');
+  
+  const [debounceDni] = useDebounce(dni,500);
+  const [debounceName] = useDebounce(name,500);
+  
+  const {clients, loading, error } = useClientsSearch({
+    dni:debounceDni,
+    name:debounceName,
+    })
+    */  
+
+/*
+useEffect(() => {
+  if(selectedClient) {
+    setFormData({
+      dni: selectedClients.client_dni,
+      name: selectedClients.client_name,
+      address: selectedClients.client_address,
+      phone: selectedClients.client_phone,
+      });
+      }
+      },[selectedClient])
+      
+      const handleUpdate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await fetch(`/clients/${selectedClients.selectedClient?.client_id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+          });
+          //mutate(); // swr refresh
+          setSelectedClient(null);
+          }
+          */   
