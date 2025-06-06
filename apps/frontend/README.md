@@ -3,7 +3,9 @@
 ## Inspiration Playlist
 
  - Hollie Cook - Milk & Honey
- - The Co-operators - Tonight
+ - The Co-Operators - Tonight
+ - Bob Marley - Who the cap fit
+ - Thee Sacred Souls - Will I see you again?
 
 
 

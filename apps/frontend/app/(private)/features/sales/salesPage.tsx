@@ -1,7 +1,7 @@
 
 'use client'
-import { usePagination } from "@/app/hooks/usePagination";
-import { getData } from "@/app/utils/apiClient";
+import { usePagination } from '../../../hooks/usePagination';
+import { getData } from '../../../utils/apiClient';
 import useSWR from "swr";
 
 const fetcher = (url:string) => getData(url);

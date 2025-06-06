@@ -1,8 +1,6 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import './globals.css';
-import { MainPanel } from "./components/ui/panel";
-import { PersistentHeader } from "./components/ui/header";
+import '../globals.css';
+import { MainPanel } from "../components/ui/panel";
 import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
@@ -15,11 +13,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Panel",
-  description: "Admin panel",
-};
-
 export default async function DashboardLayout({
   children,
 }: Readonly<{
@@ -30,7 +23,7 @@ export default async function DashboardLayout({
   if(!loginRoute) redirect('/login');
   */
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

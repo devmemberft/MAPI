@@ -1,7 +1,7 @@
 
 'use client'
 import useSWR from "swr";
-import { getData } from "@/app/utils/apiClient";
+import { getData } from '../../../utils/apiClient';
 
 const fetcher = (url:string) => getData(url);
 

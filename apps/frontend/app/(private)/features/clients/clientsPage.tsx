@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { ArrowDownWideNarrow, Pencil, Search } from 'lucide-react';
 import useSWR from 'swr';
-import { usePagination } from '@/app/hooks/usePagination';
-import { getData } from '@/app/utils/apiClient';
+import { usePagination } from '../../../hooks/usePagination';
+import { getData } from '../../../utils/apiClient';
 
 interface Client {
   dni:string,
