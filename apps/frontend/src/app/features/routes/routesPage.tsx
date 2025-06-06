@@ -1,12 +1,14 @@
 
 'use client'
-import { useApi } from "@/app/hooks/useApi";
-import { Truck } from "lucide-react";
+import useSWR from "swr";
+import { getData } from "@/app/utils/apiClient";
+
+const fetcher = (url:string) => getData(url);
 
 export default function CheckRoute() {
-  const {data:routes, loading, error } = useApi('/payments/daily-route');
+  const {data:routes, isLoading, error } = useSWR('/payments/daily-route',fetcher);
 
-  if(loading) return <p className="m1">Cargando ruta del dia...</p>
+  if(isLoading) return <p className="m1">Cargando ruta del dia...</p>
   if(error) return <p className="m1 text-red-700">Error: {error}</p>
 
   return (

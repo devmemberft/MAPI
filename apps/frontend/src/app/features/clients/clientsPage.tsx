@@ -1,12 +1,10 @@
 
 'use client'
-import { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
-import { useClientsSearch } from '@/app/hooks/useClients';
-import { useApi } from '@/app/hooks/useApi';
-import { ArrowDownWideNarrow, Pencil, Search, Users } from 'lucide-react';
-import { mutate } from 'swr';
+import { useState } from 'react';
+import { ArrowDownWideNarrow, Pencil, Search } from 'lucide-react';
+import useSWR from 'swr';
 import { usePagination } from '@/app/hooks/usePagination';
+import { getData } from '@/app/utils/apiClient';
 
 interface Client {
   dni:string,
@@ -15,15 +13,17 @@ interface Client {
   phone:string,
 }
 
+const fetcher = (url:string) => getData(url);
+
 export default function CheckClients() {
 
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [formData, setFormData] = useState<Client>({ dni:'', name:'', address:'', phone:'' });
 
-  const { data:clients, loading, error } = useApi('/clients');
+  const { data:clients, isLoading, error } = useSWR('/clients',fetcher);
  
   const {visibleItems, page, totalPages, setPage} = usePagination(10,clients ?? [],1);
-  if(loading) return <p className='m-1'>Cargando clientes...</p>
+  if(isLoading) return <p className='m-1'>Cargando clientes...</p>
   if(error) return <p className='text-red-700'>Error: {error}</p>
          
 

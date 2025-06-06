@@ -1,14 +1,15 @@
 
 'use client'
-import { useState } from 'react';
-import { useApi } from '@/app/hooks/useApi';
-import { Package } from 'lucide-react';
 import { usePagination } from '@/app/hooks/usePagination';
+import useSWR from 'swr';
+import { getData } from '@/app/utils/apiClient';
+
+const fetcher = (url:string) => getData(url);
 
 export default function CheckProducts() {
-  const { data:products,loading,error } = useApi('/products');
+  const { data:products,isLoading,error } = useSWR('/products',fetcher);
   const {visibleItems, page, totalPages, setPage} = usePagination(10, products ?? [],1);
-  if(loading) return <p className='m1'>Cargando productos...</p>
+  if(isLoading) return <p className='m1'>Cargando productos...</p>
   if(error) return <p className='m1 text-red-700'>Error: {error}</p>
 
   return (

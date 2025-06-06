@@ -1,14 +1,16 @@
 
 'use client'
-import { useApi } from "@/app/hooks/useApi";
-import { Store, Receipt } from "lucide-react";
 import { usePagination } from "@/app/hooks/usePagination";
+import { getData } from "@/app/utils/apiClient";
+import useSWR from "swr";
+
+const fetcher = (url:string) => getData(url);
 
 export default function CheckSales() {
-  const {data:sales, loading, error } = useApi('/sales');
+  const {data:sales, isLoading, error } = useSWR('/sales',fetcher);
   const {visibleItems, page, totalPages, setPage} = usePagination(10,sales ?? [],1);
 
-  if(loading) return <p className="m-1">Cargando ventas...</p>
+  if(isLoading) return <p className="m-1">Cargando ventas...</p>
   if(error) return <p className="m-1 text-red-700">Error: {error}</p>
 
   return (
