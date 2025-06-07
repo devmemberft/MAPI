@@ -17,7 +17,7 @@ export const getData = async <T = any>(endpoint:string): Promise<T> => {
     }
 };
 
-export const postData = async <T = any>(endpoint:string, data:any) => {
+export const postData = async <T = any>(endpoint:string, data:any): Promise<T> => {
     try{
         const response = await api.post<T>(endpoint,data);
         return response.data;

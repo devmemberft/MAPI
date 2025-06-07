@@ -14,8 +14,9 @@ export function useLogin(onSuccess?: () => void){
 
         try{
             const res = await postData("/auth/login", { email, password});
+            console.log("Login response", res);
             
-            if(res.success) {
+            if(res.access_token) {
                 onSuccess?.();
             } else {
                 setErrorMsg("Invalid Credentials.");
