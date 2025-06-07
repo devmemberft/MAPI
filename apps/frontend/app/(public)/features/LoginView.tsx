@@ -1,6 +1,10 @@
-import { LogIn } from "lucide-react";
+import { useLogin } from "../../hooks/useLogin";
 
 export default function LoginView(){
+    const {
+        email,setEmail,password,setPassword,errorMsg,loading,handleLogin,
+    } = useLogin(() => {window.location.href="/clients"}); //useRouter().push("/")
+
     return(
         <>
         <div className="h-screen flex justify-center items-center">
@@ -11,22 +15,28 @@ export default function LoginView(){
                         <p>Bienvenido a PayCo</p>
                     </div>
 
-                    <div className="p-1">
-                        <p>Email</p>
-                        <input  placeholder="Ingresa tu correo" className="w-full p-2 border-2 border-slate-500/10 rounded" type="text" />
-                    </div>
-
-                    <div className="p-1">
-                        <div className="justify-between flex flex-row">
-                            <p>Contraseña</p>
-                            <p className="text-white/10">La olvidaste?</p>
+                    <form onSubmit={handleLogin}>
+                        <div className="py-2">
+                            <label htmlFor="email">Email</label>
+                            <input required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ingresa tu correo" className="w-full p-2 border-2 tracking-wider border-slate-500/10 rounded" type="text" />
                         </div>
 
-                        <input placeholder="Ingresa tu contraseña" className="w-full p-2 border-2 border-slate-500/10 rounded" type="text" />
-                    </div>
+                        <div className="py-2">
+                            <div className="justify-between flex flex-row">
+                                <label htmlFor="password">Contraseña</label>
+                                <p className="text-white/10">La olvidaste?</p>
+                            </div>
 
-                    <button className="w-full rounded  bg-slate-800 border-2 border-slate-500/10 cursor-pointer">Iniciar Sesion</button>
-                    <div className="items-center text-center font-light text-white/60"><p>Registrarse</p></div>
+                            <input required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingresa tu contraseña" className="w-full p-2 border-2 tracking-wider border-slate-500/10 rounded" type="text" />
+                        </div>
+
+                        {errorMsg && (<p>{errorMsg}</p>)}
+                        
+                        <button type="submit" disabled={loading} className="w-full mt-4 mb-2 py-1 rounded  bg-slate-800 border-2 border-slate-500/10 cursor-pointer">{loading ? "Iniciando..." : "Iniciar Sesion"}</button>
+                        <button className="w-full items-center text-center font-light text-white/60"><p>Registrarse</p></button>
+
+                    </form>
+
                 </div>
 
             </div>
