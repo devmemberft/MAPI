@@ -41,5 +41,6 @@ export enum PaymentDayEnum {
     '28_de_mes' = '28 de mes',
     '29_de_mes' = '29 de mes',
     '30_de_mes' = '30 de mes',
+    '31_de_mes' = '31 de mes',
 
 }

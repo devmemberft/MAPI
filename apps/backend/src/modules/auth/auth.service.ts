@@ -50,8 +50,45 @@ export class AuthService {
 
     async login(user: LoginUserDto) {
         const payload: JwtPayload = { email: user.email, sub: user.user_id, role:user.role };
-        return{
-            access_token: this.jwtService.sign(payload, { expiresIn: process.env.JWT_EXPIRATION }),
-        };
+        
+        const access_token = this.jwtService.sign(payload,{
+            secret: process.env.JWT_SECRET,
+            expiresIn: process.env.JWT_EXPIRATION || '15m',
+        });
+
+        const refresh_token = this.jwtService.sign(payload,{
+            secret: process.env.JWT_REFRESH_TOKEN,
+            expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d',
+        });
+        
+        return{ access_token, refresh_token };
+    }
+
+    async refresh(refresh_token:string){
+        try {
+            const decoded = this.jwtService.verify(refresh_token,{
+                secret: process.env.JWT_REFRESH_SECRET,
+            });
+
+            const user = await this.usersService.findUserByEmail(decoded.email);
+            if(!user) throw new UnauthorizedException('Can not Refresh, User not found.');
+
+            const payload = { sub:user.user_id, email: user.email, role: user.role };
+
+            const access_token = this.jwtService.sign(payload, {
+                secret: process.env.JWT_SECRET,
+                expiresIn: process.env.JWT_EXPIRATION || '15m',
+            });
+
+            const new_refresh_token = this.jwtService.sign(payload, {
+                secret: process.env.JWT_REFRESH_TOKEN,
+                expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d',
+            });
+
+            return { access_token, new_refresh_token };
+
+        } catch (error) {
+            throw new UnauthorizedException('Invalid refresh token, contact support.');
+        }
     }
 }

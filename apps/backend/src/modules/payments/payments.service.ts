@@ -34,7 +34,9 @@ export class PaymentsService {
     async buildDailyRoute():Promise<Client[]>{
         const today = new Date();
 
-        const weekday = today.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase(); // 'lunes', 'martes', ...
+        
+        const weekdayRaw = today.toLocaleDateString('es-ES', { weekday: 'long' }).toLowerCase(); // 'lunes', 'martes', ...
+        const weekday = weekdayRaw.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); 
         const monthday = today.getDate().toString().padStart(2, '0') + ' de mes'; // '01 de mes', ..., '30 de mes'
 
 

@@ -1,4 +1,5 @@
-import { Controller, Post, Body, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, UnauthorizedException, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { User } from '../users/entities/user.entity';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -15,10 +16,28 @@ export class AuthController {
     }
 
     @Post('login')
-    async login(@Body() validateUserDto:ValidateUserDto) {
+    async login(@Body() validateUserDto:ValidateUserDto, @Res({ passthrough: true }) res:Response ) {
+
         const {email, password} = validateUserDto;
+        
         const userVerification = await this.authService.validateUser({email,password});
+        
         if(!userVerification) { throw new BadRequestException('Imposible to validate user.')}
-        return await this.authService.login(userVerification);
+
+        const { access_token, refresh_token } = await this.authService.login(userVerification);
+
+        res.cookie('access_token', access_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1000 * 60 * 15, // 15 min
+        });
+
+        res.cookie('refresh_token', refresh_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
+        });
+
+        return { message: 'Logged In', access_token };
     }
 }
