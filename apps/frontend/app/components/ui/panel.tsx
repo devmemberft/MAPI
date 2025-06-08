@@ -2,6 +2,7 @@
 import { Pyramid, Users, BriefcaseBusiness, Package, Store, Truck, Settings, LogOut } from 'lucide-react';
 import Link from "next/link"
 import ThemeToggle from './ThemeToggle';
+import { logout } from '../../utils/apiClient';
 
 export function MainPanel() {
     return (
@@ -11,7 +12,7 @@ export function MainPanel() {
 
             <div className="flex flex-col h-auto w-38 space-y-3 m-2 my-6 items-center text-center justify-center">
 
-                <div title='Portafolio'><Link href='/' className='route'><BriefcaseBusiness strokeWidth={1.5} size={20} /><p className='px-3'>Inicio</p></Link></div>
+                <div title='Portafolio'><Link href='/dashboard' className='route'><BriefcaseBusiness strokeWidth={1.5} size={20} /><p className='px-3'>Inicio</p></Link></div>
                 
                 <div title='Clientes'><Link href='/clients' className="route"><Users strokeWidth={1.5} size={20}/><p className='px-3'>Clientes</p></Link></div>
                 <div title='Productos'><Link href='/products' className="route"><Package strokeWidth={1.5} size={20}/><p className='px-3'>Productos</p></Link></div>
@@ -35,6 +36,7 @@ export function MainPanel() {
                     </div>
                 </div>
 
+                
                 <div title='Cerrar Sesión'><Link href='/login' className="route"><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></Link></div>
 
             </div>
@@ -43,3 +45,5 @@ export function MainPanel() {
         </div>
     );
 }
+
+// <button onClick={logout}><LogOut/><p className='px-2'>Salir</p></button>

@@ -3,7 +3,7 @@ import { useLogin } from "../../hooks/useLogin";
 export default function LoginView(){
     const {
         email,setEmail,password,setPassword,errorMsg,loading,handleLogin,
-    } = useLogin(() => {window.location.href="/clients"}); //useRouter().push("/")
+    } = useLogin(() => {window.location.href="/dashboard"}); //useRouter().push("/")
 
     return(
         <>

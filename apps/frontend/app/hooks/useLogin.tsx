@@ -13,13 +13,13 @@ export function useLogin(onSuccess?: () => void){
         setLoading(true);
 
         try{
-            const res = await postData("/auth/login", { email, password});
+            const res = await postData("/auth/login", { email, password });
             console.log("Login response", res);
             
             if(res.access_token) {
                 onSuccess?.();
             } else {
-                setErrorMsg("Invalid Credentials.");
+                setErrorMsg("Invalid Credentials, try again or contact support.");
             }
         } catch (error:any) {
             setErrorMsg(error.message || "Error Loging In.");
