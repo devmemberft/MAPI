@@ -38,6 +38,12 @@ export class AuthController {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7 dias
         });
 
-        return { message: 'Logged In', access_token };
+        return { message: 'Logged In' };
+    }
+
+    @Post('logout')
+    async logout(@Res({ passthrough:true }) res: Response){
+        res.clearCookie('access_token');
+        return { message: 'Logged out.' };
     }
 }
