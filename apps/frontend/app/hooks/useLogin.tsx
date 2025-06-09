@@ -14,7 +14,6 @@ export function useLogin(onSuccess?: () => void){
 
         try{
             const res = await postData("/auth/login", { email, password });
-            console.log(res);
             
             if(res.access_token) {
                 onSuccess?.();

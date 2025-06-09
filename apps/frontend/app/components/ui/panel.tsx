@@ -2,11 +2,12 @@
 import { Pyramid, Users, BriefcaseBusiness, Package, Store, Truck, Settings, LogOut } from 'lucide-react';
 import Link from "next/link"
 import ThemeToggle from './ThemeToggle';
-import { useAuth } from '../../hooks/useAuth';
 import { useLogout } from '../../hooks/useLogout';
+import { useState } from 'react';
+import Modal from './edit-modal';
 
 export function MainPanel() {
-    //const { user, isAuthenticated, logout } = useAuth();
+    const [logoutConfirmationModal, setLogoutConfirmationModal] = useState(false);
 
     return (
         <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
@@ -30,7 +31,7 @@ export function MainPanel() {
                     <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>
                     
                     <div className='
-                        absolute left-0 top-full z-50 p-1 w-15 opacity-0 scale-95 
+                        absolute left-0 bottom-full z-50 p-1 w-15 opacity-0 scale-95 
                         group-hover:opacity-100 group-hover:scale-100
                         transition-all duration-200 origin-top-left
                         shadow-lg rounded-2xl bg-[#191e20] border-1 border-slate-100/10
@@ -40,11 +41,23 @@ export function MainPanel() {
                 </div>
 
                 
-                <button onClick={useLogout()} title='Cerrar Sesión' className='route'><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></button>
+                <button onClick={ logoutConfirmationModal ? () => setLogoutConfirmationModal(false) : () => setLogoutConfirmationModal(true) } title='Cerrar Sesión' className='route cursor-pointer'><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></button>
 
             </div>
 
 
+            <Modal
+                title='Cerrar sesion?'
+                isOpen={logoutConfirmationModal}
+                onClose={ () => setLogoutConfirmationModal(false)}
+                
+            >
+                <div className='text-xs mt-5 space-x-2'>
+                    <button className='hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded-2xl' onClick={ () => setLogoutConfirmationModal(false) }>Cancelar</button>
+                    <button className='hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded-2xl' onClick={useLogout()}>Salir</button>
+                </div>
+            </Modal>
         </div>
-    );
+
+);
 }
