@@ -32,13 +32,12 @@ export const login = async (email:string,password:string) => {
     return await postData<{ access_token:string }>('/auth/login',{email,password});
 }
 
-
 export const logout = async () => {
-        return await postData("/auth/logout",{ method: "POST", credentials: "include" });
-        // mutate(null);
+        return await api.post('/auth/logout');
 };
 
-export const getProfile = async () => {
-    return await getData('auth/profile'); // endpoint protegido que da info del usuario
+export const getProfile = async (email:any) => {
+    return await api.get('auth/profile', email); // endpoint protegido que da info del usuario
 }
+
 // putData, deleteData, etc.

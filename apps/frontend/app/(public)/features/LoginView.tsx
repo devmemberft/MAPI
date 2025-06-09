@@ -30,7 +30,7 @@ export default function LoginView(){
                             <input required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingresa tu contraseña" className="w-full p-2 border-2 tracking-wider border-slate-500/10 rounded" type="text" />
                         </div>
 
-                        {errorMsg && (<p>{errorMsg}</p>)}
+                        {errorMsg && (<p className="px-2">{errorMsg}</p>)}
                         
                         <button type="submit" disabled={loading} className="w-full mt-4 mb-2 py-1 rounded  bg-slate-800 border-2 border-slate-500/10 cursor-pointer">{loading ? "Iniciando..." : "Iniciar Sesion"}</button>
                         <button className="w-full items-center text-center font-light text-white/60"><p>Registrarse</p></button>

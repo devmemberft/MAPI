@@ -2,9 +2,12 @@
 import { Pyramid, Users, BriefcaseBusiness, Package, Store, Truck, Settings, LogOut } from 'lucide-react';
 import Link from "next/link"
 import ThemeToggle from './ThemeToggle';
-import { logout } from '../../utils/apiClient';
+import { useAuth } from '../../hooks/useAuth';
+import { useLogout } from '../../hooks/useLogout';
 
 export function MainPanel() {
+    //const { user, isAuthenticated, logout } = useAuth();
+
     return (
         <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
             
@@ -37,7 +40,7 @@ export function MainPanel() {
                 </div>
 
                 
-                <div title='Cerrar Sesión'><Link href='/login' className="route"><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></Link></div>
+                <button onClick={useLogout()} title='Cerrar Sesión' className='route'><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></button>
 
             </div>
 
@@ -45,5 +48,3 @@ export function MainPanel() {
         </div>
     );
 }
-
-// <button onClick={logout}><LogOut/><p className='px-2'>Salir</p></button>
