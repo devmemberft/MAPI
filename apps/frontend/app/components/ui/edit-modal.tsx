@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, classNa
     if(!isOpen) return null;
 
     return (
-        <div className='modal '>
+        <div className='modal'>
             <div>
                 <div className='flex justify-between items-center text-center'>
                     { title && <h3 className='text-xs'>{title}</h3>}

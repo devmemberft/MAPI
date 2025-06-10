@@ -8,6 +8,7 @@ import Modal from './edit-modal';
 
 export function MainPanel() {
     const [logoutConfirmationModal, setLogoutConfirmationModal] = useState(false);
+    const [settingsModal, setSettingsModal] = useState(false);
 
     return (
         <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
@@ -26,21 +27,8 @@ export function MainPanel() {
 
             <div className='flex flex-col h-auto w-38 space-y-3 mx-2 my-46 items-center text-center justify-center'>
                 
-                <div className='relative group'>
+                <button onClick={ settingsModal ? () => setSettingsModal(false) : () => setSettingsModal(true) } title='Ajustes' className='route cursor-pointer'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></button>
                     
-                    <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>
-                    
-                    <div className='
-                        absolute left-0 bottom-full z-50 p-1 w-15 opacity-0 scale-95 
-                        group-hover:opacity-100 group-hover:scale-100
-                        transition-all duration-200 origin-top-left
-                        shadow-lg rounded-2xl bg-[#191e20] border-1 border-slate-100/10
-                        pointer-events-auto'>
-                        <a href="" className='block px-2 py-1'><ThemeToggle/></a>
-                    </div>
-                </div>
-
-                
                 <button onClick={ logoutConfirmationModal ? () => setLogoutConfirmationModal(false) : () => setLogoutConfirmationModal(true) } title='Cerrar Sesión' className='route cursor-pointer'><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></button>
 
             </div>
@@ -57,7 +45,33 @@ export function MainPanel() {
                     <button className='hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded-2xl' onClick={useLogout()}>Salir</button>
                 </div>
             </Modal>
+
+            <Modal
+                title='Ajustes'
+                isOpen={settingsModal}
+                onClose={ () => setSettingsModal(false) }
+            >
+                <div className='flex flex-row items-center space-x-2 mt-5 '>
+                    <p className='text-xs'>Tema </p><ThemeToggle />
+                </div>
+            </Modal>
         </div>
 
 );
 }
+
+/*
+Interesante manera de mostrar un panel de opciones al pasar el cursor por encima de una etiqueta
+<div className='relative group'>                 
+    <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>
+
+    <div className='
+        absolute left-0 bottom-full z-50 p-1 w-15 opacity-0 scale-95 
+        group-hover:opacity-100 group-hover:scale-100
+        transition-all duration-200 origin-top-left
+        shadow-lg rounded-2xl bg-[#191e20] border-1 border-slate-100/10
+        pointer-events-auto'>
+        <a href="" className='block px-2 py-1'><ThemeToggle/></a>
+    </div>
+</div>
+*/

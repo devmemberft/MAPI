@@ -109,7 +109,7 @@ html.dark .product-box {
 /* contenedor */
 
 html.light .modal {
-  @apply fixed z-[9999] top-16 left-46 h-[150px] w-[100px] border-1 border-amber-100/20 bg-neutral-100 rounded-xl shadow p-8;
+  @apply fixed z-[9999] bottom-28 left-4 h-[100px] w-[135px] border-1 border-amber-100/20 bg-neutral-100 rounded-xl shadow p-2;
 }
 
 html.dark .modal {
