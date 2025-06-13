@@ -1,11 +1,11 @@
 import { Controller, Post, Body, BadRequestException, UnauthorizedException, Res, Get, Query } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
-import { User } from '../users/entities/user.entity';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { User } from '../company/users/entities/user.entity';
+import { CreateUserDto } from '../company/users/dto/create-user.dto';
 import { LoginUserDto } from './dto/login.dto';
 import { ValidateUserDto } from './dto/validate.dto';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../company/users/users.service';
 
 @Controller('auth')
 export class AuthController {
