@@ -9,7 +9,7 @@ export class CreateAppointmentDto {
     service_id:string;
 
     @IsDateString()
-    scheduled_at:string;
+    scheduled_at:Date;
 
     @IsOptional()
     @IsEnum(AppointmentStatus)
