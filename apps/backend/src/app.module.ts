@@ -12,9 +12,12 @@ import { ClientsModule } from './modules/company/clients/clients.module'
 import { ImportModule } from './modules/company/import/import.module';
 import { AccountingModule } from './modules/accounting/accounting.module';
 import { AccountingDataBaseModule } from './modules/accounting/database/accounting-database.module';
+import { AppointmentsModule } from './modules/appointments/appointments.module';
+import { AppointmentDataBaseModule } from './modules/appointments/database/appointments-database.module';
+
 
 @Module({
-  imports: [TypeOrmModule, CompanyDataBaseModule, AccountingDataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, AccountingModule],
+  imports: [TypeOrmModule, CompanyDataBaseModule, AccountingDataBaseModule, AppointmentDataBaseModule,UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, AccountingModule, AppointmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
