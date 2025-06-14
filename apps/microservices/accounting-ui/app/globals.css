@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+html {
+  @apply transition-colors duration-200;
+}

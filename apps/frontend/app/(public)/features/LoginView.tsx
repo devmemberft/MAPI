@@ -1,4 +1,5 @@
 import { useLogin } from "../../hooks/useLogin";
+import { LogIn } from "lucide-react";
 
 export default function LoginView(){
     const {
@@ -8,7 +9,7 @@ export default function LoginView(){
     return(
         <>
         <div className="h-screen flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center w-120 p-8 bg-linear-30 from-#191e20 via-slate-800/40 to-#191e20 border-1 border-slate-100/10 rounded-2xl shadow">
+            <div className="flex flex-col justify-center items-center w-120 p-8 bg-linear-30 from-#191e20 via-[#078d3d]/5 to-#191e20 border-1 border-slate-100/10 rounded-2xl shadow">
 
                 <div className="w-full space-y-3">
                     <div className="items-center text-center font-semibold">
@@ -32,7 +33,7 @@ export default function LoginView(){
 
                         {errorMsg && (<p className="px-2">{errorMsg}</p>)}
                         
-                        <button type="submit" disabled={loading} className="w-full mt-4 mb-2 py-1 rounded  bg-slate-800 border-2 border-slate-500/10 cursor-pointer">{loading ? "Iniciando..." : "Iniciar Sesion"}</button>
+                        <button type="submit" disabled={loading} className="flex flex-row items-center justify-center w-full mt-4 mb-2 py-1 rounded  bg-[#07af4a] shadow-green-400 shadow-xs text-black/80 text-lg font-medium tracking-wider border-2 border-slate-500/10 cursor-pointer hover:bg-[#07af4ad7] transition-colors duration-200"><LogIn size={18}/>{loading ? "Iniciando..." : "Iniciar Sesion"}</button>
                         <button className="w-full items-center text-center font-light text-white/60"><p>Registrarse</p></button>
 
                     </form>

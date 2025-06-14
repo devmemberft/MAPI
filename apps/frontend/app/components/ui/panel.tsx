@@ -1,5 +1,5 @@
 'use client'
-import { Pyramid, Users, BriefcaseBusiness, Package, Store, Truck, Settings, LogOut } from 'lucide-react';
+import { Pyramid, Users, BriefcaseBusiness, Package, Store, Truck, Settings, LogOut, Sprout } from 'lucide-react';
 import Link from "next/link"
 import ThemeToggle from './ThemeToggle';
 import { useLogout } from '../../hooks/useLogout';
@@ -12,8 +12,8 @@ export function MainPanel() {
 
     return (
         <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
-            
-            <div className="flex h-12 font-semibold text-white border-b-1 border-b-slate-50/5 justify-center items-center text-center"><Pyramid /><p className='px-2 font-medium text-2xl'>Miselio</p></div>    
+
+            <div className="flex h-12 font-semibold text-[#078d3d] border-b-1 border-b-slate-50/5 justify-center items-center text-center"> <Sprout size={30} /> </div>    
 
             <div className="flex flex-col h-auto w-38 space-y-3 m-2 my-6 items-center text-center justify-center">
 
@@ -40,9 +40,9 @@ export function MainPanel() {
                 onClose={ () => setLogoutConfirmationModal(false)}
                 
             >
-                <div className='text-xs mt-5 space-x-2'>
-                    <button className='hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded-2xl' onClick={ () => setLogoutConfirmationModal(false) }>Cancelar</button>
-                    <button className='hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded-2xl' onClick={useLogout()}>Salir</button>
+                <div className='text-xs mt-5 space-x-1'>
+                    <button className='transition-colors duration-200 hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded hover:bg-[#078d3d] hover:text-black font-semibold' onClick={ () => setLogoutConfirmationModal(false) }>Cancelar</button>
+                    <button className='transition-colors duration-200 hover:shadow shadow-amber-100/20 py-1 px-2 cursor-pointer border-1 border-slate-100/10 rounded hover:bg-[#078d3d] hover:text-black font-semibold' onClick={useLogout()}>Salir</button>
                 </div>
             </Modal>
 
@@ -61,6 +61,9 @@ export function MainPanel() {
 }
 
 /*
+Branding: 
+<p className='px-2 font-extrabold text-2xl tracking-wide'>Miselio</p>
+
 Interesante manera de mostrar un panel de opciones al pasar el cursor por encima de una etiqueta
 <div className='relative group'>                 
     <div title='Ajustes' className='route'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></div>

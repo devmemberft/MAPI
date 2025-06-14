@@ -21,13 +21,11 @@ html.light .static-component {
 }
 
 html.dark {
-  @apply bg-neutral-950 text-slate-200;
+  @apply bg-[#101413] text-slate-200;
 }
 
 html.dark .static-component{
-  @apply text-white bg-transparent;
-  @apply border-r-slate-50/5;
-  @apply border-b-slate-50/5;
+  @apply text-white bg-[#0a0b0b];
 }
 
 
@@ -91,7 +89,7 @@ html.light .route {
 }
 
 html.dark .route {
-  @apply flex w-38 font-light text-sm text-slate-300 px-2 py-1 hover:text-white hover:font-medium;
+  @apply flex w-38 font-semibold text-sm text-slate-300 px-2 py-1 transition-colors duration-200 rounded hover:text-black hover:bg-[#078d3d] hover:rounded;
 }
 
 
@@ -109,11 +107,11 @@ html.dark .product-box {
 /* contenedor */
 
 html.light .modal {
-  @apply fixed z-[9999] bottom-28 left-4 h-[100px] w-[135px] border-1 border-amber-100/20 bg-neutral-100 rounded-xl shadow p-2;
+  @apply fixed z-[9999] bottom-28 left-4 h-[100px] w-[135px] border-1 border-amber-100/20 bg-neutral-100 rounded shadow p-2;
 }
 
 html.dark .modal {
-  @apply fixed z-[9999] bottom-28 left-4 h-[100px] w-[135px] border-1 border-slate-100/10 bg-neutral-950 shadow shadow-amber-100/10 rounded-xl p-2;
+  @apply fixed z-[9999] bottom-28 left-4 h-[100px] w-[135px] border-1 border-slate-100/10 bg-neutral-950/97 shadow shadow-amber-100/10 rounded p-2;
 }
 
 /* formulario */
