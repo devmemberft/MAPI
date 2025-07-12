@@ -1,8 +1,10 @@
 import { Module } from "@nestjs/common"; 
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Transaction } from "../entities/transaction.entity";
-import { Category } from "../entities/category.entity";
+import { Transaction } from "../transactions/transaction.entity";
+import { Category } from "../categories/category.entity";
 import * as dotenv from 'dotenv'
+import { User } from "../users/user.entity";
+import { Account } from "../accounts/account.entity";
 dotenv.config();
 // base de datos de prueba
 @Module({
@@ -15,12 +17,12 @@ dotenv.config();
             username:process.env.DB_USERNAME,
             password:process.env.DB_PASSWORD,
             database:process.env.DB_ACCOUNTING_NAME,
-            entities:[Category,Transaction], //cada una de las entidades de la base de datos
+            entities:[Category,Transaction,User,Account], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
         }),
-        TypeOrmModule.forFeature([Category,Transaction],'accountingConnection'),
+        TypeOrmModule.forFeature([Category,Transaction,User,Account],'accountingConnection'),
     ],
     exports:[TypeOrmModule],
 })

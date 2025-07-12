@@ -1,6 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
-import { TransactionType } from '../entities/transaction.entity';
-
+import { TransactionType } from '../transaction.entity';
 export class CreateTransactionDto {
 
     @IsOptional()

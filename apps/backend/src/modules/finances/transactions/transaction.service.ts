@@ -1,13 +1,15 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Transaction } from '../entities/transaction.entity';
+
 import { Repository } from 'typeorm';
-import { CreateTransactionDto } from '../dto/create-transaction.dto';
-import { FilterTransactionsDto } from '../dto/filter-transactions.dto';
-import { Category } from '../entities/category.entity';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { FilterTransactionsDto } from './dto/filter-transactions.dto';
+import { Category } from '../categories/category.entity';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { Transaction } from './transaction.entity';
 
 @Injectable()
-export class AccountingService {
+export class TransactionService {
     constructor(
         @InjectRepository(Transaction, 'accountingConnection')
         private readonly transactionRepository: Repository<Transaction>,
@@ -30,14 +32,25 @@ export class AccountingService {
 
         return await this.transactionRepository.save(newTransaction);
     }
-    /*
-    async update():Promise<Transaction>{}
 
-    async delete():Promise<void>{}
-
-    async findAll():Promise<Transaction>{}
+    async update(transaction_id:string,updateTransactionDto:UpdateTransactionDto):Promise<Transaction>{
+        await this.transactionRepository.update(transaction_id,updateTransactionDto);
+        return this.transactionRepository.findOneOrFail({where:{transaction_id}});
+    }
     
-*/
+    async delete(transaction_id:string):Promise<void>{
+        await this.transactionRepository.delete(transaction_id);
+    }
+
+    async findAll():Promise<Transaction[]>{
+        return this.transactionRepository.find();
+    }
+
+    async findTransaction(transaction_id:string){
+        const transaction = await this.transactionRepository.findOneBy({transaction_id:transaction_id});
+        return transaction;
+    }
+    /* */
 }
 /*
 async filter(filterTransactionsDto:FilterTransactionsDto):Promise<Transaction>{

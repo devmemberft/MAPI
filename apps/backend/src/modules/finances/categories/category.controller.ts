@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
-import { CategoryService } from "../service/category.service";
-import { Category } from "../entities/category.entity";
-import { CreateCategoryDto } from "../dto/create-category";
-import { UpdateCategoryDto } from "../dto/update-category.dto";
+import { CategoryService } from "../categories/category.service";
+import { Category } from "../categories/category.entity";
+import { CreateCategoryDto } from "../categories/dto/create-category.dto";
+import { UpdateCategoryDto } from "../categories/dto/update-category.dto";
 
-@Controller('categories')
+@Controller('finances/categories')
 export class CategoryController {
     constructor(
         private readonly categoryService:CategoryService,
     ){}
 
-    @Post('create')
+    @Post('create-category')
     async create(@Body() createCategoryDto:CreateCategoryDto):Promise<Category>{
         return await this.categoryService.create(createCategoryDto);
     }
