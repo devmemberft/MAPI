@@ -3,14 +3,14 @@ import { AccountingDataBaseModule } from "../database/accounting-database.module
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./user.entity";
 import { Transaction } from "../transactions/transaction.entity";
-import { Category } from "../categories/category.entity";
+import { Tag } from "../tags/tag.entity";
 import { Account } from "../accounts/account.entity";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import { BcryptService } from "src/modules/auth/hash.service";
 
 @Module({
-  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([User,Transaction,Category,Account])],
+  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([User,Transaction,Tag,Account])],
   exports:[TypeOrmModule, UserService],
   controllers:[UserController],
   providers: [UserService, BcryptService]

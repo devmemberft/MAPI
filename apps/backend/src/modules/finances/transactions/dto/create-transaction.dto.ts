@@ -1,12 +1,19 @@
-import { IsEnum, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsCurrency, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 import { TransactionType } from '../transaction.entity';
 export class CreateTransactionDto {
 
     @IsOptional()
     @IsUUID()
-    category_id?:string;
+    account_id:string;
 
-    @IsNumber()
+    @IsOptional()
+    tags:[]
+
+    @IsNotEmpty()
+    @IsUUID()
+    user_id:string;
+
+    @IsCurrency()
     transaction_amount:number;
 
     @IsEnum(TransactionType)

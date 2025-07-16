@@ -3,7 +3,6 @@ import { AccountingDataBaseModule } from "../database/accounting-database.module
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "../users/user.entity";
 import { Transaction } from "typeorm";
-import { Category } from "../categories/category.entity";
 import { Account } from "./account.entity";
 import { AccountController } from "./accounts.controller";
 import { AccountService } from "./account.service";

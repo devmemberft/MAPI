@@ -6,14 +6,14 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
     user_id:string;
 
-    @Column({nullable:true})
+    @Column({nullable:true, unique:true, length:30})
     user_nickname:string;
 
     @Column({unique:true})
     user_secret_key_hashed:string;
 
-    @Column({nullable:true})
-    user_role:string;
+    @Column({default:false})
+    used:boolean;
 
     @CreateDateColumn({type:'timestamp'})
     createdAt:Date;

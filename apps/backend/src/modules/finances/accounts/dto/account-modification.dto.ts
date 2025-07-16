@@ -5,7 +5,7 @@ import { accountState, accountType } from "../account.entity";
 export class AccountModificationDto{
     @IsString()
     @IsOptional()
-    account_name:string;
+    new_account_name:string;
 
     
     @IsOptional()

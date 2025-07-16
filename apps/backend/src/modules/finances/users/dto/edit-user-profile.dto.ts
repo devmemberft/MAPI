@@ -1,7 +1,6 @@
 import { IsOptional, IsString } from "class-validator";
 
-export class EditUserProfile {
+export class EditUserProfileDto {
     @IsString()
-    @IsOptional()
     user_nickname:string;
 }
