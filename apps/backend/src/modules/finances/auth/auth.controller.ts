@@ -32,7 +32,7 @@ export class KeyAuthController{
     @Post('login')
     async login(@Body() {access_key}:loginUserAccessKeyDto){
         // formatting validation
-        if(!isValidAccessKeyFormat(access_key) || access_key.length != 20){ throw new BadRequestException(`Access key format is invalid.`); }
+        if(!isValidAccessKeyFormat(access_key) || access_key.length != 24){ throw new BadRequestException(`Access key format is invalid.`); }
         
         
         const user = await this.keyAuthService.loginUserAccessKey(access_key);

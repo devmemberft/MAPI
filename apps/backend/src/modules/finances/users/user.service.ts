@@ -35,15 +35,13 @@ export class UserService{
         }
         return this.userRepository.save(user);
     } 
-
-    
     // los que se  aferran a la muerte, viven. Y los que se aferran a la vida, mueren.
     
     async delete(user_id:string, deleteAccountDto:DeleteAccountDto):Promise<void>{
         const { access_key } = deleteAccountDto;
         const user = await this.findUserById(user_id);
         const match = await bcrypt.compare(access_key, user.user_secret_key_hashed);
-        if(!match) { throw new UnauthorizedException(`Private Access Key not valid. `); }
+        if(!match) { throw new UnauthorizedException(`The entered access Key: ${access_key} is not valid. `); }
         
         await this.userRepository.remove(user); // al eliminar el usuario se eliminan todas las transacciones relacionadas gracias al onDelete:'CASCADE' de la entidad.
     }
@@ -60,7 +58,7 @@ export class UserService{
     }
 
     async findValidUserByAccessKey(access_key:string):Promise<User | null>{
-        const users = await this.userRepository.find({where:{used:false}});
+        const users = await this.userRepository.find({where:{used:true}});
         for(const user of users){
             const match = await bcrypt.compare(access_key, user.user_secret_key_hashed);
             if(match) return user;
