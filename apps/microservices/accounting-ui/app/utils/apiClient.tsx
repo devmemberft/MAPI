@@ -28,6 +28,13 @@ export const postData = async <T = any>(endpoint:string, data:any): Promise<T> =
     }
 }
 
+export const patchData = async <T = any>(endpoint:string, data:any): Promise<T> => {
+    try{
+        const response = await api.patch<T>(endpoint,data);
+        return response.data;
+    }catch(error:any){ throw error.response?.data || { message: "An Error has occurred, visit api configuration. "}; }
+}
+
 export const login = async (email:string,password:string) => {
     return await postData<{ access_token:string }>('/auth/login',{email,password});
 }
