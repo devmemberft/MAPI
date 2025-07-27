@@ -11,15 +11,12 @@ dotenv.config();
         TypeOrmModule.forRoot({
             name:'appointmentConnection',
             type:'postgres',
-            host:process.env.DB_HOST,
-            port:5432,
-            username:process.env.DB_USERNAME,
-            password:process.env.DB_PASSWORD,
-            database:process.env.DB_APPOINTMENTS_NAME,
+            url:process.env.RSV_DATABASE_URL_DEV,
             entities:[Appointment,Client, Service], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false } : false,
         }),
         TypeOrmModule.forFeature([Appointment,Client, Service],'appointmentConnection'),
     ],

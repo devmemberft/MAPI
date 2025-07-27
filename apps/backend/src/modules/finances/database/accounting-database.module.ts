@@ -12,15 +12,12 @@ dotenv.config();
         TypeOrmModule.forRoot({
             name:'accountingConnection',
             type:'postgres',
-            host:process.env.DB_HOST,
-            port:5432,
-            username:process.env.DB_USERNAME,
-            password:process.env.DB_PASSWORD,
-            database:process.env.DB_ACCOUNTING_NAME,
+            url:process.env.FNZ_DATABASE_URL_DEV,
             entities:[Tag,Transaction,User,Account], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false} : false,
         }),
         TypeOrmModule.forFeature([Tag,Transaction,User,Account],'accountingConnection'),
     ],

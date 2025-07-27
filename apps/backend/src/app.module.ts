@@ -17,7 +17,7 @@ import { AppointmentDataBaseModule } from './modules/appointments/database/appoi
 
 
 @Module({
-  imports: [TypeOrmModule, CompanyDataBaseModule, AccountingDataBaseModule, AppointmentDataBaseModule,UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, FinancesModule, AppointmentsModule],
+  imports: [TypeOrmModule,AccountingDataBaseModule,CompanyDataBaseModule, AppointmentDataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, FinancesModule, AppointmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })
