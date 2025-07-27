@@ -11,25 +11,23 @@ export function MainPanel() {
     const [settingsModal, setSettingsModal] = useState(false);
 
     return (
-        <div className="static-component h-full fixed top-0 left-0 justify-between items-center text-center w-42 border-r-1 border-r-black/5 shadow shadow-amber-100/5">
+        <div className="static-component fixed top-6 left-6 bottom-6 right-6 justify-between items-center text-center w-18 border-1 border-black/5 shadow shadow-amber-100/5">
 
-            <div className="flex h-12 font-semibold text-[#078d3d] border-b-1 border-b-slate-50/5 justify-center items-center text-center"> <Sprout size={30} /> </div>    
+            <div className="flex flex-col h-auto w-auto space-y-3 mx-4 my-6 items-center text-center justify-center">
 
-            <div className="flex flex-col h-auto w-38 space-y-3 m-2 my-6 items-center text-center justify-center">
-
-                <div title='Portafolio'><Link href='/dashboard' className='route'><BriefcaseBusiness strokeWidth={1.5} size={20} /><p className='px-3'>Inicio</p></Link></div>
+                <div title='Portafolio'><Link href='/dashboard' className='route'><BriefcaseBusiness strokeWidth={1.5} size={24} /></Link></div>
                 
-                <div title='Clientes'><Link href='/clients' className="route"><Users strokeWidth={1.5} size={20}/><p className='px-3'>Clientes</p></Link></div>
-                <div title='Productos'><Link href='/products' className="route"><Package strokeWidth={1.5} size={20}/><p className='px-3'>Productos</p></Link></div>
-                <div title='Ventas'><Link href='/sales' className="route"><Store strokeWidth={1.5} size={20}/><p className='px-3'>Registros</p></Link></div>
-                <div title='Rutas'><Link href='/routes' className="route"><Truck strokeWidth={1.5} size={20}/><p className='px-3'>Rutas</p></Link></div>
+                <div title='Clientes'><Link href='/clients' className="route"><Users strokeWidth={1.5} size={24}/></Link></div>
+                <div title='Productos'><Link href='/products' className="route"><Package strokeWidth={1.5} size={24}/></Link></div>
+                <div title='Ventas'><Link href='/sales' className="route"><Store strokeWidth={1.5} size={24}/></Link></div>
+                <div title='Rutas'><Link href='/routes' className="route"><Truck strokeWidth={1.5} size={24}/></Link></div>
             </div>
 
-            <div className='flex flex-col h-auto w-38 space-y-3 mx-2 my-46 items-center text-center justify-center'>
+            <div className='fixed space-y-3 mx-4 my-98 items-center text-center justify-center'>
                 
-                <button onClick={ settingsModal ? () => setSettingsModal(false) : () => setSettingsModal(true) } title='Ajustes' className='route cursor-pointer'><Settings strokeWidth={1.5} size={20}/><p className='px-3'>Ajustes</p></button>
+                <button onClick={ settingsModal ? () => setSettingsModal(false) : () => setSettingsModal(true) } title='Ajustes' className='route cursor-pointer'><Settings strokeWidth={1.5} size={24}/></button>
                     
-                <button onClick={ logoutConfirmationModal ? () => setLogoutConfirmationModal(false) : () => setLogoutConfirmationModal(true) } title='Cerrar Sesión' className='route cursor-pointer'><LogOut strokeWidth={1.5} size={20}/><p className='px-3'>Salir</p></button>
+                <button onClick={ logoutConfirmationModal ? () => setLogoutConfirmationModal(false) : () => setLogoutConfirmationModal(true) } title='Cerrar Sesión' className='route cursor-pointer'><LogOut strokeWidth={1.5} size={24}/></button>
 
             </div>
 
@@ -61,6 +59,16 @@ export function MainPanel() {
 }
 
 /*
+            <div className="flex h-12 font-semibold text-[#078d3d] border-b-1 border-b-slate-50/5 justify-center items-center text-center"> <Sprout size={30} /> </div>    
+
+
+<p className='px-3'>Inicio</p>
+<p className='px-3'>Clientes</p>
+<p className='px-3'>Productos</p>
+<p className='px-3'>Registros</p>
+<p className='px-3'>Rutas</p>
+<p className='px-3'>Ajustes</p>
+<p className='px-3'>Salir</p>
 Branding: 
 <p className='px-2 font-extrabold text-2xl tracking-wide'>Miselio</p>
 

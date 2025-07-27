@@ -13,7 +13,7 @@ export default function LoginView(){
 
                 <div className="w-full space-y-3">
                     <div className="items-center text-center font-semibold">
-                        <p>Bienvenido a PayCo</p>
+                        <p>Bienvenido de nuevo</p>
                     </div>
 
                     <form onSubmit={handleLogin}>

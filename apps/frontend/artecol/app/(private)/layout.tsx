@@ -31,7 +31,7 @@ export default async function DashboardLayout({
         
         <div className="">
           < MainPanel />
-          <main className="fixed top-12 right-0 left-42 bottom-0 overflow-auto">{children}</main>
+          <main className="fixed top-6 right-6 left-24 bottom-6 bg-[#101413] border-1 border-black/5 shadow shadow-amber-100/5 overflow-auto">{children}</main>
         </div>  
         
       </ThemeProvider>

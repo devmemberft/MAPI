@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Panel",
-  description: "Admin panel",
+  title: "Control logístico",
+  description: "Panel de administración empresarial",
 };
 
 export default function RootLayout({children}:Readonly<{children:React.ReactNode}>){

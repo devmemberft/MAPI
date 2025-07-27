@@ -21,11 +21,11 @@ html.light .static-component {
 }
 
 html.dark {
-  @apply bg-[#101413] text-slate-200;
+  @apply bg-[#0a0b0b] text-slate-200;
 }
 
 html.dark .static-component{
-  @apply text-white bg-[#0a0b0b];
+  @apply text-white bg-[#171c1b];
 }
 
 
@@ -73,11 +73,11 @@ html.dark .table .table-grid {
 
 /* Barra de busqueda estatica */
 html.light .search-bar {
-  @apply  fixed h-12 top-0 left-42 right-0 border-b-1 border-b-black/10 ;
+  @apply  fixed h-12 top-6 left-24 right-6 border-b-1 border-b-black/10 ;
 }
 
 html.dark .search-bar {
-  @apply  fixed h-12 top-0 left-42 right-0 border-b-1 border-slate-100/10;
+  @apply  fixed h-12 top-6 left-24 right-6 border-b-1 border-slate-100/10;
 }
 
 
@@ -85,11 +85,11 @@ html.dark .search-bar {
 /* rutas del sidebar */
 
 html.light .route {
-  @apply flex w-38 font-light text-sm text-slate-700 px-2 py-1 hover:text-black hover:font-medium;
+  @apply flex w-auto font-light text-sm text-slate-700 px-2 py-1 hover:text-black hover:font-medium;
 }
 
 html.dark .route {
-  @apply flex w-38 font-semibold text-sm text-slate-300 px-2 py-1 transition-colors duration-200 rounded hover:text-black hover:bg-[#078d3d] hover:rounded;
+  @apply flex w-auto font-semibold text-sm text-slate-300 px-2 py-1 transition-colors duration-200 rounded hover:text-white/50 hover:rounded;
 }
 
 
