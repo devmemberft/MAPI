@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, Get, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Post, Res } from "@nestjs/common";
 import { RegisterUserAccessKeyDto } from "./dto/register.dto";
 import { KeyAuthService } from "./auth.service";
 import { loginUserAccessKeyDto } from "./dto/login.dto";
 import { UserService } from "../users/user.service";
+import { Response } from "express";
 
 // regex validation for access keys
 function isValidAccessKeyFormat(key:string):boolean{
@@ -22,8 +23,8 @@ export class KeyAuthController{
 
     @Post('register')
     async register(@Body() body: RegisterUserAccessKeyDto){
-        const {captcha_id, captcha_value} = body;
-        const valid = this.keyAuthService.verifyCaptcha(captcha_id,captcha_value);
+        const {captcha_value} = body;
+        const valid = this.keyAuthService.verifyCaptcha(captcha_value);
         if(!valid) throw new BadRequestException(`Invalid Captcha code.`);
 
         return this.keyAuthService.registerNewAccessKeyUser();
@@ -44,5 +45,11 @@ export class KeyAuthController{
         //JWT
         const token = await this.keyAuthService.generateJwt(user);
         return {success:true, access_token:token, user_id:user.user_id};
+    }
+
+    @Post('logout')
+    async logout(@Res({passthrough:true}) res:Response){
+        res.clearCookie('access_token');
+        return { message: 'Logged out.'};
     }
 }

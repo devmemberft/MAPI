@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { postData } from "../utils/apiClient";
+import { keyLogin } from "../utils/apiClient";
 
 export function useLogin(onSuccess?: () => void){
-    const [accessKey, setAccessKey] = useState("");
+    const [access_key, setAccessKey] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -12,16 +12,17 @@ export function useLogin(onSuccess?: () => void){
         setLoading(true);
 
         try{
-            const res = await postData("api/finances/auth/login", {accessKey});
-            if(res.accessKey){
+            const res = await keyLogin(access_key); // solo se toma el valor ingresado en la solicitud
+            if(res.success){
                 onSuccess?.();
             }else{
-                setErrorMsg("Access Key invalid. Contact support.");
+                setErrorMsg("Access Key invalid. Try again or Contact support.");
             }
-        } catch(error:any){ setErrorMsg("Error Login In. Contact API support."); } finally{ setLoading(false); }
+        } catch(error:any){ setErrorMsg(`Error Login In. Contact API support.`); } finally{ setLoading(false); }
         
     };
     return {
-        handleLogin,accessKey,setAccessKey,errorMsg,setErrorMsg,loading,setLoading,
+        handleLogin,access_key,setAccessKey,errorMsg,setErrorMsg,loading,setLoading,
     };
 }
+

@@ -36,3 +36,9 @@ primary_region = 'cdg'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[deploy]
+  strategy = "immediate"
+
+[scale]
+  count = 1

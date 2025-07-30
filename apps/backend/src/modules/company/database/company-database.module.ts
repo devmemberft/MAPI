@@ -13,7 +13,7 @@ dotenv.config();
         TypeOrmModule.forRoot({
             name:'default',
             type:'postgres',
-            url:process.env.ARTECOL_DATABASE_URL_DEV,
+            url:process.env.ARTECOL_DATABASE_URL,
             entities:[User,Product,Client,Sale,Payment], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,

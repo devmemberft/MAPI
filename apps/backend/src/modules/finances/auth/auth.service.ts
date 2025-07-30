@@ -13,7 +13,7 @@ export class KeyAuthService {
     private captchas = new Map<string,string>();
     constructor(
         private readonly userService:UserService,
-    private readonly jwtService:JwtService,){}
+        private readonly jwtService:JwtService,){}
 
     generateCaptcha(): {captcha_id:string; captcha_value:string}{
         const captcha_value = crypto.randomBytes(3).toString('hex'); // 6-
@@ -25,10 +25,10 @@ export class KeyAuthService {
         return { captcha_id, captcha_value };
     }
 
-    verifyCaptcha(captcha_id:string, captcha_input:string): boolean {
-        const captcha_value = this.captchas.get(captcha_id);
+    verifyCaptcha(captcha_input:string): boolean {
+        const captcha_value = this.captchas.get(captcha_input);
         if(!captcha_value || captcha_value !== captcha_input) return false;
-        this.captchas.delete(captcha_id);
+        this.captchas.delete(captcha_input);
         return true;
     }
 

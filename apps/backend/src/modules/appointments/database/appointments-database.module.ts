@@ -11,7 +11,7 @@ dotenv.config();
         TypeOrmModule.forRoot({
             name:'appointmentConnection',
             type:'postgres',
-            url:process.env.RSV_DATABASE_URL_DEV,
+            url:process.env.RSV_DATABASE_URL,
             entities:[Appointment,Client, Service], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,

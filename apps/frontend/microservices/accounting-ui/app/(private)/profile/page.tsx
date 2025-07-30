@@ -1,4 +1,11 @@
+'use client'
+
+import { useLogout } from "../../hooks/useLogout";
+
 export default function Profile() {
+
+  const {loading, errorMsg, handleLogout,} = useLogout(()=>(window.location.href='/login'));
+
   return (
     <main className="min-h-screen p-4 bg-transparent">
       <h1 className="text-xl font-bold mb-4">Perfil</h1>
@@ -12,7 +19,8 @@ export default function Profile() {
         <button className="w-full text-left bg-white border rounded-xl p-3">Exportar datos</button>
         <button className="w-full text-left bg-white border rounded-xl p-3">Cambiar idioma</button>
         <button className="w-full text-left bg-white border rounded-xl p-3">Resetear todo</button>
-        <button className="w-full text-left bg-red-100 text-red-700 p-3 rounded-xl">Cerrar sesión</button>
+        <button type='submit' onClick={handleLogout} className="w-full text-left bg-red-100 text-red-700 p-3 rounded-xl">{loading ? 'Saliendo...' : 'Cerrar sesión'}</button>
+        {errorMsg && <p>{errorMsg}</p>}
       </div>
     </main>
   )
