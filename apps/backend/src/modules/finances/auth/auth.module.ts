@@ -21,7 +21,7 @@ dotenv.config()
     TypeOrmModule.forFeature([User]),
     UserModule,
     PassportModule,
-    JwtModule.register({secret:process.env.JWT_SECRET, signOptions: { expiresIn:process.env.JWT_EXPIRATION},}),
+    JwtModule.register({secret:process.env.JWT_SECRET, signOptions: { expiresIn:'15min'},}),
   ],
   providers: [UserService, KeyAuthService, BcryptService, JwtStrategy, JwtAuthGuard],
   controllers: [KeyAuthController,UserController],

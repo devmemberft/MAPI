@@ -15,9 +15,8 @@ import { AccountingDataBaseModule } from './modules/finances/database/accounting
 import { AppointmentsModule } from './modules/appointments/appointments.module';
 import { AppointmentDataBaseModule } from './modules/appointments/database/appointments-database.module';
 
-
 @Module({
-  imports: [TypeOrmModule,AccountingDataBaseModule,CompanyDataBaseModule, AppointmentDataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, FinancesModule, AppointmentsModule],
+  imports: [TypeOrmModule,AccountingDataBaseModule, CompanyDataBaseModule, AppointmentDataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, ImportModule, FinancesModule, AppointmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

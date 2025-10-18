@@ -10,7 +10,7 @@ export class ImportService {
 
     async importExcel(file:Express.Multer.File):Promise<void>{
         const workbook = new Workbook();
-        await workbook.xlsx.load(file.buffer);
+        //await workbook.xlsx.load(file);
 
         await this.fullImportStrategy.importSalesAndPayments(workbook);
     }

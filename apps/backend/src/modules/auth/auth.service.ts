@@ -49,17 +49,11 @@ export class AuthService {
 
 
     async login(user: LoginUserDto) {
-        const payload: JwtPayload = { email: user.email, sub: user.user_id, role:user.role };
+        const payload: JwtPayload = { email: user.email, sub: user.user_id, role:user.role, secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRATION || '15m', };
         
-        const access_token = this.jwtService.sign(payload,{
-            secret: process.env.JWT_SECRET,
-            expiresIn: process.env.JWT_EXPIRATION || '15m',
-        });
+        const access_token = this.jwtService.signAsync(payload);
 
-        const refresh_token = this.jwtService.sign(payload,{
-            secret: process.env.JWT_REFRESH_TOKEN,
-            expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d',
-        });
+        const refresh_token = this.jwtService.signAsync(payload);
         
         return{ access_token, refresh_token };
     }
@@ -73,17 +67,11 @@ export class AuthService {
             const user = await this.usersService.findUserByEmail(decoded.email);
             if(!user) throw new UnauthorizedException('Can not Refresh, User not found.');
 
-            const payload = { sub:user.user_id, email: user.email, role: user.role };
+            const payload = { sub:user.user_id, email: user.email, role: user.role, secret: process.env.JWT_SECRET, expiresIn: process.env.JWT_EXPIRATION || '15m', };
 
-            const access_token = this.jwtService.sign(payload, {
-                secret: process.env.JWT_SECRET,
-                expiresIn: process.env.JWT_EXPIRATION || '15m',
-            });
+            const access_token = this.jwtService.signAsync(payload);
 
-            const new_refresh_token = this.jwtService.sign(payload, {
-                secret: process.env.JWT_REFRESH_TOKEN,
-                expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d',
-            });
+            const new_refresh_token = this.jwtService.signAsync(payload);
 
             return { access_token, new_refresh_token };
 

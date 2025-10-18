@@ -47,8 +47,8 @@ export class KeyAuthService {
     }
 
     async generateJwt(user:User):Promise<string>{
-        const payload:JwtPayload = { sub: user.user_id,};
-        const access_token = this.jwtService.signAsync(payload, {secret:process.env.JWT_SECRET, expiresIn:process.env.JWT_EXPIRATION}); 
+        const payload:JwtPayload = { sub: user.user_id, secret:process.env.JWT_SECRET, expiresIn:process.env.JWT_EXPIRATION};
+        const access_token = this.jwtService.signAsync(payload); 
         return access_token;
     }
 
