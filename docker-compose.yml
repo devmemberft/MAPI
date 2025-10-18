@@ -1,0 +1,46 @@
+networks:
+  ollama-net:
+    external: true
+
+services:
+  backend:
+    build: .
+    container_name: miselium
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: devmemberft01
+      DATABASE_PASSWORD: postgrespassword
+      DATABASE_NAME: miselio
+    volumes:
+      - .:/app
+    command: npm run start:dev  # o simplemente node dist/main.js si es producción
+    networks:
+      - ollama-net
+
+  postgres:
+    image: postgres:17.6
+    restart: always
+    environment:
+      POSTGRES_USER: devmemberft01
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: miselio
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    command:
+      - postgres
+      - "-c"
+      - "max_connections=3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+volumes:
+  pg_data: {}

@@ -2,14 +2,14 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-COPY apps/backend/package.json ./apps/backend/package.json
+COPY package*.json package-lock.json ./
+COPY . . 
 
 RUN npm install
 
 COPY apps/backend ./apps/backend
 
-WORKDIR /app/apps/backend
+WORKDIR /miselio/apps/backend
 RUN npm run build
 
 # Etapa de producción
@@ -18,7 +18,8 @@ WORKDIR /app
 
 COPY --from=builder /app/apps/backend/dist ./dist
 COPY --from=builder /app/apps/backend/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /miselio/apps/backend/package.json ./
+RUN npm install --only=production
 
 EXPOSE 4000
 

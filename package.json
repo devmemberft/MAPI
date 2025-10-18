@@ -44,6 +44,8 @@
         "typescript-eslint": "^8.20.0"
     },
     "dependencies": {
-        "nestjs": "^0.0.1"
+        "nestjs": "^0.0.1",
+        "node": "^24.10.0",
+        "nodejs": "^0.0.0"
     }
 }
