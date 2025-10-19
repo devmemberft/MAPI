@@ -5,9 +5,9 @@ networks:
 services:
   backend:
     build: .
-    container_name: miselium
+    container_name: miselium_server
     ports:
-      - "4000:4000"
+      - "1908:1908"
     depends_on:
       - postgres
     environment:
@@ -15,7 +15,7 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USER: devmemberft01
       DATABASE_PASSWORD: postgrespassword
-      DATABASE_NAME: miselio
+      DATABASE_NAME: miselium
     volumes:
       - .:/app
     command: npm run start:dev  # o simplemente node dist/main.js si es producción
@@ -28,9 +28,9 @@ services:
     environment:
       POSTGRES_USER: devmemberft01
       POSTGRES_PASSWORD: postgrespassword
-      POSTGRES_DB: miselio
+      POSTGRES_DB: miselium
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     command:
