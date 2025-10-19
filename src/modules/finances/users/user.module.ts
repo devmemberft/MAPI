@@ -7,7 +7,7 @@ import { Tag } from "../tags/tag.entity";
 import { Account } from "../accounts/account.entity";
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
-import { BcryptService } from "src/modules/auth/hash.service";
+import { BcryptService } from "../../auth/hash.service";
 
 @Module({
   imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([User,Transaction,Tag,Account])],

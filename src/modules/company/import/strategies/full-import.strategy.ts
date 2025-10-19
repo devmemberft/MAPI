@@ -1,19 +1,19 @@
 import { Injectable } from "@nestjs/common";
-import { ClientsService } from "src/modules/company/clients/clients.service";
-import { CreateClientDto } from "src/modules/company/clients/dto/create-client.dto";
+import { ClientsService } from "../../clients/clients.service";
+import { CreateClientDto } from "../../clients/dto/create-client.dto";
 import * as ExcelJS from 'exceljs';
 import { Workbook } from "exceljs";
 import { getEnumValue, getRequiredDate, getRequiredNumber, getRequiredString} from "../utils/excel-utils";
-import { ProductsService } from "src/modules/company/products/products.service";
-import { SalesService } from "src/modules/company/sales/sales.service";
-import { PaymentsService } from "src/modules/company/payments/payments.service";
-import { CreateProductDto } from "src/modules/company/products/dto/create-product.dto";
-import { ProductCategoryEnum } from "src/modules/company/products/enums/product-category.enum";
-import { SaleMethodEnum } from "src/modules/company/sales/enums/sale-method.enum";
-import { PaymentFrecuencyEnum } from "src/modules/company/sales/enums/payment-frecuency.enum";
-import { RegisterSaleDto } from "src/modules/company/sales/dto/register-sale.dto";
-import { PaymentDayEnum } from "src/modules/company/sales/enums/payment-day.enum";
-import { RegisterPaymentDto } from "src/modules/company/payments/dto/register-payment.dto";
+import { ProductsService } from "../../products/products.service";
+import { SalesService } from "../../sales/sales.service";
+import { PaymentsService } from "../../payments/payments.service";
+import { CreateProductDto } from "../../products/dto/create-product.dto";
+import { ProductCategoryEnum } from "../../products/enums/product-category.enum";
+import { SaleMethodEnum } from "../../sales/enums/sale-method.enum";
+import { PaymentFrecuencyEnum } from "../../sales/enums/payment-frecuency.enum";
+import { RegisterSaleDto } from "../../sales/dto/register-sale.dto";
+import { PaymentDayEnum } from "../../sales/enums/payment-day.enum";
+import { RegisterPaymentDto } from "../../payments/dto/register-payment.dto";
 
 @Injectable()
 export class FullImportStrategy {

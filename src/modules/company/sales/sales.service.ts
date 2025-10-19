@@ -11,7 +11,7 @@ import { UpdateSaleDto } from './dto/update-sale.dto';
 export class SalesService {
     constructor(
         @InjectRepository(Sale)
-
+        
         private saleRepository:Repository<Sale>,
         private clientsService:ClientsService,
         private productsService:ProductsService,

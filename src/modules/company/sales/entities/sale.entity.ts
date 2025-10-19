@@ -1,6 +1,6 @@
-import { Client } from "src/modules/company/clients/entities/client.entity";
-import { Payment } from "src/modules/company/payments/entities/payment.entity";
-import { Product } from "src/modules/company/products/entities/product.entity";
+import { Client } from "../../clients/entities/client.entity";
+import { Payment } from "../../payments/entities/payment.entity";
+import { Product } from "../../products/entities/product.entity";
 import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, Column, Entity, ManyToOne, ManyToMany, OneToMany, JoinTable } from "typeorm"
 import { PaymentFrecuencyEnum } from "../enums/payment-frecuency.enum";
 import { PaymentDayEnum } from "../enums/payment-day.enum";

@@ -1,4 +1,4 @@
-import { Sale } from "src/modules/company/sales/entities/sale.entity";
+import { Sale } from "../../sales/entities/sale.entity";
 import { PrimaryGeneratedColumn,  CreateDateColumn, UpdateDateColumn, Column, Entity, ManyToOne } from "typeorm"
 
 @Entity()

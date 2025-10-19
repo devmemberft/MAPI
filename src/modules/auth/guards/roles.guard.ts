@@ -7,7 +7,7 @@ import { Roles } from "../decorators/roles.decorator";
 export class RolesGuard extends JwtAuthGuard implements CanActivate {
     constructor(private reflector:Reflector){super(); }
 
-    canActivate(context:ExecutionContext,): boolean | Promise<boolean> | Observable<boolean> {
+    CanActivate(context:ExecutionContext,): boolean | Promise<boolean> | Observable<boolean> {
         const requiredRoles = this.reflector.get<string[]> (Roles, context.getHandler());
         if(!requiredRoles) { return true } // si no hay roles cualquiera puede ingresar.
 
