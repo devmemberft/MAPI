@@ -31,10 +31,12 @@ services:
     environment:
       POSTGRES_USER: devmemberft01
       POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: defaultdb
     ports:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
     command:
       - postgres
       - "-c"
