@@ -12,6 +12,7 @@ dotenv.config();
         TypeOrmModule.forRoot({
             name:'accountingConnection',
             type:'postgres',
+            host:'postgres',
             url:process.env.FNZ_DATABASE_URL,
             entities:[Tag,Transaction,User,Account], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
