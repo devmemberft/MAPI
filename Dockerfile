@@ -1,26 +1,36 @@
-FROM node:18-alpine AS builder
+# Etapa de build
+FROM node:22-alpine AS builder
 
-WORKDIR /backend
+WORKDIR /api
 
-COPY package*.json package-lock.json ./
-COPY . . 
+# Copiamos los archivos de configuración y dependencias
+COPY package*.json ./
 
+# Instalamos dependencias de desarrollo
 RUN npm install
 
-COPY backend ./backend
+# Copiamos el resto del código fuente
+COPY . .
 
-WORKDIR /miselio/backend
-RUN npm run build
+# Compilamos (asumiendo que usas TypeScript y "build" compila a dist/)
+#RUN npm run build
+
 
 # Etapa de producción
-FROM node:18-alpine
-WORKDIR /backend
+#FROM node:22-alpine
 
-COPY --from=builder /miselio/backend/dist ./dist
-COPY --from=builder /miselio/backend/package.json ./
-COPY --from=builder /miselio/package.json ./
-RUN npm install --only=production
+#WORKDIR /app
 
+# Copiamos solo lo necesario desde el builder
+#COPY --from=builder /app/dist ./dist
+#COPY --from=builder /app/package.json ./
+
+# Instalamos solo dependencias de producción
+#RUN npm install --only=production
+
+# Exponemos el puerto
 EXPOSE 1908
 
-CMD ["node", "dist/main"]
+# Comando por defecto
+#CMD ["node", "dist/main"]
+CMD ["npm", "run", "start:dev"]

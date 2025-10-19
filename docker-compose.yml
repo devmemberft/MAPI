@@ -4,7 +4,9 @@ networks:
 
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: miselium_server
     ports:
       - "1908:1908"
