@@ -15,7 +15,9 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USER: devmemberft01
       DATABASE_PASSWORD: postgrespassword
-      DATABASE_NAME: miselium
+      DATABASE1_NAME: artecolConnection
+      DATABASE2_NAME: accountingConnection
+      DATABASE3_NAME: appointmentConnection
     volumes:
       - .:/app
     command: npm run start:dev  # o simplemente node dist/main.js si es producción
@@ -24,11 +26,11 @@ services:
 
   postgres:
     image: postgres:17.6
+    container_name: miselium_server_postgres
     restart: always
     environment:
       POSTGRES_USER: devmemberft01
       POSTGRES_PASSWORD: postgrespassword
-      POSTGRES_DB: miselium
     ports:
       - "5432:5432"
     volumes:
