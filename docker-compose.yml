@@ -14,7 +14,7 @@ services:
       - postgres
     environment:
       DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
+      DATABASE_PORT: 5435
       DATABASE_USER: devmemberft01
       DATABASE_PASSWORD: postgrespassword
       DATABASE1_NAME: artecolConnection
@@ -35,7 +35,7 @@ services:
       POSTGRES_PASSWORD: postgrespassword
       POSTGRES_DB: defaultdb
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d
