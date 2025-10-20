@@ -10,7 +10,7 @@ import { TagService } from "./tag.service";
 
 
 @Module({
-  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([Tag])],
+  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([Tag], 'accountingconnection')],
   controllers:[TagController],
   providers: [TagService],
   exports:[TagService,TypeOrmModule],

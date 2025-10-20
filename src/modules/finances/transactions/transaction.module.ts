@@ -9,7 +9,7 @@ import { TransactionController } from "./transaction.controller";
 import { TransactionService } from "./transaction.service";
 
 @Module({
-  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([Transaction])],
+  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([Transaction], 'accountingconnection')],
   exports:[TypeOrmModule],
   controllers:[TransactionController],
   providers: [TransactionService]

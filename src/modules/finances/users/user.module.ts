@@ -10,7 +10,7 @@ import { UserService } from "./user.service";
 import { BcryptService } from "../../auth/hash.service";
 
 @Module({
-  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([User,Transaction,Tag,Account])],
+  imports:[AccountingDataBaseModule,TypeOrmModule.forFeature([User,Transaction,Tag,Account],'accountingconnection')],
   exports:[TypeOrmModule, UserService],
   controllers:[UserController],
   providers: [UserService, BcryptService]

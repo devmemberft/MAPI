@@ -18,7 +18,7 @@ dotenv.config()
 @Module({
   imports:[
     AccountingDataBaseModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User], 'accountingconnection'),
     UserModule,
     PassportModule,
     JwtModule.register({secret:process.env.JWT_SECRET, signOptions: { expiresIn:'15min'},}),
