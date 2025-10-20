@@ -25,6 +25,8 @@ services:
       options:
         max-size: "100m"
         max-file: "10"
+    networks:
+      - ollama-net
 
   backend:
     build:
