@@ -13,16 +13,16 @@ import { Account } from '../accounts/account.entity';
 @Injectable()
 export class TransactionService {
     constructor(
-        @InjectRepository(Transaction, 'accountingConnection')
+        @InjectRepository(Transaction, 'accountingconnection')
         private readonly transactionRepository: Repository<Transaction>,
     
-        @InjectRepository(Tag,'accountingConnection')
+        @InjectRepository(Tag,'accountingconnection')
         private readonly tagRepository:Repository<Tag>,
 
-        @InjectRepository(User,'accountingConnection')
+        @InjectRepository(User,'accountingconnection')
         private readonly userRepository:Repository<User>,
 
-        @InjectRepository(Account,'accountingConnection')
+        @InjectRepository(Account,'accountingconnection')
         private readonly accountRepository:Repository<Account>,
     ){}
 

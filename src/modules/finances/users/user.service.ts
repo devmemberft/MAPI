@@ -9,7 +9,7 @@ import { DeleteAccountDto } from "./dto/delete-account.dto";
 @Injectable()
 export class UserService{
     constructor(
-        @InjectRepository(User,'accountingConnection')
+        @InjectRepository(User,'accountingconnection')
         private readonly userRepository:Repository<User>,
     ){}
 

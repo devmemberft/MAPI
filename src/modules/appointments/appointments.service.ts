@@ -12,13 +12,13 @@ import { Service } from './entities/service.entity';
 export class AppointmentsService {
 
     constructor(
-        @InjectRepository(Appointment,'appointmentConnection')
+        @InjectRepository(Appointment,'appointmentconnection')
         private readonly appointmentRepository:Repository<Appointment>,
 
-        @InjectRepository(Client,'appointmentConnection')
+        @InjectRepository(Client,'appointmentconnection')
         private readonly clientRepository: Repository<Client>,
 
-        @InjectRepository(Service,'appointmentConnection')
+        @InjectRepository(Service,'appointmentconnection')
         private readonly serviceRepository: Repository<Service>,
     ){}
 

@@ -8,7 +8,7 @@ import { AccountModificationDto } from "./dto/account-modification.dto";
 @Injectable()
 export class AccountService { // plan contable
     constructor(
-        @InjectRepository(Account,'accountingConnection')
+        @InjectRepository(Account,'accountingconnection')
         private readonly accountRepository:Repository<Account>
     ){}
 

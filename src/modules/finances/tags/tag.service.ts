@@ -8,7 +8,7 @@ import { UpdateTagDto } from "./dto/update-tag.dto";
 @Injectable()
 export class TagService {
     constructor(
-        @InjectRepository(Tag,'accountingConnection')
+        @InjectRepository(Tag,'accountingconnection')
         private readonly tagRepository: Repository<Tag>,
     ){}
 
