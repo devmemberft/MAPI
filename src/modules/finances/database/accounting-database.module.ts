@@ -9,20 +9,20 @@ dotenv.config();
 @Module({
     imports:[
         TypeOrmModule.forRoot({
-            name:'accountingConnection',
+            name:'accountingconnection',
             type:'postgres',
             host:'postgres',
             port: 5432,
             username: 'devmemberft01',
             password: 'postgrespassword',
-            database: 'accountingConnection',
+            database: 'accountingconnection',
             entities:[Tag,Transaction,User,Account], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
             ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false} : false,
         }),
-        TypeOrmModule.forFeature([Tag,Transaction,User,Account],'accountingConnection'),
+        TypeOrmModule.forFeature([Tag,Transaction,User,Account],'accountingconnection'),
     ],
     exports:[TypeOrmModule],
 })

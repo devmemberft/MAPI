@@ -11,20 +11,20 @@ dotenv.config();
 @Module({
     imports:[
         TypeOrmModule.forRoot({
-            name:'default',
+            name:'artecolconnection',
             type:'postgres',
             host:'postgres',
             port: 5432,
             username: 'devmemberft01',
             password: 'postgrespassword',
-            database: 'artecolConnection',
+            database: 'artecolconnection',
             entities:[User,Product,Client,Sale,Payment], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
             ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false } : false,
         }),
-        TypeOrmModule.forFeature([User,Product,Client,Sale,Payment],'artecolConnection'),
+        TypeOrmModule.forFeature([User,Product,Client,Sale,Payment],'artecolconnection'),
     ],
     exports:[TypeOrmModule],
 })

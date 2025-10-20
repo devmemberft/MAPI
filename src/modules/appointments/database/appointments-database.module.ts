@@ -9,20 +9,20 @@ dotenv.config();
 @Module({
     imports:[
         TypeOrmModule.forRoot({
-            name:'appointmentConnection',
+            name:'appointmentconnection',
             type:'postgres',
             host:'postgres',
             port: 5432,
             username: 'devmemberft01',
             password: 'postgrespassword',
-            database: 'appointmentsConnection',
+            database: 'appointmentconnection',
             entities:[Appointment,Client, Service], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
             ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false } : false,
         }),
-        TypeOrmModule.forFeature([Appointment,Client, Service],'appointmentConnection'),
+        TypeOrmModule.forFeature([Appointment,Client, Service],'appointmentconnection'),
     ],
     exports:[TypeOrmModule],
 })
