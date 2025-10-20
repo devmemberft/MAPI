@@ -1,22 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './modules/company/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CompanyDataBaseModule } from './modules/company/database/company-database.module';
-import { SalesModule } from './modules/company/sales/sales.module'
-import { PaymentsModule } from './modules/company/payments/payments.module'
-import { ProductsModule } from './modules/company/products/products.module'
-import { ClientsModule } from './modules/company/clients/clients.module'
-import { FinancesModule } from './modules/finances/finances.module';
-import { AccountingDataBaseModule } from './modules/finances/database/accounting-database.module';
-import { AppointmentsModule } from './modules/appointments/appointments.module';
-import { AppointmentDataBaseModule } from './modules/appointments/database/appointments-database.module';
+import { KeyAuthModule } from './finances/auth/auth.module';
+import { FinancesModule } from './finances/finances.module';
+import { AccountingDataBaseModule } from './finances/database/accounting-database.module';
+import { UserService } from './finances/users/user.service';
+import { TransactionService } from './finances/transactions/transaction.service';
+import { TagService } from './finances/tags/tag.service';
+import { AccountService } from './finances/accounts/account.service';
 
 @Module({
-  imports: [TypeOrmModule,AccountingDataBaseModule, CompanyDataBaseModule, AppointmentDataBaseModule, UsersModule, AuthModule, SalesModule, PaymentsModule, ProductsModule, ClientsModule, FinancesModule, AppointmentsModule],
+  imports: [AccountingDataBaseModule, KeyAuthModule, FinancesModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UserService, TransactionService, TagService, AccountService],
 })
 export class AppModule {}
