@@ -6,14 +6,16 @@ import * as dotenv from 'dotenv'
 import { User } from "../users/user.entity";
 import { Account } from "../accounts/account.entity";
 dotenv.config();
-// base de datos de prueba
 @Module({
     imports:[
         TypeOrmModule.forRoot({
             name:'accountingConnection',
             type:'postgres',
             host:'postgres',
-            url:process.env.FNZ_DATABASE_URL,
+            port: 5432,
+            username: 'devmemberft01',
+            password: 'postgrespassword',
+            database: 'accountingConnection',
             entities:[Tag,Transaction,User,Account], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,

@@ -14,14 +14,17 @@ dotenv.config();
             name:'default',
             type:'postgres',
             host:'postgres',
-            url:process.env.ARTECOL_DATABASE_URL,
+            port: 5432,
+            username: 'devmemberft01',
+            password: 'postgrespassword',
+            database: 'artecolConnection',
             entities:[User,Product,Client,Sale,Payment], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
             retryDelay: 1000,
             ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized:false } : false,
         }),
-        TypeOrmModule.forFeature([User,Product,Client,Sale,Payment],'default'),
+        TypeOrmModule.forFeature([User,Product,Client,Sale,Payment],'artecolConnection'),
     ],
     exports:[TypeOrmModule],
 })

@@ -3,6 +3,29 @@ networks:
     external: true
 
 services:
+  postgres:
+    image: postgres:17.6
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: devmemberft01
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: defaultdb
+    ports:
+      - "5435:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    command:
+      - postgres
+      - "-c"
+      - "max_connections=3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+
   backend:
     build:
       context: .
@@ -26,27 +49,5 @@ services:
     networks:
       - ollama-net
 
-  postgres:
-    image: postgres:17.6
-    container_name: miselium_server_postgres
-    restart: always
-    environment:
-      POSTGRES_USER: devmemberft01
-      POSTGRES_PASSWORD: postgrespassword
-      POSTGRES_DB: defaultdb
-    ports:
-      - "5435:5432"
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-      - ./init-db:/docker-entrypoint-initdb.d
-    command:
-      - postgres
-      - "-c"
-      - "max_connections=3000"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
 volumes:
   pg_data: {}

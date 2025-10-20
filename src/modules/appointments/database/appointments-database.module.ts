@@ -12,7 +12,10 @@ dotenv.config();
             name:'appointmentConnection',
             type:'postgres',
             host:'postgres',
-            url:process.env.RSV_DATABASE_URL,
+            port: 5432,
+            username: 'devmemberft01',
+            password: 'postgrespassword',
+            database: 'appointmentsConnection',
             entities:[Appointment,Client, Service], //cada una de las entidades de la base de datos
             synchronize: true, // false in production
             retryAttempts: 2,
