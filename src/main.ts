@@ -21,7 +21,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: true, //["https://coin.rawtechroots.cloud"],
+    origin: ["https://coin.rawtechroots.cloud/*"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials:true,
