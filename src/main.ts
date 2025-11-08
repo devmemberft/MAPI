@@ -21,8 +21,11 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: ["https://coin.rawtechroots.cloud"],
+    origin: true, //["https://coin.rawtechroots.cloud"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials:true,
+    
   })
   const port = process.env.PORT || 1908;
   await app.listen(port, '0.0.0.0');
