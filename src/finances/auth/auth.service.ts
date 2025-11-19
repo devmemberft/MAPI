@@ -33,7 +33,9 @@ export class KeyAuthService {
         const captcha_value = this.captchas.get(captcha_id);
         if(!captcha_value) return {success:false, message:'No se ha encontrado o ha expirado'};
         if(captcha_value !== captcha_input) return {success:false, message:'Valor del captcha incorrecto'};
+        
         this.captchas.delete(captcha_input);
+        
         return {success:true,message:'Captcha verificado correctamente. '};
     }
 
