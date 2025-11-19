@@ -30,7 +30,9 @@ export class KeyAuthService {
             return {success: false, message: 'El valor del captcha no puede estar vacio o ser invalido'}
         }
         if(captcha_input.length !== 6){ return {success:false,message:'El valor del captcha debe ser de 6 caracteres.'}}
+        
         const captcha_value = this.captchas.get(captcha_id);
+        
         if(!captcha_value) return {success:false, message:'No se ha encontrado o ha expirado'};
         if(captcha_value !== captcha_input) return {success:false, message:'Valor del captcha incorrecto'};
         
