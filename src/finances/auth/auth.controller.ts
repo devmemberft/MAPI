@@ -23,8 +23,8 @@ export class KeyAuthController{
 
     @Post('register')
     async register(@Body() body: RegisterUserAccessKeyDto){
-        const {captcha_value} = body;
-        const valid = this.keyAuthService.verifyCaptcha(captcha_value);
+        const {captcha_id,captcha_value} = body;
+        const valid = this.keyAuthService.verifyCaptcha(captcha_id,captcha_value);
         if(!valid) throw new BadRequestException(`Invalid Captcha code: ${captcha_value}`);
 
         const result = this.keyAuthService.registerNewAccessKeyUser();

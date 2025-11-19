@@ -25,11 +25,16 @@ export class KeyAuthService {
         return { captcha_id, captcha_value };
     }
 
-    verifyCaptcha(captcha_input:string): boolean {
-        const captcha_value = this.captchas.get(captcha_input);
-        if(!captcha_value || captcha_value !== captcha_input) return false;
+    verifyCaptcha(captcha_id:string,captcha_input:string): {success:boolean, message?:string} {
+        if(!captcha_input || typeof captcha_input !=='string' || captcha_input.trim() === '' ) {
+            return {success: false, message: 'El valor del captcha no puede estar vacio o ser invalido'}
+        }
+        if(captcha_input.length !== 6){ return {success:false,message:'El valor del captcha debe ser de 6 caracteres.'}}
+        const captcha_value = this.captchas.get(captcha_id);
+        if(!captcha_value) return {success:false, message:'No se ha encontrado o ha expirado'};
+        if(captcha_value !== captcha_input) return {success:false, message:'Valor del captcha incorrecto'};
         this.captchas.delete(captcha_input);
-        return true;
+        return {success:true,message:'Captcha verificado correctamente. '};
     }
 
     async generateFormattedKey():Promise<string>{
