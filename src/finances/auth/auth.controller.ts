@@ -28,9 +28,11 @@ export class KeyAuthController{
         const valid = this.keyAuthService.verifyCaptcha(captcha_id,captcha_value);
         
         if(!valid) throw new BadRequestException(`Invalid Captcha object:${captcha_id}, ${captcha_value}`);
+        else{
 
-        const result = this.keyAuthService.registerNewAccessKeyUser();
-        return { success:true, ...result};
+            const result = this.keyAuthService.registerNewAccessKeyUser();
+            return { success:true, ...result};
+        }
     }
 
     @Post('login')
